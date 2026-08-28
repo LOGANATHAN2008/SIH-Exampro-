@@ -1,0 +1,1615 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <title>Test | ExamPro DSU</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0
+        }
+
+        :root {
+            --primary: #6c63ff;
+            --primary-dark: #4f46e5;
+            --secondary: #06b6d4;
+            --accent: #f59e0b;
+            --success: #10b981;
+            --danger: #ef4444;
+            --bg: #000000;
+            --glass: rgba(255, 255, 255, 0.06);
+            --glass-border: rgba(255, 255, 255, 0.12);
+            --text: #e2e8f0;
+            --text-muted: #94a3b8;
+            --radius: 16px;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+        }
+
+        body.test-active {
+            overflow: hidden !important;
+            overscroll-behavior-y: none !important;
+            touch-action: none !important;
+        }
+        body.test-active #testTakingView {
+            overflow-y: auto !important;
+            overscroll-behavior-y: contain !important;
+            touch-action: pan-y !important;
+        }
+
+        /* ===== Test Selection View ===== */
+        #testSelectionView {
+            padding: 24px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .page-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 28px;
+        }
+
+        .back-btn {
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: all .25s;
+        }
+
+        .back-btn:hover {
+            background: rgba(255, 255, 255, .1);
+            color: var(--text);
+        }
+
+        .page-title {
+            font-size: 22px;
+            font-weight: 800;
+        }
+
+        .page-subtitle {
+            color: var(--text-muted);
+            font-size: 14px;
+        }
+
+        .tests-list {
+            display: grid;
+            gap: 16px;
+        }
+
+        .test-card-full {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius);
+            padding: 24px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            cursor: pointer;
+            transition: all .3s;
+        }
+
+        .test-card-full:hover {
+            background: rgba(108, 99, 255, .1);
+            border-color: var(--primary);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, .3);
+        }
+
+        .test-card-icon {
+            width: 64px;
+            height: 64px;
+            border-radius: 16px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+        }
+
+        .test-card-info {
+            flex: 1;
+        }
+
+        .test-card-info h3 {
+            font-size: 17px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .test-card-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 10px;
+        }
+
+        .meta-chip {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12px;
+            background: rgba(255, 255, 255, .07);
+            padding: 4px 10px;
+            border-radius: 20px;
+            color: var(--text-muted);
+        }
+
+        .test-desc {
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        .start-btn {
+            padding: 10px 22px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            border: none;
+            border-radius: 12px;
+            color: #fff;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            transition: all .3s;
+            flex-shrink: 0;
+        }
+
+        .start-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(108, 99, 255, .4);
+        }
+
+        /* ===== Test Start Confirmation ===== */
+        #testConfirmView {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0, 0, 0, .8);
+            backdrop-filter: blur(10px);
+            z-index: 200;
+            align-items: center;
+            justify-content: center;
+            padding: 16px;
+        }
+
+        #testConfirmView.active {
+            display: flex;
+        }
+
+        .confirm-card {
+            background: rgba(26, 26, 62, .98);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 36px;
+            max-width: 480px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .confirm-icon {
+            font-size: 64px;
+            margin-bottom: 16px;
+        }
+
+        .confirm-card h2 {
+            font-size: 22px;
+            font-weight: 800;
+            margin-bottom: 8px;
+        }
+
+        .confirm-card p {
+            color: var(--text-muted);
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        .confirm-rules {
+            text-align: left;
+            background: rgba(255, 255, 255, .05);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 20px;
+        }
+
+        .confirm-rules li {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+            list-style: none;
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+        }
+
+        .confirm-rules li i {
+            color: var(--danger);
+            margin-top: 2px;
+        }
+
+        .confirm-btns {
+            display: flex;
+            gap: 12px;
+        }
+
+        .btn-cancel {
+            flex: 1;
+            padding: 12px;
+            background: rgba(255, 255, 255, .07);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            color: var(--text);
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+        }
+
+        .btn-start {
+            flex: 2;
+            padding: 12px;
+            background: linear-gradient(135deg, var(--success), #059669);
+            border: none;
+            border-radius: 12px;
+            color: #fff;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        /* ===== Test Taking View ===== */
+        #testTakingView {
+            display: none;
+            min-height: 100vh;
+            flex-direction: column;
+        }
+
+        #testTakingView.active {
+            display: flex;
+        }
+
+        .test-header {
+            background: rgba(15, 15, 35, .97);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--glass-border);
+            padding: 14px 20px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            flex-wrap: wrap;
+        }
+
+        .test-title {
+            font-size: 15px;
+            font-weight: 700;
+            flex: 1;
+        }
+
+        .timer-box {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(239, 68, 68, .15);
+            border: 1px solid rgba(239, 68, 68, .3);
+            border-radius: 12px;
+            padding: 8px 16px;
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--danger);
+            font-variant-numeric: tabular-nums;
+        }
+
+        .timer-box.warn {
+            animation: timerWarn 1s ease-in-out infinite;
+        }
+
+        @keyframes timerWarn {
+
+            0%,
+            100% {
+                background: rgba(239, 68, 68, .15)
+            }
+
+            50% {
+                background: rgba(239, 68, 68, .3)
+            }
+        }
+
+        .question-progress {
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        .nav-strip {
+            background: rgba(15, 15, 35, .9);
+            padding: 10px 20px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .q-nav-btn {
+            width: 34px;
+            height: 34px;
+            border-radius: 8px;
+            border: 1px solid var(--glass-border);
+            background: var(--glass);
+            color: var(--text-muted);
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all .2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .q-nav-btn.answered {
+            background: linear-gradient(135deg, var(--success), #059669);
+            color: #fff;
+            border: none;
+        }
+
+        .q-nav-btn.current {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: #fff;
+            border: none;
+        }
+
+        .q-nav-btn.flagged {
+            background: rgba(245, 158, 11, .3);
+            color: var(--accent);
+            border-color: var(--accent);
+        }
+
+        .question-area {
+            flex: 1;
+            padding: 24px;
+            max-width: 860px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .question-card {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius);
+            padding: 28px;
+            margin-bottom: 16px;
+        }
+
+        .test-card-meta {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+        }
+
+        .meta-chip {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            background: rgba(255, 255, 255, .05);
+            padding: 4px 10px;
+            border-radius: 6px;
+        }
+
+        /* Subjects Grid & Subject Cards */
+        .subjects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 20px;
+            padding: 20px 0;
+        }
+
+        .subject-card {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid var(--glass-border);
+            border-radius: 18px;
+            padding: 24px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            cursor: pointer;
+            transition: all .3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+
+        .subject-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(108, 99, 255, 0.4);
+            box-shadow: 0 14px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(108, 99, 255, 0.15);
+            background: linear-gradient(135deg, rgba(255,255,255,0.08), rgba(255,255,255,0.03));
+        }
+
+        .subject-card-icon {
+            width: 54px;
+            height: 54px;
+            border-radius: 16px;
+            background: linear-gradient(135deg, rgba(108, 99, 255, 0.2), rgba(6, 182, 212, 0.2));
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            box-shadow: inset 0 0 10px rgba(108, 99, 255, 0.1);
+        }
+
+        .subject-card-info {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .subject-card-title {
+            font-size: 17px;
+            font-weight: 800;
+            color: var(--text);
+            line-height: 1.3;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .subject-card-meta {
+            font-size: 13px;
+            color: var(--text-muted);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .back-to-subjects {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--glass-border);
+            color: var(--text);
+            padding: 8px 16px;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-bottom: 20px;
+            transition: all 0.2s;
+        }
+
+        .back-to-subjects:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateX(-3px);
+        }
+
+        .q-number {
+            font-size: 12px;
+            color: var(--primary);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: .5px;
+            margin-bottom: 8px;
+        }
+
+        .q-text {
+            font-size: 16px;
+            font-weight: 500;
+            line-height: 1.7;
+            margin-bottom: 24px;
+        }
+
+        .q-image {
+            width: 100%;
+            max-height: 250px;
+            object-fit: contain;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            background: rgba(255, 255, 255, .05);
+        }
+
+        .options-grid {
+            display: grid;
+            gap: 10px;
+        }
+
+        .option {
+            padding: 14px 18px;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, .05);
+            border: 2px solid transparent;
+            cursor: pointer;
+            transition: all .25s;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 14px;
+        }
+
+        .option:hover {
+            background: rgba(108, 99, 255, .1);
+            border-color: var(--primary);
+        }
+
+        .option.selected {
+            background: rgba(108, 99, 255, .15);
+            border-color: var(--primary);
+        }
+
+        .option-label {
+            width: 28px;
+            height: 28px;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, .1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .option.selected .option-label {
+            background: var(--primary);
+            color: #fff;
+        }
+
+        .question-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .btn-flag {
+            padding: 10px 18px;
+            background: rgba(245, 158, 11, .15);
+            border: 1px solid rgba(245, 158, 11, .4);
+            border-radius: 10px;
+            color: var(--accent);
+            cursor: pointer;
+            font-size: 13px;
+            font-family: 'Inter', sans-serif;
+            transition: all .2s;
+        }
+
+        .btn-prev {
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, .07);
+            border: 1px solid var(--glass-border);
+            border-radius: 10px;
+            color: var(--text);
+            cursor: pointer;
+            font-size: 13px;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .btn-next {
+            padding: 10px 24px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            border: none;
+            border-radius: 10px;
+            color: #fff;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 600;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .btn-submit-final {
+            padding: 10px 24px;
+            background: linear-gradient(135deg, var(--success), #059669);
+            border: none;
+            border-radius: 10px;
+            color: #fff;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 600;
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* Anti-cheat warning */
+        .cheat-warning {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0, 0, 0, .9);
+            z-index: 999;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .cheat-warning.show {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .cheat-warning i {
+            font-size: 72px;
+            color: var(--danger);
+            margin-bottom: 20px;
+            animation: pulse 1s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                transform: scale(1)
+            }
+
+            50% {
+                transform: scale(1.1)
+            }
+        }
+
+        .cheat-warning h2 {
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--danger);
+            margin-bottom: 12px;
+        }
+
+        .cheat-warning p {
+            font-size: 15px;
+            color: var(--text-muted);
+            margin-bottom: 24px;
+            max-width: 400px;
+        }
+
+        .warning-count {
+            font-size: 48px;
+            font-weight: 900;
+            color: var(--danger);
+            margin-bottom: 12px;
+        }
+
+        .btn-continue {
+            padding: 12px 32px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            border: none;
+            border-radius: 12px;
+            color: #fff;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        /* Submit confirm */
+        #submitConfirm {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0, 0, 0, .85);
+            z-index: 300;
+            align-items: center;
+            justify-content: center;
+            padding: 16px;
+        }
+
+        #submitConfirm.show {
+            display: flex;
+        }
+
+        .submit-modal {
+            background: rgba(26, 26, 62, .98);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 32px;
+            max-width: 420px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .spinner-overlay {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(15, 15, 35, .95);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .spinner-big {
+            width: 52px;
+            height: 52px;
+            border: 4px solid rgba(108, 99, 255, .3);
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            animation: spin .8s linear infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg)
+            }
+        }
+
+        .toast-container {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .toast {
+            padding: 12px 18px;
+            border-radius: 12px;
+            font-size: 13px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            animation: toastIn .3s ease;
+            max-width: 300px;
+            backdrop-filter: blur(10px);
+        }
+
+        .toast.success {
+            background: rgba(16, 185, 129, .9);
+            color: #fff;
+        }
+
+        .toast.error {
+            background: rgba(239, 68, 68, .9);
+            color: #fff;
+        }
+
+        .toast.info {
+            background: rgba(108, 99, 255, .9);
+            color: #fff;
+        }
+
+        @keyframes toastIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0
+            }
+
+            to {
+                transform: translateX(0);
+                opacity: 1
+            }
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: var(--text-muted);
+            font-size: 13px;
+            border-top: 1px solid var(--glass-border);
+        }
+
+        footer a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        @media(max-width:600px) {
+            .test-card-full {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .start-btn {
+                width: 100%;
+            }
+
+            .question-area {
+                padding: 14px;
+            }
+
+            .q-text {
+                font-size: 14px;
+            }
+
+            .confirm-btns {
+                flex-direction: column;
+            }
+
+            .test-header {
+                gap: 8px;
+            }
+        }
+    </style>
+
+    <!-- -- AI Proctoring Module -- -->
+    <script src="proctor.js"></script>
+    <link rel="stylesheet" href="theme.css">
+    <script src="theme.js"></script>
+<script>if(sessionStorage.getItem('appLoaded')) document.documentElement.classList.add('no-loader');</script>
+</head>
+
+<body>
+
+
+    <!-- ===== Test Selection ===== -->
+    <div id="testSelectionView">
+        <div class="page-header">
+            <a class="back-btn" href="dashboard.html"><i class="fas fa-arrow-left"></i></a>
+            <div>
+                <div class="page-title">Available Tests</div>
+                <div class="page-subtitle">Choose a subject to begin</div>
+            </div>
+        </div>
+
+        <!-- Back Button (Hidden by default) -->
+        <button id="backToTestSubjectsBtn" class="back-to-subjects" style="display: none;" onclick="goBackToTestSubjects()">
+            <i class="fas fa-arrow-left"></i> Back to Subjects
+        </button>
+
+        <!-- Subjects Grid -->
+        <div id="testSubjectsGrid" class="subjects-grid">
+            <div class="brand-loader-container" style="grid-column:1/-1;">
+                <div class="brand-logo-loader">
+                    <div class="brand-loader-ring"></div>
+                    <img src="dsu_logo.png" alt="DSU Logo" class="brand-loader-img">
+                </div>
+                <div class="brand-loader-label">Loading available tests...</div>
+            </div>
+        </div>
+
+        <!-- Tests List (Hidden by default) -->
+        <div id="testsList" class="tests-list" style="display: none;">
+            <!-- Rendered by JS -->
+        </div>
+        
+        <footer>Developed by <a href="https://loganathanm.in" target="_blank">Loganathan</a></footer>
+    </div>
+
+    <!-- ===== Test Confirm Modal ===== -->
+    <div id="testConfirmView">
+        <div class="confirm-card">
+            <div class="confirm-icon">📝</div>
+            <h2 id="confirmTitle">Data Structures Test</h2>
+            <p id="confirmDesc">Duration: 30 minutes � 20 Questions � 100 Marks</p>
+            <ul class="confirm-rules">
+                <li><i class="fas fa-camera" style="color:var(--primary)"></i> AI Proctoring will monitor you via webcam during the exam.</li>
+                <li><i class="fas fa-exclamation-triangle"></i> Do NOT switch tabs or windows during the test.</li>
+                <li><i class="fas fa-exclamation-triangle"></i> Keep your face visible � looking away 5+ seconds is a violation.</li>
+                <li><i class="fas fa-exclamation-triangle"></i> No other people should be visible in your camera frame.</li>
+                <li><i class="fas fa-exclamation-triangle"></i> After 3 tab-switch warnings, your test will be auto-submitted.</li>
+                <li><i class="fas fa-check-circle" style="color:var(--success)"></i> Test will auto-submit when timer ends.</li>
+            </ul>
+            <div class="confirm-btns">
+                <button class="btn-cancel" onclick="cancelTest()">Cancel</button>
+                <button class="btn-start" onclick="startTest()"><i class="fas fa-play"></i> Start Test</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== Anti-Cheat Warning ===== -->
+    <div class="cheat-warning" id="cheatWarning">
+        <i class="fas fa-exclamation-triangle"></i>
+        <div class="warning-count" id="warningCount">1</div>
+        <h2>🚨 Tab Switch Detected!</h2>
+        <p>You switched tabs or windows. This is your <strong id="warningOrdinal">1st</strong> warning. On your 2nd
+            warning, your test will be automatically submitted.</p>
+        <button class="btn-continue" onclick="dismissWarning()">Return to Test</button>
+    </div>
+
+    <!-- ===== Test Taking View ===== -->
+    <div id="testTakingView">
+        <div class="test-header">
+            <div class="test-title" id="testTitleHeader">Test</div>
+            <div class="question-progress" id="qProgress">Q 1 / 10</div>
+            <div class="timer-box" id="timerBox"><i class="fas fa-clock"></i> <span id="timerDisplay">30:00</span></div>
+        </div>
+
+        <div class="nav-strip" id="qNavStrip"></div>
+
+        <div class="question-area">
+            <div class="question-card">
+                <div class="q-number" id="qNumber">Question 1 of 10</div>
+                <div class="q-text" id="qText"></div>
+                <img class="q-image" id="qImage" style="display:none" alt="Question Image" />
+                <div class="options-grid" id="optionsGrid"></div>
+            </div>
+            <div class="question-actions">
+                <button class="btn-flag" onclick="flagQuestion()"><i class="fas fa-flag"></i> Flag</button>
+                <button class="btn-prev" onclick="prevQuestion()"><i class="fas fa-arrow-left"></i> Previous</button>
+                <button class="btn-next" id="nextBtn" onclick="nextQuestion()">Next <i
+                        class="fas fa-arrow-right"></i></button>
+                <button class="btn-submit-final" id="submitFinalBtn" style="display:none"
+                    onclick="confirmSubmit()">Submit Test <i class="fas fa-check"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Submit Confirm Modal -->
+    <div id="submitConfirm">
+        <div class="submit-modal">
+            <div style="font-size:52px;margin-bottom:16px">🏁</div>
+            <h2 style="font-size:20px;font-weight:800;margin-bottom:8px">Submit Test?</h2>
+            <p style="color:var(--text-muted);font-size:14px;margin-bottom:8px" id="submitSummary">You answered 0 of 0
+                questions.</p>
+            <p style="color:var(--text-muted);font-size:13px;margin-bottom:24px" id="unansweredMsg"></p>
+            <div style="display:flex;gap:12px">
+                <button class="btn-cancel" onclick="document.getElementById('submitConfirm').classList.remove('show')"
+                    style="flex:1;padding:12px;cursor:pointer;background:rgba(255,255,255,.07);border:1px solid var(--glass-border);border-radius:12px;color:var(--text);font-family:'Inter',sans-serif;">Review</button>
+                <button
+                    style="flex:2;padding:12px;background:linear-gradient(135deg,var(--success),#059669);border:none;border-radius:12px;color:#fff;font-size:14px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;"
+                    onclick="submitTest()">Submit Now</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+        import { initializeAppCheck, ReCaptchaV3Provider } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app-check.js";
+        import { initGlobalListener } from "./js/calls.js";
+        import { getAuth, onAuthStateChanged, setPersistence, browserLocalPersistence } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+        import { getFirestore, collection, getDocs, doc, getDoc, addDoc, setDoc, updateDoc, serverTimestamp, query, where, onSnapshot } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyDKDT0kvwEm0cEdh_MpbTb8A9W3_xwAVxY",
+            authDomain: "dsu-exam-system.firebaseapp.com",
+            projectId: "dsu-exam-system",
+            storageBucket: "dsu-exam-system.firebasestorage.app",
+            messagingSenderId: "155083834622",
+            appId: "1:155083834622:web:ff0a9780b88bad0b8811af",
+            measurementId: "G-1TPT1BR6GD"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const appCheck = initializeAppCheck(app, {
+            provider: new ReCaptchaV3Provider('6Leua30tAAAAANy_qYf2oF4vC-BLxBBPPKHgKdZe'),
+            isTokenAutoRefreshEnabled: true
+        });
+        const auth = getAuth(app);
+        await setPersistence(auth, browserLocalPersistence);
+        const db = getFirestore(app);
+
+        let currentUser = null;
+        let studentProfile = null;
+        let selectedTest = null;
+        let currentQ = 0;
+        let answers = {};
+        let flagged = new Set();
+        let timerInterval = null;
+        let timeLeft = 0;
+        let tabSwitchCount = 0;
+        let testStarted = false;
+
+        onAuthStateChanged(auth, async (user) => {
+            if (!user) { window.location.href = 'login.html'; return; }
+            currentUser = user;
+            // Fetch student profile for department filtering
+            try {
+                const studentDoc = await getDoc(doc(db, 'students', user.uid));
+                if (studentDoc.exists()) {
+                    studentProfile = studentDoc.data();
+                }
+            } catch (err) { console.error('Could not fetch student profile:', err); }
+            
+            initGlobalListener(db, currentUser);
+            loadTests();
+        });
+
+        let allTestsCache = [];
+        let currentTestView = 'SUBJECTS';
+        let currentTestSubject = null;
+
+        window.openTestSubject = function(subj) {
+            currentTestSubject = subj;
+            currentTestView = 'TESTS';
+            document.getElementById('testSubjectsGrid').style.display = 'none';
+            document.getElementById('testsList').style.display = 'grid';
+            document.getElementById('backToTestSubjectsBtn').style.display = 'inline-flex';
+            renderTestsList();
+        };
+
+        window.goBackToTestSubjects = function() {
+            currentTestView = 'SUBJECTS';
+            currentTestSubject = null;
+            document.getElementById('testsList').style.display = 'none';
+            document.getElementById('backToTestSubjectsBtn').style.display = 'none';
+            document.getElementById('testSubjectsGrid').style.display = 'grid';
+            renderTestsList();
+        };
+
+        function loadTests() {
+            const sGrid = document.getElementById('testSubjectsGrid');
+            const testsList = document.getElementById('testsList');
+            onSnapshot(collection(db, 'tests'), (snap) => {
+                if (snap.empty) {
+                    sGrid.innerHTML = `<div style="text-align:center;padding:48px;color:var(--text-muted);grid-column:1/-1;"><i class="fas fa-clipboard-list" style="font-size:48px;opacity:.3;display:block;margin-bottom:16px"></i>No tests available right now.</div>`;
+                    return;
+                }
+
+                const now = new Date();
+                const studentDept = studentProfile?.department || '';
+
+                // Filter tests: must be active, within time, and dept-matched
+                const filteredDocs = snap.docs.filter(d => {
+                    const t = d.data();
+                    // Must be active
+                    if (!t.isActive) return false;
+                    // Check time window
+                    if (t.startTime) {
+                        const start = t.startTime.toDate ? t.startTime.toDate() : new Date(t.startTime.seconds * 1000);
+                        if (now < start) return false;
+                    }
+                    if (t.endTime) {
+                        const end = t.endTime.toDate ? t.endTime.toDate() : new Date(t.endTime.seconds * 1000);
+                        if (now > end) return false;
+                    }
+                    // Check department
+                    const depts = t.departments || ['ALL'];
+                    if (!depts.includes('ALL') && studentDept && !depts.includes(studentDept)) return false;
+                    return true;
+                });
+
+                allTestsCache = filteredDocs.map(d => ({id: d.id, ...d.data()}));
+                
+                // Keep window._tests populated for openConfirm logic
+                window._tests = {};
+                allTestsCache.forEach(t => window._tests[t.id] = t);
+
+                renderTestsList();
+            }, (err) => {
+                testsList.innerHTML = `<div style="text-align:center;padding:40px;color:var(--danger)"><i class="fas fa-times-circle"></i> Error loading tests.</div>`;
+            });
+        }
+
+        function renderTestsList() {
+            const escapeH = (str) => String(str).replace(/[&<>'"]/g, tag => ({'&': '&amp;','<': '&lt;','>': '&gt;',"'": '&#39;','"': '&quot;'}[tag]));
+            const sGrid = document.getElementById('testSubjectsGrid');
+            const tGrid = document.getElementById('testsList');
+
+            if (!allTestsCache.length) {
+                sGrid.innerHTML = `<div style="text-align:center;padding:48px;color:var(--text-muted);grid-column:1/-1;"><i class="fas fa-clipboard-list" style="font-size:48px;opacity:.3;display:block;margin-bottom:16px"></i>No tests available for your department right now.</div>`;
+                tGrid.innerHTML = '';
+                return;
+            }
+
+            if (currentTestView === 'SUBJECTS') {
+                const subjectsMap = {};
+                allTestsCache.forEach(t => {
+                    const subj = t.subject || 'General / Miscellaneous';
+                    if (!subjectsMap[subj]) {
+                        subjectsMap[subj] = { name: subj, count: 0 };
+                    }
+                    subjectsMap[subj].count++;
+                });
+
+                const sortedSubjects = Object.values(subjectsMap).sort((a, b) => a.name.localeCompare(b.name));
+                const subjectIcons = ['fa-file-signature', 'fa-laptop-code', 'fa-calculator', 'fa-atom', 'fa-microscope', 'fa-globe', 'fa-chart-pie', 'fa-cogs', 'fa-language', 'fa-brain'];
+                
+                let html = '';
+                sortedSubjects.forEach((s, idx) => {
+                    const icon = subjectIcons[idx % subjectIcons.length];
+                    html += `
+                        <div class="subject-card" onclick="openTestSubject('${escapeH(s.name).replace(/'/g, "\\'")}')">
+                            <div class="subject-card-icon"><i class="fas ${icon}"></i></div>
+                            <div class="subject-card-info">
+                                <div class="subject-card-title">${escapeH(s.name)}</div>
+                                <div class="subject-card-meta"><i class="fas fa-file-alt"></i> ${s.count} Tests Available</div>
+                            </div>
+                            <i class="fas fa-chevron-right" style="color:var(--text-muted);opacity:0.5;font-size:14px;"></i>
+                        </div>
+                    `;
+                });
+                sGrid.innerHTML = html;
+            } else {
+                const subjectFiltered = allTestsCache.filter(t => (t.subject || 'General / Miscellaneous') === currentTestSubject);
+                const now = new Date();
+                const colors = [['#6c63ff', '#4f46e5'], ['#10b981', '#059669'], ['#f59e0b', '#d97706'], ['#06b6d4', '#0891b2'], ['#ef4444', '#dc2626']];
+                
+                if (!subjectFiltered.length) {
+                    tGrid.innerHTML = `<div style="text-align:center;padding:48px;color:var(--text-muted)"><i class="fas fa-file-excel" style="font-size:48px;opacity:.3;display:block;margin-bottom:16px"></i>No tests found.</div>`;
+                    return;
+                }
+
+                tGrid.innerHTML = subjectFiltered.map((t, i) => {
+                    const c = colors[i % colors.length];
+                    let timeInfo = '';
+                    if (t.endTime) {
+                        const end = t.endTime.toDate ? t.endTime.toDate() : new Date(t.endTime.seconds * 1000);
+                        const diff = Math.max(0, Math.floor((end - now) / 60000));
+                        timeInfo = `<span class="meta-chip" style="color:var(--danger)"><i class="fas fa-hourglass-half"></i> Closes in ${diff} min</span>`;
+                    }
+                    return `
+            <div class="test-card-full" onclick="openConfirm('${t.id}')">
+              <div class="test-card-icon" style="background:linear-gradient(135deg,${c[0]}30,${c[0]}60)">
+                <i class="fas fa-file-alt" style="color:${c[0]}"></i>
+              </div>
+              <div class="test-card-info">
+                <h3>${escapeH(t.title || 'Untitled Test')}</h3>
+                <div class="test-card-meta">
+                  <span class="meta-chip"><i class="fas fa-clock"></i> ${t.duration || 30} mins</span>
+                  <span class="meta-chip"><i class="fas fa-question-circle"></i> ${t.questions?.length || 0} Questions</span>
+                  <span class="meta-chip"><i class="fas fa-star"></i> ${t.totalMarks || 100} Marks</span>
+                  <span class="meta-chip"><i class="fas fa-tag"></i> ${escapeH(t.subject || 'General')}</span>
+                  ${timeInfo}
+                </div>
+                <div class="test-desc">${escapeH(t.description || 'Click to start the test.')}</div>
+              </div>
+              <button class="start-btn" onclick="openConfirm('${t.id}')">Launch Test <i class="fas fa-rocket"></i></button>
+            </div>`;
+                }).join('');
+            }
+        }
+
+        window.openConfirm = function (testId) {
+            try {
+                selectedTest = window._tests[testId];
+                if (!selectedTest) throw new Error("Test not found in cache");
+                document.getElementById('confirmTitle').textContent = selectedTest.title;
+                document.getElementById('confirmDesc').textContent = `Duration: ${selectedTest.duration || 30} minutes • ${selectedTest.questions?.length || 0} Questions • ${selectedTest.totalMarks || 100} Marks`;
+                document.getElementById('testConfirmView').classList.add('active');
+            } catch (err) {
+                alert("Error opening test: " + err.message);
+            }
+        };
+
+        window.cancelTest = function () {
+            document.getElementById('testConfirmView').classList.remove('active');
+            selectedTest = null;
+        };
+
+            window.startTest = async function () {
+                if (!selectedTest || !selectedTest.questions?.length) {
+                    showToast('This test has no questions yet.', 'error'); return;
+                }
+
+                // Show loading state
+                const btn = document.querySelector('.btn-start');
+                const origText = btn ? btn.innerHTML : '';
+                if (btn) {
+                    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Loading AI...';
+                    btn.disabled = true;
+                    btn.style.opacity = '0.7';
+                }
+
+                try {
+                    // -- Step 1: Initialise AI Proctoring module ------------------
+                    await ExamProctor.init({
+                        db:           db,
+                        currentUser:  currentUser,
+                        selectedTest: selectedTest,
+                        // Called when exam is force-terminated (3rd tab violation)
+                        onTerminate: () => {
+                            testStarted = false;
+                            clearInterval(timerInterval);
+                            submitTest(true, true);
+                        },
+                    });
+
+                    // -- Step 2: Close confirm modal, show proctoring guidelines --
+                    document.getElementById('testConfirmView').classList.remove('active');
+
+                ExamProctor.showGuidelines(
+                    // onConfirm - student clicked "Allow Camera & Start Exam"
+                    async () => {
+                        // -- Step 3: Enter fullscreen synchronously BEFORE await ---
+                        try {
+                            if (document.documentElement.requestFullscreen)
+                                await document.documentElement.requestFullscreen();
+                            else if (document.documentElement.webkitRequestFullscreen)
+                                await document.documentElement.webkitRequestFullscreen();
+                            else {
+                                alert('Fullscreen API is not supported by your browser. You cannot take this exam.');
+                                return;
+                            }
+                        } catch (err) {
+                            alert('Fullscreen mode is required to take this exam. Please allow fullscreen.');
+                            return;
+                        }
+
+                        // Request webcam + start proctoring
+                        const procOk = await ExamProctor.start();
+                        if (!procOk) return; // webcam denied - blocked by proctor module
+
+                        // -- Step 4: Show exam view ---------------------------
+                        document.getElementById('testSelectionView').style.display = 'none';
+                        document.getElementById('testTakingView').classList.add('active');
+                        document.body.classList.add('test-active');
+                        let vp = document.querySelector('meta[name="viewport"]');
+                        if (vp) vp.setAttribute('content', 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0');
+
+                        answers = {}; flagged = new Set(); currentQ = 0; tabSwitchCount = 0; testStarted = true;
+                        timeLeft = (selectedTest.duration || 30) * 60;
+                        
+                        // Phase 3a: init auto-save attempt doc
+                        if (!isPreviewMode) {
+                            try {
+                                attemptDocRef = doc(db, 'results', currentUser.uid+'_'+selectedTest.id+'_attempt');
+                                setDoc(attemptDocRef, {studentId:currentUser.uid,testId:selectedTest.id,testTitle:selectedTest.title,answers:{},startedAt:serverTimestamp(),status:'in_progress'},{merge:true}).catch(e=>console.warn('[AutoSave init error]',e));
+                            } catch(e){console.warn('[AutoSave init]',e);}
+                        }
+
+                        document.getElementById('testTitleHeader').textContent = selectedTest.title;
+
+                        buildNavStrip();
+                        renderQuestion();
+                        startTimer();
+                        registerAntiCheat(); // existing tab/key anti-cheat still runs alongside
+                        try {
+                            await addDoc(collection(db, 'students', currentUser.uid, 'activityLogs'), {
+                                action: 'test_started',
+                                testId: selectedTest.id,
+                                testTitle: selectedTest.title,
+                                timestamp: serverTimestamp()
+                            });
+                        } catch (e) { console.error(e); }
+                    },
+                    // onCancel – student clicked "Cancel"
+                    () => {
+                        // Return to test selection
+                        selectedTest = null;
+                    }
+                );
+                } catch (err) {
+                    console.error("Proctor init failed:", err);
+                    showToast('Failed to load Exam AI. Check connection.', 'error');
+                } finally {
+                    if (btn) {
+                        btn.innerHTML = origText;
+                        btn.disabled = false;
+                        btn.style.opacity = '1';
+                    }
+                }
+            };
+
+        function _shuffle(a){const r=[...a];for(let i=r.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[r[i],r[j]]=[r[j],r[i]];}return r;}
+        function _personalizeTest(){
+            if(!selectedTest||!selectedTest.questions)return;
+            let qs=[...selectedTest.questions];
+            if(selectedTest.poolMode&&selectedTest.poolSize>0&&qs.length>selectedTest.poolSize)qs=_shuffle(qs).slice(0,selectedTest.poolSize);
+            if(selectedTest.randomizeQuestions)qs=_shuffle(qs);
+            if(selectedTest.randomizeOptions)qs=qs.map(q=>{
+                if(!q.options||q.options.length<2)return q;
+                const idxs=_shuffle([...Array(q.options.length).keys()]);
+                const newOpts=idxs.map(i=>q.options[i]);
+                let nca=q.correctAnswer;
+                if(q.type==='mcq-single'||!q.type)nca=idxs.indexOf(typeof q.correctAnswer==='number'?q.correctAnswer:(q.correctIndex||0));
+                else if(q.type==='mcq-multi'&&Array.isArray(q.correctAnswer))nca=q.correctAnswer.map(c=>idxs.indexOf(c));
+                return Object.assign({},q,{options:newOpts,correctAnswer:nca,correctIndex:typeof nca==='number'?nca:q.correctIndex});
+            });
+            selectedTest.questions=qs;
+        }
+        function buildNavStrip() {
+            _personalizeTest();
+            const strip = document.getElementById('qNavStrip');
+            strip.innerHTML = selectedTest.questions.map((_, i) =>
+                `<button class="q-nav-btn" id="qnav${i}" onclick="goToQuestion(${i})">${i + 1}</button>`
+            ).join('');
+        }
+
+        function renderQuestion() {
+            const qs = selectedTest.questions;
+            const q = qs[currentQ];
+            const total = qs.length;
+
+            document.getElementById('qNumber').textContent = `Question ${currentQ + 1} of ${total}`;
+            document.getElementById('qProgress').textContent = `Q ${currentQ + 1} / ${total}`;
+            document.getElementById('qText').textContent = q.questionText || q.question || q.text || '';
+
+            const img = document.getElementById('qImage');
+            if (q.imageUrl || q.image) { img.src = q.imageUrl || q.image; img.style.display = 'block'; }
+            else { img.style.display = 'none'; }
+
+            const labels = ['A','B','C','D','E','F'];
+            const optionsGrid = document.getElementById('optionsGrid');
+            const qtype = q.type || 'mcq-single';
+            if (qtype === 'mcq-single' || !q.type) {
+                optionsGrid.innerHTML = (q.options||[]).map((opt,i) => `<div class="option ${answers[currentQ]===i?'selected':''}" onclick="_selA(${i})"><div class="option-label">${labels[i]}</div><span>${opt}</span></div>`).join('');
+            } else if (qtype === 'mcq-multi') {
+                const selArr = Array.isArray(answers[currentQ]) ? answers[currentQ] : [];
+                optionsGrid.innerHTML = '<div style="font-size:12px;color:var(--text-muted);margin-bottom:8px">Select all that apply</div>' +
+                    (q.options||[]).map((opt,i)=>`<div class="option ${selArr.includes(i)?'selected':''}" onclick="_multiA(${i})"><div class="option-label">${selArr.includes(i)?'✓':labels[i]}</div><span>${opt}</span></div>`).join('');
+            } else if (qtype === 'true-false') {
+                const ansT=answers[currentQ];
+                optionsGrid.innerHTML = `<div class="option ${ansT===true?'selected':''}" onclick="_tfA(true)"><div class="option-label">T</div><span>True</span></div><div class="option ${ansT===false?'selected':''}" onclick="_tfA(false)"><div class="option-label">F</div><span>False</span></div>`;
+            } else if (qtype === 'fill-blank') {
+                optionsGrid.innerHTML = `<input type="text" class="form-control" placeholder="Type your answer..." value="${answers[currentQ]||''}" oninput="_fillA(this.value)" style="font-size:16px;padding:14px;border-radius:12px;background:var(--glass);border:1px solid var(--glass-border);color:var(--text);">`;
+            } else if (qtype === 'numeric') {
+                optionsGrid.innerHTML = `<input type="number" step="any" class="form-control" placeholder="Enter a number..." value="${answers[currentQ]??''}" oninput="_numA(this.value)" style="font-size:16px;padding:14px;border-radius:12px;background:var(--glass);border:1px solid var(--glass-border);color:var(--text);">`;
+            }
+
+            // Update nav strip
+            document.querySelectorAll('.q-nav-btn').forEach((btn, i) => {
+                btn.className = 'q-nav-btn';
+                if (i === currentQ) btn.classList.add('current');
+                else if (answers[i] !== undefined && answers[i] !== null && answers[i] !== '') btn.classList.add('answered');
+                else if (flagged.has(i)) btn.classList.add('flagged');
+            });
+
+            // Show/hide next/submit
+            document.getElementById('nextBtn').style.display = currentQ < total - 1 ? '' : 'none';
+            document.getElementById('submitFinalBtn').style.display = currentQ === total - 1 ? '' : 'none';
+        }
+
+        // Phase 3: preview mode + auto-save
+        let attemptDocRef = null, isPreviewMode = false;
+        if (new URLSearchParams(window.location.search).get('preview') === '1') {
+            isPreviewMode = true;
+            const draftJson = sessionStorage.getItem('examProPreviewDraft');
+            if (draftJson) {
+                try {
+                    selectedTest = JSON.parse(draftJson);
+                    document.getElementById('testSelectionView').style.display = 'none';
+                    document.getElementById('testTakingView').classList.add('active');
+                    answers = {}; currentQ = 0; testStarted = false;
+                    document.getElementById('testTitleHeader').textContent = '[PREVIEW] ' + selectedTest.title;
+                    buildNavStrip(); renderQuestion();
+                    document.getElementById('timerDisplay').textContent = 'PREVIEW';
+                    showToast('Preview Mode — answers will not be saved', 'info');
+                } catch(e) { console.error('Preview parse error', e); }
+            }
+        }
+
+        window.selectAnswer = function (optIndex) {
+            answers[currentQ] = optIndex;
+            renderQuestion();
+            if (!isPreviewMode && attemptDocRef) {
+                const patch = {}; patch['answers.' + currentQ] = optIndex;
+                updateDoc(attemptDocRef, patch).catch(e => console.warn('[AutoSave]', e.message));
+            }
+        };
+
+        window._selA = function(i){answers[currentQ]=i;renderQuestion();if(!isPreviewMode&&attemptDocRef){const p={};p['answers.'+currentQ]=i;updateDoc(attemptDocRef,p).catch(()=>{});}}
+        window._multiA = function(i){if(!Array.isArray(answers[currentQ]))answers[currentQ]=[];const idx=answers[currentQ].indexOf(i);if(idx===-1)answers[currentQ].push(i);else answers[currentQ].splice(idx,1);if(!answers[currentQ].length)delete answers[currentQ];renderQuestion();}
+        window._tfA = function(v){answers[currentQ]=v;renderQuestion();}
+        window._fillA = function(v){answers[currentQ]=v;}
+        window._numA = function(v){answers[currentQ]=v===''?undefined:parseFloat(v);}
+
+        window.nextQuestion = function () {
+            if (currentQ < selectedTest.questions.length - 1) { currentQ++; renderQuestion(); }
+        };
+
+        window.prevQuestion = function () {
+            if (currentQ > 0) { currentQ--; renderQuestion(); }
+        };
+
+        window.goToQuestion = function (i) { currentQ = i; renderQuestion(); };
+
+        window.flagQuestion = function () {
+            if (flagged.has(currentQ)) flagged.delete(currentQ);
+            else flagged.add(currentQ);
+            renderQuestion();
+            showToast(flagged.has(currentQ) ? 'Question flagged for review' : 'Flag removed', 'info');
+        };
+
+        function startTimer() {
+            timerInterval = setInterval(() => {
+                timeLeft--;
+                const m = Math.floor(timeLeft / 60).toString().padStart(2, '0');
+                const s = (timeLeft % 60).toString().padStart(2, '0');
+                document.getElementById('timerDisplay').textContent = `${m}:${s}`;
+                if (timeLeft <= 300) document.getElementById('timerBox').classList.add('warn');
+                if (timeLeft <= 0) { clearInterval(timerInterval); submitTest(true); }
+            }, 1000);
+        }
+
+        function registerAntiCheat() {
+            document.addEventListener('visibilitychange', handleTabSwitch);
+            window.addEventListener('blur', handleTabSwitch);
+            
+            // Fullscreen enforcement
+            document.addEventListener('fullscreenchange', () => {
+                if (!document.fullscreenElement && testStarted) {
+                    showToast('Fullscreen exited! This is a violation.', 'error');
+                    handleTabSwitch();
+                }
+            });
+
+            // Key blocking
+            window.addEventListener('keydown', e => {
+                const blockedKeys = ['Tab', 'Meta', 'Alt', 'Control'];
+                if (blockedKeys.includes(e.key) || (e.altKey && e.key === 'Tab')) {
+                    e.preventDefault();
+                    showToast('Key blocked! Focus on the test.', 'error');
+                    return false;
+                }
+            });
+        }
+
+        function handleTabSwitch() {
+            if (!testStarted) return;
+            tabSwitchCount++;
+            document.getElementById('warningCount').textContent = tabSwitchCount;
+            document.getElementById('warningOrdinal').textContent = tabSwitchCount === 1 ? '1st' : '2nd';
+            document.getElementById('cheatWarning').classList.add('show');
+
+            // Log malpractice
+            if (window._fbDb && currentUser && selectedTest) {
+                const { addDoc, collection: fcollection } = window._fbFuncs;
+                fcollection && addDoc(fcollection(window._fbDb, 'malpracticeLogs'), {
+                    studentId: currentUser.uid,
+                    testId: selectedTest.id,
+                    testTitle: selectedTest.title,
+                    attempts: tabSwitchCount,
+                    timestamp: new Date()
+                }).catch(console.error);
+            }
+
+            if (tabSwitchCount >= 2) {
+                setTimeout(() => {
+                    document.getElementById('cheatWarning').classList.remove('show');
+                    submitTest(true, true);
+                }, 3000);
+            }
+        }
+
+        window.dismissWarning = function () {
+            document.getElementById('cheatWarning').classList.remove('show');
+        };
+
+        window.confirmSubmit = function () {
+            if (isPreviewMode) { showToast('Preview mode — submit disabled', 'info'); return; }
+            const total = selectedTest.questions.length;
+            const answered = Object.keys(answers).filter(k=>answers[k]!==undefined&&answers[k]!==null&&answers[k]!=='').length;
+            document.getElementById('submitSummary').textContent = `You answered ${answered} of ${total} questions.`;
+            document.getElementById('unansweredMsg').textContent = answered < total ? `⚠️ ${total - answered} unanswered · ${flagged.size} flagged` : `✅ All answered · ${flagged.size} flagged for review`;
+            document.getElementById('submitConfirm').classList.add('show');
+        };
+
+        window.submitTest = async function (autoSubmit = false, malpractice = false) {
+            testStarted = false;
+            clearInterval(timerInterval);
+            document.removeEventListener('visibilitychange', handleTabSwitch);
+            window.removeEventListener('blur', handleTabSwitch);
+            document.getElementById('submitConfirm').classList.remove('show');
+            const loader = document.getElementById('loader');
+            if (loader) loader.style.display = 'flex';
+            document.body.classList.remove('test-active');
+            let vp = document.querySelector('meta[name="viewport"]');
+            if (vp) vp.setAttribute('content', 'width=device-width,initial-scale=1.0');
+
+            // -- Stop Proctoring & save violation log ----------------------
+            ExamProctor.stop();
+            try {
+                await ExamProctor.saveViolationLog();
+            } catch (e) { console.warn('[ExamProctor] Log save error on submit:', e); }
+
+            try {
+                const qs = selectedTest.questions;
+                let score = 0, correct = 0, wrong = 0;
+                const negMark = selectedTest.negativeMarking;
+                const negVal = parseFloat(selectedTest.negativeMarkValue) || 0.25;
+                qs.forEach((q, i) => {
+                    const ans = answers[i];
+                    const qtype = q.type || 'mcq-single';
+                    const qMarks = parseFloat(q.marks || selectedTest.marksPerQuestion) || 1;
+                    if (ans === undefined || ans === null || ans === '') return;
+                    let isCorrect = false;
+                    if (qtype === 'mcq-single' || !q.type) {
+                        isCorrect = (ans === q.correctAnswer || ans === q.correctIndex);
+                    } else if (qtype === 'mcq-multi') {
+                        const exp = (q.correctAnswer||[]).slice().sort().join(',');
+                        const giv = (Array.isArray(ans)?[...ans].sort():[]).join(',');
+                        isCorrect = exp === giv;
+                    } else if (qtype === 'true-false') {
+                        isCorrect = String(ans) === String(q.correctAnswer);
+                    } else if (qtype === 'fill-blank') {
+                        isCorrect = String(ans).trim().toLowerCase() === String(q.correctAnswer||'').trim().toLowerCase();
+                    } else if (qtype === 'numeric') {
+                        const num = parseFloat(ans), range = q.correctAnswer || {};
+                        isCorrect = !isNaN(num) && num >= (range.min ?? num) && num <= (range.max ?? num);
+                    }
+                    if (isCorrect) { correct++; score += qMarks; }
+                    else { wrong++; if (negMark) score = Math.max(0, score - negVal); }
+                });
+                const unanswered = qs.length - correct - wrong;
+                score = Math.round(score * 100) / 100;
+                const totalMarks = selectedTest.totalMarks || qs.length;
+                const percentage = Math.round((score / totalMarks) * 100);
+
+                // Build proctoring summary to attach to result
+                const procLog = ExamProctor.getLog();
+                const procSummary = ExamProctor.getSummary();
+
+                // Save result
+                const resultId = `${currentUser.uid}_${selectedTest.id}`;
+                await setDoc(doc(db, 'results', resultId), {
+                    studentId: currentUser.uid,
+                    testId: selectedTest.id,
+                    testTitle: selectedTest.title,
+                    score, totalMarks, correct, wrong, unanswered, percentage,
+                    answers, autoSubmit, malpractice,
+                    // Attach proctoring metadata to result
+                    proctoring: {
+                        violations: procLog,
+                        summary: procSummary,
+                    },
+                    submittedAt: serverTimestamp()
+                });
+
+                // Log activity
+                try {
+                    await addDoc(collection(db, 'students', currentUser.uid, 'activityLogs'), {
+                        action: 'test_submitted',
+                        testId: selectedTest.id,
+                        testTitle: selectedTest.title,
+                        score: score,
+                        percentage: percentage,
+                        autoSubmit: autoSubmit,
+                        malpractice: malpractice,
+                        timestamp: serverTimestamp()
+                    });
+                } catch (e) { console.error(e); }
+
+                // Log malpractice in Firestore
+                if (malpractice || procSummary.flagged) {
+                    await addDoc(collection(db, 'malpracticeLogs'), {
+                        studentId: currentUser.uid,
+                        testId: selectedTest.id,
+                        tabSwitches: tabSwitchCount,
+                        proctoringViolations: procLog,
+                        procSummary,
+                        timestamp: serverTimestamp()
+                    });
+                }
+// Redirect to result
+                window.location.href = `result.html?testId=${selectedTest.id}&score=${score}&total=${totalMarks}&correct=${correct}&wrong=${wrong}&pct=${percentage}`;
+            } catch (err) {
+showToast('Error submitting test. Please try again.', 'error');
+            }
+        };
+    </script>
+
+    <script>
+        document.addEventListener('contextmenu', e => e.preventDefault());
+        document.addEventListener('keydown', e => {
+            if (e.key === 'F12') { e.preventDefault(); return false; }
+            if (e.ctrlKey && e.shiftKey && ['I', 'J', 'C'].includes(e.key)) { e.preventDefault(); return false; }
+            if (e.ctrlKey && e.key === 'U') { e.preventDefault(); return false; }
+        });
+
+        function showToast(msg, type = 'info') {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            const icons = { success: 'fa-check-circle', error: 'fa-times-circle', info: 'fa-info-circle' };
+            toast.innerHTML = `<i class="fas ${icons[type]}"></i> ${msg}`;
+            container.appendChild(toast);
+            setTimeout(() => toast.remove(), 3500);
+        }
+        window.showToast = showToast;
+    </script>
+</body>
+
+</html>
+
+

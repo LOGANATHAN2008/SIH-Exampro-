@@ -1,0 +1,1351 @@
+<!DOCTYPE html>
+<html lang="en" prefix="og: https://ogp.me/ns#">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- PRIMARY SEO METADATA -->
+    <title>Student Login | ExamPro DSU - Student Portal</title>
+    <meta name="description"
+        content="Login to ExamPro DSU student portal to access your academic dashboard, hall ticket, results, internal marks, attendance, and campus services.">
+    <meta name="keywords"
+        content="ExamPro DSU Login, Student Login, DSU Student Portal Login, Student Portal Access, Exam Portal Login, Academic Portal Login">
+    <meta name="author" content="ExamPro DSU Team">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+    <meta name="googlebot" content="index, follow">
+    <meta name="language" content="English">
+
+    <!-- CANONICAL & HREFLANG -->
+    <link rel="canonical" href="https://dsu.loganathanm.in/login.html">
+    <link rel="alternate" hreflang="en" href="https://dsu.loganathanm.in/login.html">
+    <link rel="alternate" hreflang="x-default" href="https://dsu.loganathanm.in/login.html">
+
+    <!-- OPEN GRAPH -->
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="ExamPro DSU">
+    <meta property="og:title" content="Student Login | ExamPro DSU - Student Portal">
+    <meta property="og:description"
+        content="Login to ExamPro DSU student portal to access your academic dashboard, hall ticket, results, internal marks, attendance, and campus services.">
+    <meta property="og:url" content="https://dsu.loganathanm.in/login.html">
+    <meta property="og:image" content="https://dsu.loganathanm.in/dsu_logo.png">
+    <meta property="og:image:alt" content="ExamPro DSU Student Portal Logo">
+    <meta property="og:locale" content="en_US">
+
+    <!-- TWITTER CARD -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Student Login | ExamPro DSU - Student Portal">
+    <meta name="twitter:description"
+        content="Login to ExamPro DSU student portal to access your academic dashboard, hall ticket, results, internal marks, attendance, and campus services.">
+    <meta name="twitter:image" content="https://dsu.loganathanm.in/dsu_logo.png">
+
+    <!-- THEME & FAVICON -->
+    <meta name="theme-color" content="#00a6a0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="ExamPro DSU">
+    <meta name="application-name" content="ExamPro DSU">
+    <link rel="icon" type="image/png" href="dsu_logo.png">
+    <link rel="apple-touch-icon" href="dsu_logo.png">
+    <link rel="manifest" href="manifest.json">
+
+    <!-- PERFORMANCE -->
+    <link rel="dns-prefetch" href="//fonts.googleapis.com">
+    <link rel="dns-prefetch" href="//fonts.gstatic.com">
+    <link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
+    <link rel="dns-prefetch" href="//www.gstatic.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" as="image" href="dsu_logo.png">
+
+    <!-- JSON-LD STRUCTURED DATA -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "@id": "https://dsu.loganathanm.in/login.html#webpage",
+      "url": "https://dsu.loganathanm.in/login.html",
+      "name": "Student Login | ExamPro DSU - Student Portal",
+      "description": "Login to ExamPro DSU student portal to access your academic dashboard, hall ticket, results, internal marks, attendance, and campus services.",
+      "isPartOf": { "@id": "https://dsu.loganathanm.in/#website" },
+      "breadcrumb": {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://dsu.loganathanm.in/" },
+          { "@type": "ListItem", "position": 2, "name": "Student Login", "item": "https://dsu.loganathanm.in/login.html" }
+        ]
+      },
+      "inLanguage": "en-US"
+    }
+    </script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+    <style>
+        :root {
+            --primary: #00a6a0;
+            /* Cyan */
+            --secondary: #005a8d;
+            /* DSU Blue */
+            --accent: #f05a5b;
+            /* Coral */
+            --text-dark: #333333;
+            --text-light: #666666;
+            --bg-gray: #f8f9fa;
+            --white: #ffffff;
+            --border: #dddddd;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-gray);
+            color: var(--text-dark);
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .login-wrapper {
+            display: flex;
+            height: 100vh;
+            width: 100vw;
+        }
+
+        /* Left Side - Hero */
+        .hero-side {
+            flex: 1.4;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            overflow: hidden;
+        }
+
+        .hero-side::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: url('dsu_hero_campus.jpg') center/cover no-repeat;
+            filter: brightness(1.25) contrast(1.1) saturate(1.1);
+            z-index: 0;
+        }
+
+        .hero-side>* {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            padding: 60px 10%;
+        }
+
+        .hero-logo-row {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 50px;
+        }
+
+        .hero-logo-row img {
+            width: 80px;
+            height: auto;
+            background: white;
+            padding: 10px;
+            border-radius: 50%;
+        }
+
+        .hero-logo-row h1 {
+            color: white;
+            font-size: 28px;
+            font-weight: 800;
+            line-height: 1.2;
+        }
+
+        .admission-box {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            border-radius: 12px;
+            max-width: 500px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .admission-box h2 {
+            color: var(--secondary);
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .admission-box p {
+            color: var(--text-dark);
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .hero-footer {
+            position: relative;
+            z-index: 2;
+            background: var(--secondary);
+            padding: 15px 10%;
+            display: flex;
+            justify-content: space-between;
+            color: white;
+            font-size: 14px;
+        }
+
+        /* Right Side - Form */
+        .form-side {
+            flex: 1;
+            background: var(--white);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px 40px;
+            position: relative;
+            overflow-y: auto;
+        }
+
+
+        .form-container {
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .form-header {
+            text-align: center;
+            margin-bottom: 24px;
+            padding-top: 10px;
+        }
+
+        .form-header img {
+            width: 100px;
+            height: auto;
+            display: block;
+            margin: 0 auto 14px auto;
+            object-fit: contain;
+        }
+
+        .role-selection {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 25px;
+        }
+
+        .role-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 15px;
+        }
+
+        .role-item input {
+            cursor: pointer;
+            accent-color: var(--secondary);
+        }
+
+        .input-group {
+            margin-bottom: 25px;
+            position: relative;
+        }
+
+        .input-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--text-dark);
+        }
+
+        .input-group label span {
+            color: var(--accent);
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            font-size: 15px;
+            font-family: inherit;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .input-group input:focus {
+            border-color: var(--primary);
+        }
+
+        .show-pass-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 30px;
+            font-size: 14px;
+            color: var(--text-light);
+        }
+
+        .show-pass-row input {
+            cursor: pointer;
+            accent-color: var(--secondary);
+        }
+
+        .btn-group {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .action-btns {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn {
+            padding: 12px;
+            border: none;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 15px;
+            cursor: pointer;
+            transition: opacity 0.2s;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            flex: 1;
+        }
+
+        .btn:hover {
+            opacity: 0.9;
+        }
+
+        .btn-login {
+            background-color: var(--primary);
+        }
+
+        .btn-forgot {
+            background-color: var(--accent);
+        }
+
+        .btn-otp {
+            background-color: var(--secondary);
+        }
+
+        .maintenance-box {
+            margin-top: 40px;
+            background-color: #ffe4e6;
+            border-radius: 6px;
+            padding: 15px;
+            text-align: center;
+            color: var(--accent);
+            font-size: 12px;
+            font-weight: 700;
+            line-height: 1.4;
+        }
+
+        .chrome-tip {
+            text-align: center;
+            font-size: 12px;
+            color: #888;
+            margin-top: 25px;
+        }
+
+        @media (max-width: 992px) {
+            .hero-side {
+                display: none;
+            }
+
+            .form-side {
+                flex: 1;
+                padding: 30px 24px 40px 24px;
+                justify-content: flex-start;
+            }
+
+            .form-header {
+                margin-bottom: 14px;
+                padding-top: 0;
+            }
+
+            .form-header img {
+                width: 70px;
+                margin-bottom: 10px;
+            }
+        }
+
+        /* Toast styles */
+        .toast-box {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 9999;
+        }
+
+        .toast-msg {
+            padding: 12px 20px;
+            background: #333;
+            color: white;
+            border-radius: 6px;
+            margin-top: 10px;
+            font-size: 14px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .spinner {
+            animation: rotate 1s linear infinite;
+        }
+
+        @keyframes rotate {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+        
+        .login-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 24px;
+            background: rgba(128, 128, 128, 0.05);
+            padding: 4px;
+            border-radius: 12px;
+        }
+        
+        .login-tab {
+            flex: 1;
+            padding: 10px;
+            text-align: center;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            border-radius: 8px;
+            color: var(--text-muted);
+            transition: all 0.3s;
+        }
+        
+        .login-tab.active {
+            background: var(--white);
+            color: var(--primary);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+    </style>
+    <link rel="stylesheet" href="theme.css">
+    <script src="theme.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+</head>
+
+<body>
+    <div class="login-wrapper">
+        <!-- Hero Side -->
+        <div class="hero-side">
+            <div class="hero-footer">
+                <div><i class="fas fa-phone"></i> +91 9880147004</div>
+                <div><i class="fas fa-envelope"></i> admissions@dsuonline.com</div>
+            </div>
+        </div>
+
+        <!-- Form Side -->
+        <div class="form-side">
+            <!-- Top Navigation Links -->
+            <div style="position: absolute; top: 25px; right: 30px; display: flex; gap: 20px; z-index: 10;">
+                <a href="about.html"
+                    style="text-decoration: none; color: var(--text-muted); font-size: 15px; font-weight: 600; transition: color 0.2s;"
+                    onmouseover="this.style.color='var(--primary)'"
+                    onmouseout="this.style.color='var(--text-muted)'">About</a>
+            </div>
+
+            <div class="form-container" id="loginContent">
+                <div class="form-header">
+                    <img src="dsu_logo.png" alt="DSU Logo">
+                </div>
+
+                <div class="login-tabs">
+                    <div class="login-tab active" onclick="switchLoginTab('email')">Email / Pass</div>
+                    <div class="login-tab" onclick="switchLoginTab('qr')">QR Login</div>
+                </div>
+
+                <div id="tab-email" class="tab-content active">
+                    <form id="loginForm" onsubmit="handleLogin(event)">
+                        <div class="role-selection">
+                            <label class="role-item">
+                                <input type="radio" name="role" value="staff" id="roleStaffRadio" onchange="toggleUserType('admin')">
+                                Role Staff
+                            </label>
+                            <label class="role-item">
+                                <input type="radio" name="role" value="student" id="roleStudentRadio" checked
+                                    onchange="toggleUserType('student')">
+                                Role Student
+                            </label>
+                        </div>
+
+                        <div class="input-group">
+                            <label id="usernameLabel">Email / Register No. / Mobile No. <span>*</span></label>
+                            <input type="text" id="email" placeholder="Email, Register No, or Mobile No" required autocomplete="username">
+                        </div>
+                        <div class="input-group">
+                            <label>Password <span>*</span></label>
+                            <input type="password" id="password" placeholder="Password" required autocomplete="current-password">
+                        </div>
+
+                        <div class="show-pass-row">
+                            <label style="display: flex; align-items:center; gap:8px; cursor:pointer;">
+                                <input type="checkbox" id="showPassCheckbox" onchange="togglePasswordVisibility()">
+                                Show Password
+                            </label>
+                        </div>
+
+                        <div class="input-group" id="adminCodeGroup" style="display: none;">
+                            <label>Admin Security Code <span>*</span></label>
+                            <input type="password" id="adminCode" placeholder="Enter 4-digit security code">
+                        </div>
+
+                        <div class="captcha-container" style="border: 1px solid var(--border); border-radius: 10px; padding: 10px 12px; margin-bottom: 14px; background: rgba(255,255,255,0.02);">
+                            <!-- Row 1: Label + Code + Refresh -->
+                            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+                                <div style="display: flex; align-items: center; gap: 5px; color: var(--text-muted); font-weight: 600; font-size: 11px; text-transform: uppercase; letter-spacing: 0.8px; white-space: nowrap; flex-shrink: 0;">
+                                    <i class="fas fa-shield-alt" style="color: var(--primary); font-size: 11px;"></i> Captcha:
+                                </div>
+                                <div id="captchaText" style="font-size: 17px; font-weight: 700; color: #38bdf8; letter-spacing: 6px; font-family: monospace; flex: 1; text-align: center; white-space: nowrap; overflow: hidden;">0U1EE</div>
+                                <button type="button" onclick="generateCaptcha()" title="Refresh" style="background: var(--primary); color: white; border: none; border-radius: 6px; width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0; font-size: 11px;">
+                                    <i class="fas fa-sync-alt"></i>
+                                </button>
+                            </div>
+                            <!-- Row 2: Input full width -->
+                            <input type="text" id="captchaInput" placeholder="Enter captcha code" required autocomplete="off" style="width: 100%; box-sizing: border-box; padding: 9px 12px; background: var(--input-bg, rgba(255,255,255,0.05)); border: 1px solid var(--border); border-radius: 8px; color: var(--text); font-size: 14px; outline: none;">
+                        </div>
+
+                        <div class="btn-group">
+                            <button type="submit" class="btn btn-login" id="loginBtn">Login</button>
+                            <div class="action-btns">
+                                <button type="button" class="btn btn-forgot" onclick="openForgotModal(event)">Forgot Password</button>
+                            </div>
+                            <a href="check-result.html" class="btn"
+                                style="background: var(--white); color: var(--secondary); border: 1px solid var(--border); margin-top: 10px;">Check Result without login</a>
+                        </div>
+                    </form>
+                </div>
+
+                <div id="tab-qr" class="tab-content">
+                    <div style="text-align: center; padding: 10px 0;">
+                        <h3 style="font-size:18px; margin-bottom: 8px;">Log in with QR code</h3>
+                        <ol style="text-align:left; font-size:14px; color:var(--text-muted); line-height:1.6; margin:0 auto 20px auto; max-width: 250px; padding-left: 20px;">
+                            <li>Open ExamPro DSU app on your phone</li>
+                            <li>Tap Menu &rarr; Linked Devices</li>
+                            <li>Point your phone at this screen to capture the code</li>
+                        </ol>
+                        
+                        <div id="qrCodeContainer" style="background:white; padding:15px; border-radius:12px; display:inline-block; margin-bottom:15px; min-width:200px; min-height:200px;">
+                            <div id="qrCode"></div>
+                        </div>
+                        <div id="qrStatus" style="font-size:14px; font-weight:600; color:var(--text-muted);">Generating QR code...</div>
+                    </div>
+                </div>
+
+                <p class="chrome-tip">Please use Google Chrome for better experience</p>
+
+                <!-- App Store Ad -->
+                <div style="margin-top: 25px; text-align: center;">
+                    <a href="https://app.loganathanm.in/" target="_blank">
+                        <img src="loga_app_store_ad.png" alt="Get it on App Store"
+                            style="max-width: 240px; width: 100%; height: auto; border-radius: 10px; box-shadow: 0 6px 15px rgba(0,0,0,0.1); transition: transform 0.3s ease;"
+                            onmouseover="this.style.transform='scale(1.04)'"
+                            onmouseout="this.style.transform='scale(1)'">
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="toast-box" id="toastContainer"></div>
+
+    <!-- OTP Modal -->
+    <div class="modal-overlay" id="otpModal"
+        style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); z-index:9999; justify-content:center; align-items:center;">
+        <div class="modal-content"
+            style="background:var(--bg2); padding:30px; border-radius:12px; width:90%; max-width:400px; text-align:center; box-shadow: 0 10px 40px rgba(0,0,0,0.5); border: 4px solid var(--primary);">
+            <h3 style="margin-bottom:10px;">Two-Factor Authentication</h3>
+            <p style="color:var(--text-muted); font-size:14px; margin-bottom:20px;">We've sent a 6-digit code to your
+                email. Please enter it below.</p>
+            <input type="text" id="otpInput" maxlength="6"
+                style="width:100%; padding:12px; text-align:center; letter-spacing:8px; font-size:24px; font-weight:bold; background:var(--bg1); border:1px solid rgba(255,255,255,0.1); border-radius:8px; color:#fff; margin-bottom:20px;"
+                placeholder="------">
+            <button id="verifyOtpBtn"
+                style="width:100%; padding:14px; background:var(--primary); color:#fff; border:none; border-radius:8px; font-weight:800; cursor:pointer; font-family:'Inter', sans-serif; text-transform:uppercase; letter-spacing:1px; box-shadow:0 4px 12px color-mix(in srgb, var(--primary) 40%, transparent);">Verify
+                Code</button>
+            <p id="otpError" style="color:var(--danger); font-size:13px; margin-top:10px; display:none;"></p>
+        </div>
+    </div>
+
+    <!-- Forgot Password Modal -->
+    <div class="modal-overlay" id="forgotModal"
+        style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); z-index:9999; justify-content:center; align-items:center;">
+        <div class="modal-content"
+            style="background:var(--bg2); padding:30px; border-radius:12px; width:90%; max-width:400px; text-align:center; box-shadow: 0 10px 40px rgba(0,0,0,0.5); border: 4px solid var(--primary); position: relative;">
+            <button onclick="closeForgotModal()" style="position:absolute; top:15px; right:15px; background:none; border:none; color:var(--text-muted); cursor:pointer; font-size:18px;"><i class="fas fa-times"></i></button>
+            <h3 style="margin-bottom:10px;">Reset Password</h3>
+            <p style="color:var(--text-muted); font-size:14px; margin-bottom:20px;">Enter your Email, Register No, or Mobile No to receive a reset link.</p>
+            <input type="text" id="forgotInput"
+                style="width:100%; padding:12px; background:var(--bg1); border:1px solid rgba(255,255,255,0.1); border-radius:8px; color:#fff; margin-bottom:20px;"
+                placeholder="Email, Reg No, or Mobile No">
+            <button id="sendResetBtn" onclick="submitForgotPassword()"
+                style="width:100%; padding:14px; background:var(--primary); color:#fff; border:none; border-radius:8px; font-weight:800; cursor:pointer; font-family:'Inter', sans-serif; text-transform:uppercase; letter-spacing:1px; box-shadow:0 4px 12px color-mix(in srgb, var(--primary) 40%, transparent);">Send Reset Link</button>
+        </div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+        import { initializeAppCheck, ReCaptchaV3Provider } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app-check.js";
+        import {
+            getAuth, signInWithEmailAndPassword, sendPasswordResetEmail,
+            onAuthStateChanged, signOut, signInWithCustomToken,
+            setPersistence, browserLocalPersistence
+        } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+        import { getFirestore, doc, getDoc, setDoc, collection, query, where, orderBy, getDocs, addDoc, serverTimestamp, deleteDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+        import { getFunctions, httpsCallable } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-functions.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyDKDT0kvwEm0cEdh_MpbTb8A9W3_xwAVxY",
+            authDomain: "dsu-exam-system.firebaseapp.com",
+            projectId: "dsu-exam-system",
+            storageBucket: "dsu-exam-system.firebasestorage.app",
+            messagingSenderId: "155083834622",
+            appId: "1:155083834622:web:ff0a9780b88bad0b8811af",
+            measurementId: "G-1TPT1BR6GD"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const appCheck = initializeAppCheck(app, {
+            provider: new ReCaptchaV3Provider('6Leua30tAAAAANy_qYf2oF4vC-BLxBBPPKHgKdZe'),
+            isTokenAutoRefreshEnabled: true
+        });
+        const auth = getAuth(app);
+        await setPersistence(auth, browserLocalPersistence);
+        const db = getFirestore(app);
+        const functions = getFunctions(app);
+
+        // --- Rate Limiting Helper ---
+        const checkRateLimitFn = httpsCallable(functions, 'checkRateLimit');
+        async function enforceRateLimit(action, identifier) {
+            try {
+                await checkRateLimitFn({ action, identifier });
+                return true;
+            } catch (error) {
+                if (error.code === 'resource-exhausted') {
+                    showToast(error.message, 'error');
+                    return false;
+                } else {
+                    console.warn("Rate limit check bypassed due to error:", error);
+                    return true;
+                }
+            }
+        }
+
+        // ============================================================
+        // QR LOGIN LOGIC (Section 8.1)
+        // ============================================================
+        let currentQrSessionUnsubscribe = null;
+        let qrCodeInstance = null;
+
+        window.switchLoginTab = (tab) => {
+            document.querySelectorAll('.login-tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            
+            if (tab === 'email') {
+                document.querySelector('.login-tab:nth-child(1)').classList.add('active');
+                document.getElementById('tab-email').classList.add('active');
+                if (currentQrSessionUnsubscribe) {
+                    currentQrSessionUnsubscribe();
+                    currentQrSessionUnsubscribe = null;
+                }
+            } else if (tab === 'qr') {
+                document.querySelector('.login-tab:nth-child(2)').classList.add('active');
+                document.getElementById('tab-qr').classList.add('active');
+                initQrLogin();
+            }
+        };
+
+        // SHA-256 Hash for local secret
+        async function hashSecret(secret) {
+            const encoder = new TextEncoder();
+            const data = encoder.encode(secret);
+            const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+            const hashArray = Array.from(new Uint8Array(hashBuffer));
+            return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+        }
+
+        async function fetchLocationInfo() {
+            try {
+                const res = await fetch('https://ipapi.co/json/');
+                const data = await res.json();
+                return {
+                    ip: data.ip || 'Unknown',
+                    approxLocation: `${data.city || 'Unknown'}, ${data.region || ''}`,
+                    browser: navigator.userAgent.substring(0, 50),
+                    os: navigator.platform || 'Unknown'
+                };
+            } catch (e) {
+                return { ip: 'Unknown', approxLocation: 'Unknown', browser: navigator.userAgent.substring(0, 50), os: navigator.platform };
+            }
+        }
+
+        window.initQrLogin = async () => {
+            if (currentQrSessionUnsubscribe) currentQrSessionUnsubscribe();
+            
+            const qrStatus = document.getElementById('qrStatus');
+            qrStatus.textContent = "Generating secure session...";
+            qrStatus.style.color = "var(--text-muted)";
+            
+            const sessionId = crypto.randomUUID();
+            const localSecret = crypto.randomUUID();
+            const secretHash = await hashSecret(localSecret);
+            const deviceInfo = await fetchLocationInfo();
+            
+            const expiresAt = new Date(Date.now() + 2 * 60 * 1000); // 2 mins
+
+            try {
+                await setDoc(doc(db, 'qrSessions', sessionId), {
+                    status: 'pending',
+                    createdAt: serverTimestamp(),
+                    expiresAt: expiresAt,
+                    webDeviceInfo: deviceInfo,
+                    secretHash: secretHash
+                });
+
+                if (!qrCodeInstance) {
+                    qrCodeInstance = new QRCode(document.getElementById("qrCode"), {
+                        width: 200, height: 200, colorDark: "#000000", colorLight: "#ffffff"
+                    });
+                }
+                qrCodeInstance.clear();
+                qrCodeInstance.makeCode(`examprodsu://qrlogin?session=${sessionId}`);
+                
+                qrStatus.textContent = "Scan this code with the ExamPro DSU App";
+
+                // Listen for changes
+                currentQrSessionUnsubscribe = onSnapshot(doc(db, 'qrSessions', sessionId), async (docSnap) => {
+                    if (!docSnap.exists()) return;
+                    const data = docSnap.data();
+                    
+                    if (data.status === 'scanned') {
+                        qrStatus.textContent = "Scanned! Please confirm on your phone.";
+                        qrStatus.style.color = "var(--primary)";
+                    } else if (data.status === 'approved') {
+                        qrStatus.textContent = "Approved! Logging in securely...";
+                        qrStatus.style.color = "var(--success)";
+                        
+                        // Exchange session for Custom Token
+                        try {
+                            const exchangeFn = httpsCallable(functions, 'exchangeQrSession');
+                            const result = await exchangeFn({ sessionId, localSecret });
+                            await signInWithCustomToken(auth, result.data.token);
+                            // Auth state listener handles the redirect
+                        } catch (err) {
+                            showToast("QR Login failed: " + err.message, "error");
+                            initQrLogin(); // Regenerate on failure
+                        }
+                    } else if (data.status === 'denied') {
+                        qrStatus.textContent = "Login denied from phone. Generating new code...";
+                        qrStatus.style.color = "var(--danger)";
+                        setTimeout(initQrLogin, 2000);
+                    } else if (data.status === 'expired') {
+                        qrStatus.textContent = "QR Code expired. Generating new code...";
+                        qrStatus.style.color = "var(--danger)";
+                        setTimeout(initQrLogin, 2000);
+                    }
+                });
+                
+                // Auto refresh if not scanned after 2 minutes
+                setTimeout(() => {
+                    if (document.getElementById('tab-qr').classList.contains('active')) {
+                        initQrLogin();
+                    }
+                }, 120000);
+
+            } catch (err) {
+                console.error(err);
+                qrStatus.textContent = "Failed to generate QR Code. Please try Email login.";
+                qrStatus.style.color = "var(--danger)";
+            }
+        };
+        // ============================================================
+        // BOOTSTRAP SUPER-ADMIN EMAIL LIST
+        // ============================================================
+        const ADMIN_EMAILS = ['admin@dsu.edu', 'loganathan@dsu.edu', 'mloganathan082008@gmail.com', 'exampro.loganathanm.in@gmail.com'];
+
+        // Do not auto-redirect on page load — allow user to manually choose role & enter credentials
+        onAuthStateChanged(auth, (user) => {
+            const loginContent = document.getElementById('loginContent');
+            if (loginContent) {
+                loginContent.style.opacity = '1';
+                loginContent.style.pointerEvents = 'auto';
+            }
+        });
+
+        let userType = 'student';
+
+        // DEV-ONLY: log which path resolved isAdmin (never runs on production)
+        const IS_DEV = location.hostname === 'localhost' || location.hostname === '127.0.0.1';
+
+        window.toggleUserType = (type) => {
+            userType = type;
+            const adminCodeGroup = document.getElementById('adminCodeGroup');
+            const usernameLabel = document.getElementById('usernameLabel');
+            const emailInput = document.getElementById('email');
+            const adminCodeInput = document.getElementById('adminCode');
+
+            if (type === 'admin') {
+                adminCodeGroup.style.display = 'block';
+                if (adminCodeInput) adminCodeInput.required = true;
+                if (usernameLabel) usernameLabel.innerHTML = 'Staff / Admin Email <span>*</span>';
+                if (emailInput) emailInput.placeholder = 'admin@dsu.edu / staff email';
+            } else {
+                adminCodeGroup.style.display = 'none';
+                if (adminCodeInput) {
+                    adminCodeInput.required = false;
+                    adminCodeInput.value = '';
+                }
+                if (usernameLabel) usernameLabel.innerHTML = 'Email / Register No. / Mobile No. <span>*</span>';
+                if (emailInput) emailInput.placeholder = 'Email, Register No, or Mobile No';
+            }
+        };
+
+        // ===================================================================
+        // Account Lookup by Register No / Phone — queries studentLookup only
+        // (Section 1.1: students collection is now auth-gated; this lookup
+        //  collection is public-read but contains email addresses only, no PII)
+        // ===================================================================
+        async function findAccountsByIdentifier(identifier) {
+            const raw = (identifier || '').trim();
+            if (!raw) return [];
+            if (raw.includes('@')) return [raw.toLowerCase()];
+
+            const foundEmails = new Set();
+            const lookupRef = collection(db, 'students');
+            const queries = [];
+
+            // 1. Try Register Number / USN / RegNo variations
+            const regCandidates = Array.from(new Set([raw, raw.toUpperCase(), raw.toLowerCase()]));
+            const regFields = ['registerNumber', 'usn', 'regNo', 'regno', 'studentId'];
+
+            for (const field of regFields) {
+                for (const candidate of regCandidates) {
+                    queries.push(getDocs(query(lookupRef, where(field, '==', candidate))));
+                }
+            }
+
+            // 2. Try Mobile / Phone variations
+            const cleanDigits = raw.replace(/\D/g, '');
+            const phoneCandidates = [raw];
+            if (cleanDigits) {
+                phoneCandidates.push(cleanDigits);
+                if (cleanDigits.length >= 10) {
+                    const last10 = cleanDigits.slice(-10);
+                    phoneCandidates.push(last10);
+                    phoneCandidates.push('+91' + last10);
+                    phoneCandidates.push('+91 ' + last10);
+                    phoneCandidates.push('91' + last10);
+                    phoneCandidates.push('0' + last10);
+                }
+            }
+
+            const uniquePhoneCandidates = Array.from(new Set(phoneCandidates));
+            const phoneFields = ['phone', 'mobile', 'phoneNumber', 'contact', 'mobileNumber'];
+            for (const field of phoneFields) {
+                for (const candidate of uniquePhoneCandidates) {
+                    queries.push(getDocs(query(lookupRef, where(field, '==', candidate))));
+                }
+            }
+
+            const results = await Promise.allSettled(queries);
+            for (const res of results) {
+                if (res.status === 'fulfilled' && res.value && !res.value.empty) {
+                    res.value.forEach(docSnap => {
+                        const data = docSnap.data();
+                        if (data && data.email) foundEmails.add(data.email.trim().toLowerCase());
+                    });
+                }
+            }
+
+            return Array.from(foundEmails);
+        }
+
+        window.togglePasswordVisibility = () => {
+            const passInput = document.getElementById('password');
+            const checkbox = document.getElementById('showPassCheckbox');
+            passInput.type = checkbox.checked ? 'text' : 'password';
+        };
+
+        let currentCaptcha = "";
+        window.generateCaptcha = function() {
+            const chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            let captcha = "";
+            for (let i = 0; i < 5; i++) {
+                captcha += chars[Math.floor(Math.random() * chars.length)];
+            }
+            currentCaptcha = captcha;
+            const textEl = document.getElementById('captchaText');
+            if(textEl) textEl.textContent = currentCaptcha;
+        };
+
+        document.addEventListener('DOMContentLoaded', () => {
+            if(window.generateCaptcha) window.generateCaptcha();
+        });
+
+        window.handleLogin = async (e) => {
+            e.preventDefault();
+            const identifier = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value;
+            const adminCodeInput = document.getElementById('adminCode');
+            const adminCode = adminCodeInput ? adminCodeInput.value.trim() : '';
+            const btn = document.getElementById('loginBtn');
+
+            const enteredCaptcha = document.getElementById('captchaInput').value.trim().toUpperCase().replace(/\s/g, '');
+            const expectedCaptcha = currentCaptcha.toUpperCase();
+            if (enteredCaptcha !== expectedCaptcha) {
+                showToast('Invalid CAPTCHA code. Please try again.', 'error');
+                generateCaptcha();
+                document.getElementById('captchaInput').value = '';
+                return;
+            }
+
+            if (!identifier) {
+                showToast('Please enter your Email, Register No, or Mobile No.', 'error');
+                return;
+            }
+            if (!password) {
+                showToast('Please enter your password.', 'error');
+                return;
+            }
+
+            if (userType === 'admin') {
+                if (!adminCode) {
+                    showToast('Please enter Admin Security Code!', 'error');
+                    return;
+                }
+                if (adminCode !== '2026') {
+                    showToast('Invalid Admin Security Code! Access Denied.', 'error');
+                    return;
+                }
+            }
+
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Authenticating...';
+
+            if (!(await enforceRateLimit('login', identifier))) {
+                resetBtn();
+                return;
+            }
+
+            let finalEmail = identifier;
+            try {
+                let foundAccounts = [];
+                // If input doesn't look like an email, try resolving it as Register Number or Phone
+                if (!finalEmail.includes('@')) {
+                    if (userType === 'admin') {
+                        showToast('Staff/Admin login requires full email address.', 'error');
+                        resetBtn();
+                        return;
+                    }
+
+                    foundAccounts = await findAccountsByIdentifier(finalEmail);
+
+                    if (foundAccounts.length === 0) {
+                        showToast('Account not found with this Register / Mobile Number.', 'error');
+                        resetBtn();
+                        return;
+                    }
+                } else {
+                    foundAccounts.push(finalEmail.trim().toLowerCase());
+                }
+
+                let cred = null;
+                let loggedIn = false;
+                let lastErr = null;
+
+                for (let accEmail of foundAccounts) {
+                    try {
+                        cred = await signInWithEmailAndPassword(auth, accEmail, password);
+                        loggedIn = true;
+                        finalEmail = accEmail;
+                        break;
+                    } catch (err) {
+                        lastErr = err;
+                    }
+                }
+
+                if (!loggedIn) {
+                    throw lastErr;
+                }
+
+                // ============================================================
+                // Strict Role Validation
+                // Priority: admins/{uid} Firestore doc → ADMIN_EMAILS fallback
+                // ⚠️ SYNC: if ADMIN_EMAILS changes here, mirror in firestore.rules isSuperAdmin()
+                // ============================================================
+                let isAdminData = null;
+                let isSuperAdmin = ADMIN_EMAILS.includes(finalEmail.toLowerCase());
+                try {
+                    const adminDoc = await getDoc(doc(db, 'admins', cred.user.uid));
+                    if (adminDoc.exists()) {
+                        isAdminData = adminDoc.data();
+                    }
+                } catch (adminDocErr) {
+                    if (IS_DEV) console.warn('[DEV] admins doc fetch failed:', adminDocErr.message);
+                }
+
+                const isAdmin = (isAdminData !== null) || isSuperAdmin;
+
+                // [DEV] Debug log: shows which path resolved isAdmin
+                if (IS_DEV) {
+                    if (isSuperAdmin) console.info('[DEV] isAdmin resolved via ADMIN_EMAILS hardcoded list');
+                    else if (isAdminData) console.info('[DEV] isAdmin resolved via admins/{uid} Firestore doc. Role:', isAdminData.role, '| Dept:', isAdminData.department || 'N/A');
+                    else console.info('[DEV] isAdmin = false — no match in ADMIN_EMAILS or admins collection');
+                }
+
+                // ==========================================================
+                // Section 5.1: Staff Portal routing
+                // Check if this user is a subject-scoped staff member
+                // Staff go to staff.html, NOT admin.html
+                // ==========================================================
+                let isStaffMember = false;
+                let staffData = null;
+                if (!isAdmin) {
+                    try {
+                        const staffDoc = await getDoc(doc(db, 'staff', cred.user.uid));
+                        if (staffDoc.exists()) {
+                            staffData = staffDoc.data();
+                            isStaffMember = true;
+                        }
+                    } catch (staffErr) {
+                        if (IS_DEV) console.warn('[DEV] staff doc fetch skipped:', staffErr.message);
+                    }
+                }
+
+                // 1. If Staff/Admin Role selected, but account is neither Admin nor Staff
+                if (userType === 'admin' && !isAdmin && !isStaffMember) {
+                    await signOut(auth);
+                    showToast('❌ This account has no admin role assigned. Contact super admin.', 'error');
+                    resetBtn();
+                    return;
+                }
+
+                // 2. If Student Role selected, but account IS Admin or Staff
+                if (userType === 'student' && (isAdmin || isStaffMember)) {
+                    await signOut(auth);
+                    showToast('⚠️ Admin / Staff account detected! Please select the "Staff" tab to login.', 'error');
+                    resetBtn();
+                    return;
+                }
+
+                // 3. For Students: Check Approval Status
+                const userDoc = await getDoc(doc(db, 'students', cred.user.uid));
+                const userData = userDoc.exists() ? userDoc.data() : {};
+
+                if (userType === 'student') {
+                    const approvalStatus = userData.approvalStatus || 'approved';
+                    if (approvalStatus === 'pending') {
+                        await signOut(auth);
+                        showToast('⏳ Admin approval pending. Please wait a few minutes and try again.', 'info');
+                        resetBtn();
+                        return;
+                    }
+                    if (approvalStatus === 'rejected') {
+                        await signOut(auth);
+                        showToast('❌ Admin Rejected Approval — Please check your Name, Email, Phone, USN and re-register or contact admin.', 'error');
+                        resetBtn();
+                        return;
+                    }
+                    if (approvalStatus === 'blocked') {
+                        await signOut(auth);
+                        showToast('🚫 You have been blocked. Suspicious/spam activity detected. Please contact admin at support.loga@gmail.com.', 'error');
+                        resetBtn();
+                        return;
+                    }
+                }
+
+                // Log Activity History
+                function getDeviceLabel() {
+                    const ua = navigator.userAgent;
+                    let browser = "Unknown Browser";
+                    if (ua.includes("Firefox")) browser = "Firefox";
+                    else if (ua.includes("SamsungBrowser")) browser = "Samsung Internet";
+                    else if (ua.includes("Opera") || ua.includes("OPR")) browser = "Opera";
+                    else if (ua.includes("Edge")) browser = "Edge";
+                    else if (ua.includes("Chrome")) browser = "Chrome";
+                    else if (ua.includes("Safari")) browser = "Safari";
+                    let os = "Unknown OS";
+                    if (ua.includes("Win")) os = "Windows";
+                    else if (ua.includes("Mac")) os = "Mac";
+                    else if (ua.includes("Linux")) os = "Linux";
+                    else if (ua.includes("Android")) os = "Android";
+                    else if (ua.includes("like Mac")) os = "iOS";
+                    return `${browser} on ${os}`;
+                }
+
+                try {
+                    let deviceId = localStorage.getItem('dsu_deviceId');
+                    if (!deviceId) {
+                        deviceId = crypto.randomUUID();
+                        localStorage.setItem('dsu_deviceId', deviceId);
+                    }
+                    
+                    // Fire-and-forget background logging to prevent slow login
+                    (async () => {
+                        try {
+                            const locInfo = typeof fetchLocationInfo === 'function' ? await fetchLocationInfo() : {};
+                            const historyRef = collection(db, 'students', cred.user.uid, 'loginHistory');
+                            await addDoc(historyRef, {
+                                timestamp: serverTimestamp(),
+                                userAgent: navigator.userAgent,
+                                approxDevice: getDeviceLabel(),
+                                loginRole: userType,
+                                deviceId: deviceId,
+                                ip: locInfo.ip || 'Unknown',
+                                location: locInfo.approxLocation || 'Unknown'
+                            });
+                            const hq = query(historyRef, orderBy('timestamp', 'desc'));
+                            const historyDocs = await getDocs(hq);
+                            if (historyDocs.size > 10) {
+                                const toDelete = historyDocs.docs.slice(10);
+                                for (let d of toDelete) {
+                                    await deleteDoc(d.ref);
+                                }
+                            }
+                        } catch(e) {}
+                    })();
+                } catch (e) {
+                    console.error("Failed to setup activity logging", e);
+                }
+
+                // OTP Logic only for accounts with 2FA explicitly enabled
+                if (userData.twoFactorEnabled === true) {
+                    const otp = Math.floor(100000 + Math.random() * 900000).toString();
+                    const expiresAt = new Date(Date.now() + 5 * 60000); // 5 mins
+
+                    await setDoc(doc(db, 'otpVerifications', cred.user.uid), {
+                        code: otp,
+                        expiresAt: expiresAt,
+                        verified: false
+                    });
+
+                    // EmailJS Send
+                    const serviceID = 'service_loga';
+                    const templateID = 'template_loga';
+                    const publicKey = 'dNb9eBTjrfv99xMqm';
+
+                    try {
+                        await fetch('https://api.emailjs.com/api/v1.0/email/send', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({
+                                service_id: serviceID,
+                                template_id: templateID,
+                                user_id: publicKey,
+                                template_params: {
+                                    to_email: finalEmail,
+                                    passcode: otp,
+                                    time: '5 minutes'
+                                }
+                            })
+                        });
+                        showToast('OTP sent to ' + finalEmail, 'success');
+                    } catch (e) {
+                        console.error('EmailJS Error', e);
+                        showToast('OTP code: ' + otp, 'info');
+                    }
+
+                    document.getElementById('otpModal').style.display = 'flex';
+
+                    document.getElementById('verifyOtpBtn').onclick = async () => {
+                        const entered = document.getElementById('otpInput').value.trim();
+                        const errEl = document.getElementById('otpError');
+                        if (entered.length !== 6) {
+                            errEl.textContent = 'Enter 6-digit code';
+                            errEl.style.display = 'block';
+                            return;
+                        }
+
+                        const otpDocRef = doc(db, 'otpVerifications', cred.user.uid);
+                        const otpSnap = await getDoc(otpDocRef);
+
+                        if (!otpSnap.exists()) {
+                            errEl.textContent = 'OTP session not found';
+                            errEl.style.display = 'block';
+                            return;
+                        }
+
+                        const data = otpSnap.data();
+                        if (data.expiresAt.toDate() < new Date()) {
+                            errEl.textContent = 'OTP expired. Please login again.';
+                            errEl.style.display = 'block';
+                            return;
+                        }
+
+                        if (data.code !== entered) {
+                            errEl.textContent = 'Incorrect OTP';
+                            errEl.style.display = 'block';
+                            return;
+                        }
+
+                        await setDoc(otpDocRef, { verified: true }, { merge: true });
+                        showToast('Verified successfully! Redirecting...', 'success');
+                        setTimeout(() => {
+                            if (isAdmin) window.location.replace('admin.html');
+                            else if (isStaffMember) window.location.replace('staff.html');
+                            else window.location.replace('dashboard.html');
+                        }, 100);
+                    };
+
+                    resetBtn();
+                    return;
+                }
+
+                showToast('Login successful! Redirecting...', 'success');
+                setTimeout(() => {
+                    // Routing priority: Admin → admin.html | Staff → staff.html | Student → dashboard.html
+                    if (isAdmin) window.location.replace('admin.html');
+                    else if (isStaffMember) window.location.replace('staff.html');
+                    else window.location.replace('dashboard.html');
+                }, 100);
+
+            } catch (err) {
+                console.error(err);
+                let msg = 'Invalid credentials. Please check again.';
+                if (err.code === 'auth/invalid-credential') msg = `Incorrect password for ${typeof finalEmail !== 'undefined' ? finalEmail : 'account'}.`;
+                else if (err.code === 'permission-denied') msg = 'Database permission denied.';
+                else msg = err.message || msg;
+                showToast(msg, 'error');
+                resetBtn();
+            }
+
+            function resetBtn() {
+                btn.disabled = false;
+                btn.innerHTML = 'Login';
+            }
+        };
+
+        window.openForgotModal = (e) => {
+            if (e) e.preventDefault();
+            const mainEmail = document.getElementById('email').value.trim();
+            document.getElementById('forgotInput').value = mainEmail;
+            document.getElementById('forgotModal').style.display = 'flex';
+        };
+
+        window.closeForgotModal = () => {
+            document.getElementById('forgotModal').style.display = 'none';
+        };
+
+        window.submitForgotPassword = async () => {
+            const identifier = document.getElementById('forgotInput').value.trim();
+            if (!identifier) { showToast('Please enter your Email, Reg No, or Mobile No.', 'info'); return; }
+
+            const btn = document.getElementById('sendResetBtn');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+            btn.disabled = true;
+
+            if (!(await enforceRateLimit('reset', identifier))) {
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+                return;
+            }
+
+            try {
+                let finalEmail = identifier.toLowerCase();
+                
+                if (finalEmail.includes('@')) {
+                    if (!ADMIN_EMAILS.includes(finalEmail)) {
+                        const studentsSnap = await getDocs(query(collection(db, 'students'), where('email', '==', finalEmail)));
+                        if (studentsSnap.empty) {
+                            showToast('Account not found with this Email address.', 'error');
+                            btn.innerHTML = originalText;
+                            btn.disabled = false;
+                            return;
+                        }
+                    }
+                } else {
+                    const foundAccounts = await findAccountsByIdentifier(finalEmail);
+                    if (foundAccounts.length === 0) {
+                        showToast('Account not found with this Register / Mobile Number.', 'error');
+                        btn.innerHTML = originalText;
+                        btn.disabled = false;
+                        return;
+                    }
+                    finalEmail = foundAccounts[0];
+                }
+
+                await sendPasswordResetEmail(auth, finalEmail);
+                showToast(`Password reset link sent to ${finalEmail}!`, 'success');
+                closeForgotModal();
+            } catch (err) {
+                console.error(err);
+                let msg = 'Error sending reset link.';
+                if (err.code === 'auth/user-not-found') msg = 'Account not found.';
+                else if (err.code === 'auth/invalid-email') msg = 'Invalid email address.';
+                showToast(msg, 'error');
+            }
+            btn.innerHTML = originalText;
+            btn.disabled = false;
+        };
+
+        function showToast(msg, type = 'info') {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            toast.className = 'toast-msg';
+            const icons = { success: 'check-circle', error: 'times-circle', info: 'info-circle' };
+            toast.innerHTML = `<i class="fas fa-${icons[type]}" style="color:${type === 'success' ? '#10b981' : (type === 'error' ? '#ef4444' : '#6c63ff')}"></i> ${msg}`;
+            container.appendChild(toast);
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transform = 'translateX(20px)';
+                toast.style.transition = '0.3s';
+                setTimeout(() => toast.remove(), 300);
+            }, 3500);
+        }
+    </script>
+
+    <!-- PWA Service Worker Registration -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/service-worker.js')
+                .then(reg => console.log('ServiceWorker registered:', reg.scope))
+                .catch(err => console.log('ServiceWorker registration failed:', err));
+        }
+    </script>
+</body>
+
+</html>
