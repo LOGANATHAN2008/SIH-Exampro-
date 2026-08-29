@@ -1,0 +1,314 @@
+/* auth-mobile.css */
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Quicksand', 'Inter', sans-serif;
+    -webkit-tap-highlight-color: transparent;
+}
+
+:root {
+    --auth-primary: #21a19b;
+    --auth-bg: #21a19b;
+    --auth-card: #ffffff;
+    --auth-text: #1a1a1a;
+    --auth-muted: #8e8e8e;
+    --auth-input-bg: #f7f7f7;
+}
+
+body {
+    background-color: var(--auth-bg);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* Center on Desktop */
+@media (min-width: 600px) {
+    body {
+        background-color: #e0f2f1;
+        align-items: center;
+        justify-content: center;
+    }
+    .auth-wrapper {
+        width: 100%;
+        max-width: 400px;
+        height: 850px;
+        max-height: 95vh;
+        background-color: var(--auth-bg);
+        border-radius: 40px;
+        overflow: hidden;
+        position: relative;
+        box-shadow: 0 20px 50px rgba(33, 161, 155, 0.2);
+    }
+}
+
+@media (max-width: 599px) {
+    .auth-wrapper {
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+    }
+}
+
+.auth-illustration {
+    flex: 1;
+    width: 100%;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    padding-bottom: 20px;
+}
+
+.auth-illustration img {
+    width: 120%;
+    max-width: 500px;
+    height: auto;
+    object-fit: cover;
+    margin-bottom: -10%; /* pull it down slightly into the card */
+}
+
+/* For screens where the illustration text says "Log In to stay on top..." */
+.auth-hero-text {
+    position: absolute;
+    top: 10%;
+    left: 8%;
+    width: 80%;
+    color: white;
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 1.2;
+    text-align: left;
+    z-index: 2;
+}
+
+.auth-card {
+    background-color: var(--auth-card);
+    border-radius: 40px 40px 0 0;
+    width: 100%;
+    padding: 40px 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    z-index: 10;
+    flex-shrink: 0;
+    box-shadow: 0 -10px 30px rgba(0,0,0,0.05);
+}
+
+@media (min-width: 600px) {
+    .auth-card {
+        border-radius: 40px;
+        margin-top: -40px;
+    }
+}
+
+.auth-title {
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--auth-text);
+    margin-bottom: 8px;
+    text-align: center;
+}
+
+.auth-subtitle {
+    font-size: 13px;
+    color: var(--auth-muted);
+    margin-bottom: 30px;
+    text-align: center;
+    font-weight: 500;
+}
+
+.auth-subtitle a {
+    color: var(--auth-primary);
+    text-decoration: none;
+    font-weight: 700;
+}
+
+.auth-form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.input-group {
+    width: 100%;
+    position: relative;
+}
+
+.input-group i {
+    position: absolute;
+    left: 18px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #a0a0a0;
+    font-size: 18px;
+}
+
+.input-group .toggle-password {
+    left: auto;
+    right: 18px;
+    cursor: pointer;
+}
+
+.input-group input {
+    width: 100%;
+    background-color: var(--auth-input-bg);
+    border: none;
+    border-radius: 20px;
+    padding: 18px 20px 18px 48px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--auth-text);
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.input-group input::placeholder {
+    color: #a0a0a0;
+}
+
+.input-group input:focus {
+    background-color: #fff;
+    box-shadow: 0 0 0 2px var(--auth-primary);
+}
+
+.auth-options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    font-size: 12px;
+    font-weight: 600;
+    margin-top: -4px;
+    margin-bottom: 10px;
+}
+
+.auth-options label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--auth-muted);
+    cursor: pointer;
+}
+
+.auth-options input[type="checkbox"] {
+    accent-color: var(--auth-primary);
+    width: 14px;
+    height: 14px;
+}
+
+.auth-options a {
+    color: var(--auth-primary);
+    text-decoration: none;
+}
+
+.btn-primary {
+    width: 100%;
+    background-color: var(--auth-primary);
+    color: white;
+    border: none;
+    border-radius: 25px;
+    padding: 18px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn-primary:active {
+    transform: scale(0.98);
+}
+
+.divider {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: #c0c0c0;
+    font-size: 12px;
+    font-weight: 500;
+    width: 100%;
+    margin: 20px 0;
+}
+
+.divider::before, .divider::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.divider::before { margin-right: 10px; }
+.divider::after { margin-left: 10px; }
+
+.social-login {
+    display: flex;
+    gap: 12px;
+    width: 100%;
+}
+
+.btn-social {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 14px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    text-decoration: none;
+}
+
+.btn-apple {
+    background-color: #1a1a1a;
+    color: white;
+}
+
+.btn-google {
+    background-color: #f7f7f7;
+    color: #1a1a1a;
+}
+
+.btn-google img {
+    width: 18px;
+    height: 18px;
+}
+
+/* Onboarding specific */
+.onboarding-brand {
+    font-size: 32px;
+    color: var(--auth-primary);
+    letter-spacing: 1px;
+    margin-bottom: 20px;
+}
+
+.onboarding-title {
+    font-size: 28px;
+    color: var(--auth-text);
+    text-align: center;
+    line-height: 1.3;
+    margin-bottom: 16px;
+}
+
+.onboarding-desc {
+    font-size: 14px;
+    color: var(--auth-muted);
+    text-align: center;
+    line-height: 1.5;
+    margin-bottom: 30px;
+    padding: 0 10px;
+}

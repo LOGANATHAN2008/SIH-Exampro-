@@ -488,101 +488,71 @@
     .user-info .name { font-size: 14px !important; font-weight: 700 !important; color: var(--text) !important; }
     .user-info .role { font-size: 11px !important; color: var(--text-muted) !important; text-transform: uppercase !important; letter-spacing: 0.5px !important; }
 </style>
+    <link rel="stylesheet" href="auth-mobile.css">
 </head>
 
 
 <body>
-    <div class="login-wrapper">
-        <!-- Left Side - Illustration -->
-        <div class="hero-side">
-            <img src="login_illustration.jpg" alt="Online Education">
+    <div class="auth-wrapper">
+        <div class="auth-illustration">
+            <img src="auth_illustration.jpg" alt="Productivity Illustration">
         </div>
-
-        <!-- Right Side - Form -->
-        <div class="form-side">
-            <!-- Top Links -->
-            <div style="position: absolute; top: 20px; right: 25px; font-size: 12px;">
-                <a href="about.html" style="color: var(--text-light); text-decoration: none;">www.universityname.ac.in</a>
-            </div>
-
-            <div class="form-header">
-                <img src="ERP_logo.png" alt="University Logo">
-                <h2>UNIVERSITY NAME</h2>
-                <h4>STUDENT PANEL</h4>
-            </div>
-
-            <div class="login-tabs">
-                <div class="login-tab active" onclick="switchLoginTab('email')">Email / Pass</div>
-                <div class="login-tab" onclick="switchLoginTab('qr')">QR Login</div>
-            </div>
-
-            <div id="tab-email" class="tab-content active">
-                <form id="loginForm" onsubmit="handleLogin(event)">
-                    
-                    <!-- Role Selection (Kept for backend requirements) -->
-                    <div class="role-selection">
-                        <label class="role-item">
-                            <input type="radio" name="role" value="staff" id="roleStaffRadio" onchange="toggleUserType('admin')">
-                            Role Staff
-                        </label>
-                        <label class="role-item">
-                            <input type="radio" name="role" value="student" id="roleStudentRadio" checked onchange="toggleUserType('student')">
-                            Role Student
-                        </label>
-                    </div>
-
-                    <div class="input-group">
-                        <label id="usernameLabel">Enrollment number</label>
-                        <input type="text" id="email" placeholder="Email, Register No, or Mobile No" required autocomplete="username">
-                    </div>
-                    
-                    <div class="input-group">
-                        <label>Password</label>
-                        <input type="password" id="password" placeholder="Password" required autocomplete="current-password">
-                        <i class="fas fa-eye password-toggle" id="eyeIcon" onclick="togglePasswordVisibilityUI()"></i>
-                    </div>
-
-                    <div class="input-group" id="adminCodeGroup" style="display: none;">
-                        <label>Admin Security Code</label>
-                        <input type="password" id="adminCode" placeholder="Enter 4-digit code">
-                    </div>
-
-                    <div class="captcha-container">
-                        <div class="captcha-row">
-                            <span style="font-size: 11px; font-weight:600; color: var(--text-light);">CAPTCHA:</span>
-                            <div id="captchaText">0U1EE</div>
-                            <button type="button" class="btn-refresh" onclick="generateCaptcha()" title="Refresh">
-                                <i class="fas fa-sync-alt"></i>
-                            </button>
-                        </div>
-                        <div class="input-group" style="margin-bottom:0;">
-                            <input type="text" id="captchaInput" placeholder="Enter captcha code" required autocomplete="off">
-                        </div>
-                    </div>
-
-                    <div class="options-row">
-                        <label>
-                            <input type="checkbox" id="rememberMe" checked>
-                            Remember me
-                        </label>
-                        <a onclick="openForgotModal(event)" class="forgot-link">Forgot Password?</a>
-                    </div>
-
-                    <button type="submit" class="btn btn-login" id="loginBtn">Sign in</button>
-                    <a href="check-result.html" class="btn btn-outline">Check Result without login</a>
-                </form>
-            </div>
-
-            <div id="tab-qr" class="tab-content">
-                <div style="text-align: center; padding: 10px 0;">
-                    <h3 style="font-size:16px; margin-bottom: 15px;">Log in with QR code</h3>
-                    <div id="qrCodeContainer" style="background:white; padding:15px; border-radius:12px; display:inline-block; margin-bottom:15px; border: 1px solid var(--border);">
-                        <div id="qrCode"></div>
-                    </div>
-                    <div id="qrStatus" style="font-size:13px; font-weight:600; color:var(--text-light);">Generating QR code...</div>
+        
+        <div class="auth-card">
+            <h2 class="auth-title">Login</h2>
+            <p class="auth-subtitle">Don't Have An Account? <a href="register.html">Sign Up</a></p>
+            
+            <form id="loginForm" onsubmit="handleLogin(event)" class="auth-form">
+                <input type="hidden" name="role" value="student" id="roleStudentRadio" checked onchange="toggleUserType('student')">
+                <input type="hidden" name="role" value="staff" id="roleStaffRadio" onchange="toggleUserType('admin')">
+                
+                <div class="input-group">
+                    <i class="fas fa-user"></i>
+                    <input type="text" id="email" placeholder="Email, Register No, or Mobile No" required autocomplete="username">
                 </div>
-            </div>
+                
+                <div class="input-group">
+                    <i class="fas fa-envelope"></i>
+                    <input type="password" id="password" placeholder="Password" required autocomplete="current-password">
+                    <i class="fas fa-eye toggle-password" id="eyeIcon" onclick="togglePasswordVisibilityUI()"></i>
+                </div>
+                
+                <div class="input-group" id="adminCodeGroup" style="display: none;">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" id="adminCode" placeholder="Enter 4-digit code">
+                </div>
+                
+                <!-- CAPTCHA -->
+                <div class="captcha-container" style="background:#f7f7f7; padding:10px; border-radius:12px; display:flex; flex-direction:column; gap:10px; margin-bottom: 10px;">
+                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                        <span style="font-size: 11px; font-weight:600; color: var(--auth-muted);">CAPTCHA:</span>
+                        <div id="captchaText" style="font-weight:bold; letter-spacing:3px;">0U1EE</div>
+                        <button type="button" style="background:none; border:none; color:var(--auth-primary); cursor:pointer;" onclick="generateCaptcha()" title="Refresh"><i class="fas fa-sync-alt"></i></button>
+                    </div>
+                    <input type="text" id="captchaInput" placeholder="Enter captcha" required autocomplete="off" style="width:100%; border:none; border-bottom:1px solid #ccc; background:transparent; outline:none; font-size:14px; padding:5px 0;">
+                </div>
 
+                <div class="auth-options">
+                    <label>
+                        <input type="checkbox" id="rememberMe" checked>
+                        Remember Me
+                    </label>
+                    <a href="#" onclick="openForgotModal(event)">Forgot Password?</a>
+                </div>
+                
+                <button type="submit" class="btn-primary" id="loginBtn">Login</button>
+            </form>
+            
+            <div class="divider">Or Continue With</div>
+            
+            <div class="social-login">
+                <button type="button" class="btn-social btn-apple" onclick="showToast('Apple login coming soon!', 'info')">
+                    <i class="fab fa-apple"></i> Apple
+                </button>
+                <button type="button" class="btn-social btn-google" onclick="showToast('Google login coming soon!', 'info')">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" alt="G"> Google
+                </button>
+            </div>
         </div>
     </div>
 

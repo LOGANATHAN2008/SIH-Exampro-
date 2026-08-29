@@ -1364,29 +1364,21 @@
     .user-info .name { font-size: 14px !important; font-weight: 700 !important; color: var(--text) !important; }
     .user-info .role { font-size: 11px !important; color: var(--text-muted) !important; text-transform: uppercase !important; letter-spacing: 0.5px !important; }
 </style>
+    <link rel="stylesheet" href="auth-mobile.css">
 </head>
 
 <body>
-    <div class="bg-animation"></div>
-    <div class="sphere-green"></div>
-    <div class="sphere-small"></div>
-    <div class="sphere-top-right"></div>
-    
-    <button class="theme-toggle" id="themeToggle" style="position:fixed; top:20px; right:20px; z-index:1000; background: rgba(255,255,255,0.8); color: #333; border: none; border-radius:12px; padding: 10px 14px; cursor:pointer; box-shadow: 0 4px 16px rgba(0,0,0,0.1);" title="Toggle Theme">
-        <i class="fas fa-moon"></i>
-    </button>
-
-    <div class="register-container">
-        <div class="logo-area">
-            <div class="logo-icon" style="background: transparent; width: 100%; display: flex; justify-content: center;">
-                <img src="exam_erp_logo.png" alt="Exam Erp Logo" style="height: 75px; width: auto; max-width: 100%; object-fit: contain;">
-            </div>
-            <h1>Exam Erp</h1>
-            <p>Create your student account</p>
+    <div class="auth-wrapper" style="overflow-y: auto;">
+        <div class="auth-illustration">
+            <img src="auth_illustration.jpg" alt="Productivity Illustration">
         </div>
-
-        <div class="card">
-            <div class="stepper-container">
+        
+        <div class="auth-card" style="padding: 30px 20px;">
+            <h2 class="auth-title">Sign Up</h2>
+            <p class="auth-subtitle">Already Have An Account? <a href="login.html">Log In</a></p>
+            
+            <div style="width: 100%;">
+                <div class="stepper-container">
                 <div class="step-circle active" id="prog-1">1</div>
                 <div class="step-line" id="line-1"></div>
                 <div class="step-circle" id="prog-2">2</div>
