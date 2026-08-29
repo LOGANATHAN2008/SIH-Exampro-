@@ -281,3 +281,86 @@ window.playNotification = function() {
     audio.currentTime = 0;
     audio.play().catch(e => console.log('Audio play blocked:', e));
 };
+
+/* ========================================================
+   FLOATING PILL NAVIGATION LOGIC
+   ======================================================== */
+function initFloatingNav() {
+    // Only inject if not already present
+    if (document.getElementById('floatingNav')) return;
+
+    const navHTML = `
+        <nav class="floating-pill-nav collapsed" id="floatingNav">
+            <button class="mobile-toggle" id="floatingNavToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="nav-links-container">
+                <div class="sliding-highlight" id="navHighlight"></div>
+                <a href="#features" class="nav-link">Features</a>
+                <a href="#about" class="nav-link">About Us</a>
+                <a href="#contact" class="nav-link">Contact</a>
+                <a href="check-result.html" class="nav-link">Check Result</a>
+                <a href="login.html" class="nav-link login-btn">Login</a>
+            </div>
+        </nav>
+    `;
+    
+    document.body.insertAdjacentHTML('afterbegin', navHTML);
+    
+    const floatingNav = document.getElementById('floatingNav');
+    const toggleBtn = document.getElementById('floatingNavToggle');
+    const navLinks = document.querySelectorAll('.floating-pill-nav .nav-link');
+    const highlight = document.getElementById('navHighlight');
+    const linksContainer = document.querySelector('.floating-pill-nav .nav-links-container');
+    
+    // Mobile Toggle
+    toggleBtn.addEventListener('click', () => {
+        floatingNav.classList.toggle('collapsed');
+        const icon = toggleBtn.querySelector('i');
+        if (floatingNav.classList.contains('collapsed')) {
+            icon.className = 'fas fa-bars';
+        } else {
+            icon.className = 'fas fa-times';
+        }
+    });
+    
+    // Sliding Highlight Desktop
+    let hideTimeout;
+    
+    navLinks.forEach(link => {
+        link.addEventListener('mouseenter', function() {
+            clearTimeout(hideTimeout);
+            // Hide sliding effect on mobile
+            if (window.innerWidth <= 768) return;
+            
+            const linkRect = this.getBoundingClientRect();
+            const containerRect = linksContainer.getBoundingClientRect();
+            
+            highlight.style.width = `${linkRect.width}px`;
+            highlight.style.left = `${linkRect.left - containerRect.left}px`;
+            highlight.style.opacity = '1';
+        });
+        
+        link.addEventListener('mouseleave', function() {
+            hideTimeout = setTimeout(() => {
+                highlight.style.opacity = '0';
+            }, 300);
+        });
+    });
+    
+    // Scroll Effect
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 50) {
+            floatingNav.classList.add('scrolled');
+        } else {
+            floatingNav.classList.remove('scrolled');
+        }
+    }, { passive: true });
+}
+
+// Initialize floating nav automatically
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initFloatingNav);
+} else {
+    initFloatingNav();
+}
