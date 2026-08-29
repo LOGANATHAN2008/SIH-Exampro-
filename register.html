@@ -255,12 +255,10 @@
 
         .form-group label {
             display: block;
-            font-size: 11px;
-            font-weight: 700;
-            color: var(--text-muted);
-            margin-bottom: 5px;
-            text-transform: uppercase;
-            letter-spacing: .6px;
+            font-size: 13px;
+            font-weight: 800;
+            color: #1a1a1a !important;
+            margin-bottom: 8px;
         }
 
         .input-wrap { position: relative; }
@@ -277,6 +275,7 @@
         /* Pill-shaped inputs */
         .input-wrap input,
         .input-wrap select {
+            color: #1a1a1a !important;
             width: 100%;
             padding: 12px 14px 12px 38px;
             background: #f4f5f8;
@@ -578,16 +577,19 @@
 
         .btn-outline {
             flex: 1;
-            padding: 12px;
-            background: #f4f5f8;
-            border: 1.5px solid #e5e7eb;
-            border-radius: 12px;
-            color: var(--text-muted);
-            font-size: 13px;
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text);
+            padding: 14px 0;
+            border-radius: 50px;
+            font-size: 14px;
             font-weight: 600;
             cursor: pointer;
-            font-family: 'Inter', sans-serif;
-            transition: all .25s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all .3s;
         }
 
         .btn-outline:hover {
@@ -693,7 +695,13 @@
         body.light-mode .logo-area p { color: rgba(26,26,46,0.6) !important; }
         body.light-mode .step-header h3 { color: #1a1a2e !important; }
         body.light-mode .step-header p { color: #6b7280 !important; }
-        body.light-mode .form-group label { color: #6b7280 !important; }
+        body.light-mode .form-group label {
+            display: block;
+            font-size: 13px;
+            font-weight: 800;
+            color: #1a1a1a !important;
+            margin-bottom: 8px;
+        }
         body.light-mode .terms label { color: #6b7280 !important; }
         body.light-mode .switch-link { color: #6b7280 !important; }
         body.light-mode .sphere-green,
@@ -717,9 +725,9 @@
 
         body.dark-mode .input-wrap input,
         body.dark-mode .input-wrap select {
-            background: rgba(255,255,255,0.07) !important;
-            color: #e2e8f0 !important;
-            border: 1px solid rgba(255,255,255,0.1) !important;
+            background: #f7f7f7 !important;
+            color: #1a1a1a !important;
+            border: 1px solid #e0e0e0 !important;
         }
 
         body.dark-mode .input-wrap input::placeholder { color: #64748b !important; }
@@ -735,13 +743,34 @@
         body.dark-mode .logo-area p { color: #94a3b8 !important; }
         body.dark-mode .step-header h3 { color: #e2e8f0 !important; }
         body.dark-mode .step-header { border-bottom-color: rgba(255,255,255,0.08) !important; }
-        body.dark-mode .form-group label { color: #94a3b8 !important; }
+        body.dark-mode .form-group label {
+            display: block;
+            font-size: 13px;
+            font-weight: 800;
+            color: #1a1a1a !important;
+            margin-bottom: 8px;
+        }
         body.dark-mode .step-circle { background: rgba(255,255,255,0.07) !important; border-color: rgba(255,255,255,0.15) !important; color: #94a3b8 !important; }
         body.dark-mode .step-circle.active { border-color: #6c63ff !important; color: #6c63ff !important; background: rgba(108,99,255,0.1) !important; }
         body.dark-mode .step-circle.done { background: #6c63ff !important; color: white !important; border-color: #6c63ff !important; }
         body.dark-mode .step-line { background: rgba(255,255,255,0.1) !important; }
         body.dark-mode .step-line.done { background: #6c63ff !important; }
-        body.dark-mode .btn-outline { background: rgba(255,255,255,0.05) !important; border-color: rgba(255,255,255,0.12) !important; color: #94a3b8 !important; }
+        body.dark-mode .btn-outline {
+            flex: 1;
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text);
+            padding: 14px 0;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all .3s;
+        }
         body.dark-mode .terms label { color: #94a3b8 !important; }
         body.dark-mode .switch-link { color: #94a3b8 !important; }
         body.dark-mode .sphere-green,
@@ -889,12 +918,10 @@
 
         .form-group label {
             display: block;
-            font-size: 12px;
-            font-weight: 600;
-            color: var(--text-muted);
-            margin-bottom: 6px;
-            text-transform: uppercase;
-            letter-spacing: .5px;
+            font-size: 13px;
+            font-weight: 800;
+            color: #1a1a1a !important;
+            margin-bottom: 8px;
         }
 
         .input-wrap {
@@ -903,7 +930,8 @@
 
         .input-wrap i.icon {
             position: absolute;
-            left: 12px;
+            right: 16px;
+            left: auto;
             top: 50%;
             transform: translateY(-50%);
             color: var(--text-muted);
@@ -912,11 +940,12 @@
 
         .input-wrap input,
         .input-wrap select {
+            color: #1a1a1a !important;
             width: 100%;
-            padding: 11px 12px 11px 36px;
-            background: rgba(255, 255, 255, .07);
-            border: 1px solid rgba(255, 255, 255, .1);
-            border-radius: 10px;
+            padding: 14px 40px 14px 20px;
+            background: #f7f7f7 !important;
+            border: 1px solid #e0e0e0 !important;
+            border-radius: 50px;
             color: var(--text);
             font-size: 13px;
             font-family: 'Inter', sans-serif;
@@ -1221,15 +1250,18 @@
 
         .btn-outline {
             flex: 1;
-            padding: 12px;
             background: transparent;
-            border: 1px solid var(--glass-border);
-            border-radius: 12px;
+            border: 1px solid var(--border);
             color: var(--text);
-            font-size: 13px;
+            padding: 14px 0;
+            border-radius: 50px;
+            font-size: 14px;
             font-weight: 600;
             cursor: pointer;
-            font-family: 'Inter', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
             transition: all .3s;
         }
 
@@ -1239,8 +1271,10 @@
 
         .btn-next {
             flex: 2;
-            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            background: var(--primary) !important;
             border: none;
+            border-radius: 50px !important;
+            padding: 14px 0;
         }
 
         .toast-container {
@@ -1369,13 +1403,17 @@
 
 <body>
     <div class="auth-wrapper" style="overflow-y: auto;">
+        <div class="auth-hero-text" style="top: 8%; text-align: center; width: 100%; left: 0;">
+            <div style="font-size: 36px; font-weight: 800; color: #1a1a1a;">Join Us</div>
+            <div style="font-size: 16px; font-weight: 600; color: #1a1a1a; margin-top: 4px;">Create Free Account</div>
+        </div>
         <div class="auth-illustration">
-            <img src="auth_illustration.jpg" alt="Productivity Illustration">
+            <img src="auth_illustration.jpg" alt="Productivity Illustration" style="opacity: 0.1;">
         </div>
         
         <div class="auth-card" style="padding: 30px 20px;">
-            <h2 class="auth-title">Sign Up</h2>
-            <p class="auth-subtitle">Already Have An Account? <a href="login.html">Log In</a></p>
+            <h2 class="auth-title" style="font-size: 22px;">Personal Info</h2>
+            <p class="auth-subtitle" style="font-size: 11px; margin-bottom: 20px;">Please provide your accurate academic details below to get your profile ready.</p>
             
             <div style="width: 100%;">
                 <div class="stepper-container">
