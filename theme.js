@@ -167,7 +167,7 @@ window.addEventListener('DOMContentLoaded', () => {
         nav.setPointerCapture(e.pointerId);
         
         // Slight scale down on press for tactile feel
-        nav.style.transform = 'scale(0.98)';
+        // nav.style.transform = 'scale(0.98)';
     });
 
     nav.addEventListener('pointermove', (e) => {
@@ -178,8 +178,7 @@ window.addEventListener('DOMContentLoaded', () => {
         if (Math.abs(dx) > 5) hasMoved = true;
 
         // Elastic drag on the bar itself (resistance factor 0.15)
-        let barDragOffset = dx * 0.15;
-        nav.style.transform = `scale(0.98) translateX(${barDragOffset}px)`;
+        // removed elastic drag of the container to keep it strictly stationary
         
         // Move indicator to follow pointer
         let newIndicatorX = startIndicatorX + dx;
@@ -202,8 +201,7 @@ window.addEventListener('DOMContentLoaded', () => {
         isDragging = false;
         
         // Spring back the nav bar
-        nav.style.transition = 'transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1)';
-        nav.style.transform = `scale(1) translateX(0px)`;
+        // removed container spring back
         
         // Find closest item to snap indicator
         let closestItem = null;
