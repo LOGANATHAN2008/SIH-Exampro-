@@ -57,96 +57,191 @@ window.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-// 4. Inject Mobile Bottom Navigation
+// 4. Inject Mobile Bottom Navigation (Liquid Glass Physics)
 window.addEventListener('DOMContentLoaded', () => {
-    // Only inject if not already present
     if (document.querySelector('.mobile-bottom-nav')) return;
 
-    // Define the navigation items
     const navItems = [
         { name: 'Home', icon: 'fa-home', url: 'dashboard.html' },
-        { name: 'Courses', icon: 'fa-book-open', url: 'materials.html' },
-        { name: 'Tests', icon: 'fa-clipboard-list', url: 'test.html' },
-        { name: 'Results', icon: 'fa-chart-bar', url: 'result.html' },
+        { name: 'Learning', icon: 'fa-book-open', url: 'materials.html' },
+        { name: 'Assignments', icon: 'fa-clipboard-list', url: 'test.html' },
+        { name: 'Progress', icon: 'fa-chart-bar', url: 'result.html' },
         { name: 'Profile', icon: 'fa-user', url: 'profile.html' }
     ];
     
-    // Determine current page index
     let currentPage = window.location.pathname.split('/').pop();
     if (!currentPage) currentPage = 'dashboard.html';
     
-    // Do not inject navigation on authentication or standalone full-screen apps (like chats)
     if (['', 'index.html', 'about.html', 'login.html', 'register.html', 'admin.html', 'faculty.html', 'chats.html'].includes(currentPage.split('?')[0])) return;
     
-    // Background Page Prefetching for Ultra-Fast Instant Transitions
-    const prefetchPages = ['dashboard.html', 'materials.html', 'test.html', 'result.html', 'profile.html'];
-    prefetchPages.forEach(p => {
-        if (p !== currentPage) {
-            const link = document.createElement('link');
-            link.rel = 'prefetch';
-            link.href = p;
-            document.head.appendChild(link);
-        }
-    });
-
     const nav = document.createElement('nav');
     nav.className = 'mobile-bottom-nav';
 
-    // Inject sliding indicator
     const indicator = document.createElement('div');
     indicator.className = 'nav-indicator';
     nav.appendChild(indicator);
+
+    let activeItemObj = null;
+    let itemElements = [];
 
     navItems.forEach(item => {
         const a = document.createElement('a');
         a.href = item.url;
         a.className = 'nav-item';
         
-        // Mark active if matches current page
         if (currentPage === item.url || (currentPage === '' && item.url === 'dashboard.html')) {
             a.classList.add('active');
+            activeItemObj = a;
         }
 
-        // Instant visual active state on tap (0ms latency response)
         a.addEventListener('click', (e) => {
-            // We don't prevent default, we want it to navigate, but we can instantly animate
-            document.querySelectorAll('.mobile-bottom-nav .nav-item').forEach(el => el.classList.remove('active'));
-            a.classList.add('active');
-            updateIndicator();
+            // Let the pointerup event handle navigation to prevent conflict with dragging
+            e.preventDefault();
         });
 
         let iconHtml = '<i class="fas ' + item.icon + '"></i>';
         if (item.name === 'Profile') {
             const userPhoto = localStorage.getItem('userPhoto');
             if (userPhoto) {
-                iconHtml = '<img src="' + userPhoto + '" style="width: 20px; height: 20px; border-radius: 50%; object-fit: cover; margin-bottom: 2px;">';
+                iconHtml = '<img src="' + userPhoto + '" style="width: 24px; height: 24px; border-radius: 50%; object-fit: cover; margin-bottom: 2px;">';
             }
         }
 
         a.innerHTML = iconHtml + '<span class="nav-text">' + item.name + '</span>';
         nav.appendChild(a);
+        itemElements.push(a);
     });
 
     document.body.appendChild(nav);
 
-    // Function to update indicator position and width
-    function updateIndicator() {
-        const activeItem = document.querySelector('.mobile-bottom-nav .nav-item.active');
-        if (activeItem && indicator) {
-            const navRect = nav.getBoundingClientRect();
-            const itemRect = activeItem.getBoundingClientRect();
-            // Calculate relative to the nav container
-            const offsetLeft = itemRect.left - navRect.left;
-            indicator.style.width = `${itemRect.width}px`;
-            indicator.style.transform = `translateX(${offsetLeft}px)`;
+    // Physics & Interaction Logic
+    let isDragging = false;
+    let startX = 0;
+    let currentX = 0;
+    let startIndicatorX = 0;
+    let startIndicatorWidth = 0;
+    let navRect = null;
+    let hasMoved = false;
+
+    function updateIndicator(targetItem, animate = true) {
+        if (!targetItem || !indicator) return;
+        navRect = nav.getBoundingClientRect();
+        const itemRect = targetItem.getBoundingClientRect();
+        const offsetLeft = itemRect.left - navRect.left;
+        
+        if (animate) {
+            indicator.style.transition = 'all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)';
+        } else {
+            indicator.style.transition = 'none';
         }
+        
+        indicator.style.width = `${itemRect.width}px`;
+        indicator.style.transform = `translateX(${offsetLeft}px)`;
     }
 
     // Initial position
-    setTimeout(updateIndicator, 50);
-    window.addEventListener('resize', updateIndicator);
-});
+    setTimeout(() => {
+        if (!activeItemObj && itemElements.length > 0) activeItemObj = itemElements[0];
+        updateIndicator(activeItemObj, false);
+    }, 50);
+    window.addEventListener('resize', () => updateIndicator(document.querySelector('.mobile-bottom-nav .nav-item.active'), false));
 
+    // Pointer Events for Drag & Elasticity
+    nav.addEventListener('pointerdown', (e) => {
+        isDragging = true;
+        hasMoved = false;
+        startX = e.clientX;
+        navRect = nav.getBoundingClientRect();
+        
+        const activeItem = document.querySelector('.mobile-bottom-nav .nav-item.active');
+        if (activeItem) {
+            const itemRect = activeItem.getBoundingClientRect();
+            startIndicatorX = itemRect.left - navRect.left;
+            startIndicatorWidth = itemRect.width;
+        }
+
+        nav.style.transition = 'none';
+        indicator.style.transition = 'none';
+        nav.setPointerCapture(e.pointerId);
+        
+        // Slight scale down on press for tactile feel
+        nav.style.transform = 'scale(0.98)';
+    });
+
+    nav.addEventListener('pointermove', (e) => {
+        if (!isDragging) return;
+        currentX = e.clientX;
+        let dx = currentX - startX;
+        
+        if (Math.abs(dx) > 5) hasMoved = true;
+
+        // Elastic drag on the bar itself (resistance factor 0.15)
+        let barDragOffset = dx * 0.15;
+        nav.style.transform = `scale(0.98) translateX(${barDragOffset}px)`;
+        
+        // Move indicator to follow pointer
+        let newIndicatorX = startIndicatorX + dx;
+        
+        // Clamp indicator within nav bounds with elastic overscroll
+        const minX = 0;
+        const maxX = navRect.width - startIndicatorWidth;
+        
+        if (newIndicatorX < minX) {
+            newIndicatorX = minX - Math.pow(Math.abs(newIndicatorX - minX), 0.7); // Elastic left
+        } else if (newIndicatorX > maxX) {
+            newIndicatorX = maxX + Math.pow(Math.abs(newIndicatorX - maxX), 0.7); // Elastic right
+        }
+        
+        indicator.style.transform = `translateX(${newIndicatorX}px)`;
+    });
+
+    const handlePointerUp = (e) => {
+        if (!isDragging) return;
+        isDragging = false;
+        
+        // Spring back the nav bar
+        nav.style.transition = 'transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1)';
+        nav.style.transform = `scale(1) translateX(0px)`;
+        
+        // Find closest item to snap indicator
+        let closestItem = null;
+        let minDistance = Infinity;
+        let indicatorRect = indicator.getBoundingClientRect();
+        let indicatorCenterX = indicatorRect.left + indicatorRect.width / 2;
+
+        itemElements.forEach(item => {
+            let itemRect = item.getBoundingClientRect();
+            let itemCenterX = itemRect.left + itemRect.width / 2;
+            let dist = Math.abs(indicatorCenterX - itemCenterX);
+            if (dist < minDistance) {
+                minDistance = dist;
+                closestItem = item;
+            }
+        });
+
+        // If it was just a tap (didn't drag much), snap to the tapped item
+        if (!hasMoved) {
+            let tappedItem = e.target.closest('.nav-item');
+            if (tappedItem) closestItem = tappedItem;
+        }
+
+        if (closestItem) {
+            itemElements.forEach(el => el.classList.remove('active'));
+            closestItem.classList.add('active');
+            updateIndicator(closestItem, true);
+            
+            // Navigate if a new item is selected
+            if (closestItem !== activeItemObj) {
+                setTimeout(() => {
+                    window.location.href = closestItem.getAttribute('href');
+                }, 150); // slight delay to enjoy the snap animation
+            }
+        }
+    };
+
+    nav.addEventListener('pointerup', handlePointerUp);
+    nav.addEventListener('pointercancel', handlePointerUp);
+});
 // 5. Swipe Navigation (iOS style)
 window.addEventListener('DOMContentLoaded', () => {
     const pages = [

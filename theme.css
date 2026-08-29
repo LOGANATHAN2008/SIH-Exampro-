@@ -668,50 +668,83 @@ body {
 }
 
 /* 5. iOS Mobile Bottom Navigation (Liquid Dock) */
-.mobile-bottom-nav {
+/* iOS 26 Liquid Glass Bottom Nav Container */
+    .mobile-bottom-nav {
         display: flex !important;
         position: fixed !important;
         bottom: 16px !important;
         left: 16px !important;
         right: 16px !important;
-        height: 72px !important;
+        height: 76px !important;
         z-index: 1000 !important;
         justify-content: space-between !important;
         align-items: center !important;
         padding: 6px !important;
         border-radius: 9999px !important;
         
-        /* Dark Mode Liquid Glass */
-        background: rgba(18, 18, 38, 0.6) !important;
-        backdrop-filter: blur(25px) saturate(200%) !important;
-        -webkit-backdrop-filter: blur(25px) saturate(200%) !important;
-        border: 1px solid rgba(255, 255, 255, 0.1) !important;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.05) !important;
+        /* Realistic frosted glass backdrop */
+        background: rgba(255, 255, 255, 0.4) !important;
+        backdrop-filter: blur(40px) saturate(200%) !important;
+        -webkit-backdrop-filter: blur(40px) saturate(200%) !important;
+        
+        /* Soft rim lighting and drop shadows */
+        border: 1px solid rgba(255, 255, 255, 0.6) !important;
+        box-shadow: 
+            0 24px 48px -12px rgba(0, 0, 0, 0.15), 
+            inset 0 1px 1px rgba(255, 255, 255, 0.9), 
+            inset 0 -1px 1px rgba(255, 255, 255, 0.3) !important;
+            
+        /* Elastic transformation hardware acceleration */
+        will-change: transform;
+        touch-action: none !important; /* Disable browser scrolling on the nav */
+    }
+    
+    .dark-mode .mobile-bottom-nav, body:not(.light-mode) .mobile-bottom-nav {
+        background: rgba(30, 30, 40, 0.4) !important;
+        border: 1px solid rgba(255, 255, 255, 0.15) !important;
+        box-shadow: 
+            0 24px 48px -12px rgba(0, 0, 0, 0.5), 
+            inset 0 1px 1px rgba(255, 255, 255, 0.15), 
+            inset 0 -1px 1px rgba(255, 255, 255, 0.05) !important;
     }
     
     .light-mode .mobile-bottom-nav {
-        /* Light Mode Liquid Glass */
-        background: rgba(255, 255, 255, 0.75) !important;
-        backdrop-filter: blur(25px) saturate(200%) !important;
-        -webkit-backdrop-filter: blur(25px) saturate(200%) !important;
-        border: 1px solid rgba(255, 255, 255, 0.8) !important;
-        box-shadow: 0 10px 30px rgba(31, 38, 135, 0.1), inset 0 1px 1px rgba(255, 255, 255, 0.9) !important;
+        background: rgba(255, 255, 255, 0.4) !important;
+        border: 1px solid rgba(255, 255, 255, 0.6) !important;
+        box-shadow: 
+            0 24px 48px -12px rgba(0, 0, 0, 0.15), 
+            inset 0 1px 1px rgba(255, 255, 255, 0.9), 
+            inset 0 -1px 1px rgba(255, 255, 255, 0.3) !important;
     }
     
-    /* Sliding Glass Indicator */
+    /* Active Item Glass Bubble */
     .nav-indicator {
         position: absolute !important;
         top: 6px !important;
         bottom: 6px !important;
         
-        /* Primary color pill for active item */
-        background: linear-gradient(135deg, #21a19b, #19807b) !important;
+        /* Vibrant pinkish glass bubble matching reference image */
+        background: linear-gradient(135deg, rgba(255, 240, 245, 0.9), rgba(255, 220, 235, 0.8)) !important;
         border-radius: 9999px !important;
-        box-shadow: 0 4px 12px rgba(33, 161, 155, 0.4) !important;
         
-        transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+        /* Subtle rim highlight and pink glow */
+        border: 1px solid rgba(255, 255, 255, 0.8) !important;
+        box-shadow: 
+            0 8px 24px rgba(255, 51, 102, 0.15), 
+            inset 0 2px 2px rgba(255, 255, 255, 1) !important;
+        
+        /* Note: smooth transition is handled in JS (0.5s cubic-bezier) */
         z-index: 1 !important;
         pointer-events: none !important;
+        will-change: transform, width;
+    }
+    
+    .dark-mode .nav-indicator, body:not(.light-mode) .nav-indicator {
+        background: linear-gradient(135deg, rgba(255, 51, 102, 0.15), rgba(255, 51, 102, 0.05)) !important;
+        border: 1px solid rgba(255, 51, 102, 0.3) !important;
+        box-shadow: 
+            0 8px 24px rgba(255, 51, 102, 0.2), 
+            inset 0 1px 1px rgba(255, 100, 150, 0.4) !important;
     }
 
     /* Ensure body has padding so content doesn't hide behind nav */
@@ -725,11 +758,11 @@ body {
         align-items: center !important;
         justify-content: center !important;
         text-decoration: none !important;
-        color: rgba(255, 255, 255, 0.65) !important;
+        color: #71717A !important; /* Soft gray for inactive items */
         flex: 1 !important;
         height: 100% !important;
         border-radius: 9999px !important;
-        transition: all 0.2s ease !important;
+        transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
         gap: 4px !important;
         position: relative !important;
         z-index: 2 !important;
@@ -740,32 +773,39 @@ body {
     }
 
     .light-mode .mobile-bottom-nav .nav-item {
-        color: rgba(15, 23, 42, 0.55) !important;
+        color: #71717A !important;
+    }
+    .dark-mode .mobile-bottom-nav .nav-item, body:not(.light-mode) .mobile-bottom-nav .nav-item {
+        color: #A1A1AA !important; /* Lighter gray for dark mode */
     }
 
     .mobile-bottom-nav .nav-item i {
-        font-size: 20px !important;
-        transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        font-size: 22px !important;
+        transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
 
     .mobile-bottom-nav .nav-item .nav-text {
-        font-size: 11px !important;
-        font-weight: 600 !important;
+        font-size: 11.5px !important;
+        font-weight: 500 !important;
         opacity: 1 !important;
         white-space: nowrap !important;
-        letter-spacing: 0.3px !important;
+        letter-spacing: 0.2px !important;
+        transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
 
-    /* Active State (Text & Icon turn pure white, pill moves underneath) */
+    /* Active State (Pink accent) */
     .mobile-bottom-nav .nav-item.active {
-        color: #ffffff !important;
-        background: transparent !important; /* Rely on indicator */
+        color: #E11D48 !important; /* Premium Pink/Rose */
+        background: transparent !important;
         box-shadow: none !important;
     }
 
     .light-mode .mobile-bottom-nav .nav-item.active {
-        color: #ffffff !important;
+        color: #E11D48 !important;
         background: transparent !important;
+    }
+    .dark-mode .mobile-bottom-nav .nav-item.active, body:not(.light-mode) .mobile-bottom-nav .nav-item.active {
+        color: #FDA4AF !important; /* Bright pink for dark mode */
     }
 
     .mobile-bottom-nav .nav-item.active i {
