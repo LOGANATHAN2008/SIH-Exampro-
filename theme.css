@@ -687,124 +687,161 @@ body {
     }
     
     /* Show bottom nav on mobile */
-    .mobile-nav-wrapper {
-        display: none !important; /* Hidden on desktop */
-    }
-
-@media (max-width: 768px) {
-    .mobile-nav-wrapper {
-        display: flex !important;
-        flex-direction: column !important;
-        align-items: center !important;
-        position: fixed !important;
-        bottom: 24px !important;
-        left: 0 !important;
-        right: 0 !important;
-        z-index: 1000 !important;
-        pointer-events: none !important; /* Let clicks pass through empty space */
-    }
-    
-    body:has(.sidebar.open) .mobile-nav-wrapper { display: none !important; }
-
-    /* The Capture FAB */
-    .mobile-nav-fab {
-        pointer-events: auto !important;
-        background: rgba(30, 30, 30, 0.4) !important;
-        backdrop-filter: blur(20px) !important;
-        -webkit-backdrop-filter: blur(20px) !important;
-        border: 1px solid rgba(255, 255, 255, 0.15) !important;
-        color: #ffffff !important;
-        padding: 8px 18px !important;
-        border-radius: 999px !important;
-        font-size: 13px !important;
-        font-weight: 500 !important;
-        display: flex !important;
-        align-items: center !important;
-        gap: 8px !important;
-        margin-bottom: 12px !important;
-        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2) !important;
-        cursor: pointer !important;
-        transition: transform 0.2s !important;
-    }
-    .mobile-nav-fab:active { transform: scale(0.95) !important; }
-    
-    .light-mode .mobile-nav-fab {
-        background: rgba(255, 255, 255, 0.7) !important;
-        color: #1a1a1a !important;
-        border: 1px solid rgba(0, 0, 0, 0.1) !important;
-    }
-
-    /* Main Navigation Pill */
     .mobile-bottom-nav {
-        pointer-events: auto !important;
         display: flex !important;
-        background: rgba(40, 40, 40, 0.6) !important;
+        position: fixed !important;
+        bottom: 14px !important;
+        left: 14px !important;
+        right: 14px !important;
+        height: 60px !important;
+        z-index: 1000 !important;
+        justify-content: space-around !important;
+        align-items: center !important;
+        padding: 0 8px !important;
+        border-radius: 9999px !important;
+        
+        /* Dark Mode Liquid Glass */
+        background: rgba(18, 18, 38, 0.72) !important;
         backdrop-filter: blur(30px) saturate(200%) !important;
         -webkit-backdrop-filter: blur(30px) saturate(200%) !important;
-        border: 1px solid rgba(255, 255, 255, 0.15) !important;
-        border-radius: 30px !important;
-        padding: 8px 12px !important;
-        justify-content: space-between !important;
-        align-items: center !important;
-        width: 90% !important;
-        max-width: 380px !important;
-        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3), 0 0 40px rgba(33, 161, 155, 0.15) !important; /* Greenish glow from screenshot */
+        border: 1px solid rgba(255, 255, 255, 0.12) !important;
+        box-shadow: 0 18px 40px -4px rgba(0, 0, 0, 0.5), inset 0 1px 0 0 rgba(255, 255, 255, 0.18) !important;
+        transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
     
+    /* Light Mode Liquid Glass */
     .light-mode .mobile-bottom-nav {
-        background: rgba(255, 255, 255, 0.8) !important;
-        border: 1px solid rgba(255, 255, 255, 0.9) !important;
-        box-shadow: 0 16px 36px rgba(0, 0, 0, 0.08) !important;
+        background: rgba(255, 255, 255, 0.75) !important;
+        backdrop-filter: blur(30px) saturate(200%) !important;
+        -webkit-backdrop-filter: blur(30px) saturate(200%) !important;
+        border: 1px solid rgba(255, 255, 255, 0.85) !important;
+        box-shadow: 0 16px 36px -4px rgba(31, 38, 135, 0.12), inset 0 1px 1px 0 rgba(255, 255, 255, 0.95) !important;
+    }
+    
+    /* Ensure body has padding so content doesn't hide behind nav */
+    body {
+        padding-bottom: 90px !important;
     }
 
     .mobile-bottom-nav .nav-item {
         display: flex !important;
-        flex-direction: column !important;
         align-items: center !important;
         justify-content: center !important;
         text-decoration: none !important;
-        color: rgba(255, 255, 255, 0.7) !important;
-        font-family: 'Inter', sans-serif !important;
-        padding: 10px 14px !important;
-        border-radius: 20px !important;
-        transition: all 0.2s ease !important;
-        min-width: 65px !important;
-        position: relative !important;
-        background: transparent !important;
-        border: 1px solid transparent !important;
+        color: rgba(255, 255, 255, 0.65) !important;
+        padding: 8px 12px !important;
+        border-radius: 9999px !important;
+        transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1) !important;
+        gap: 6px !important;
+        font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Inter', sans-serif !important;
+        cursor: pointer !important;
+        user-select: none !important;
+        -webkit-user-select: none !important;
     }
 
     .light-mode .mobile-bottom-nav .nav-item {
-        color: rgba(0, 0, 0, 0.6) !important;
+        color: rgba(15, 23, 42, 0.55) !important;
     }
 
     .mobile-bottom-nav .nav-item i {
-        font-size: 20px !important;
-        margin-bottom: 4px !important;
+        font-size: 17px !important;
+        transition: transform 0.15s ease;
     }
 
     .mobile-bottom-nav .nav-item .nav-text {
-        font-size: 11px !important;
-        font-weight: 500 !important;
+        font-size: 12.5px !important;
+        font-weight: 600 !important;
+        max-width: 0 !important;
+        overflow: hidden !important;
+        opacity: 0 !important;
+        white-space: nowrap !important;
+        transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1) !important;
     }
 
     /* Active State Pill */
     .mobile-bottom-nav .nav-item.active {
-        background: rgba(255, 255, 255, 0.12) !important;
-        border: 1px solid rgba(255, 255, 255, 0.2) !important;
+        background: linear-gradient(135deg, #6366f1, #4f46e5) !important;
         color: #ffffff !important;
-        box-shadow: inset 0 2px 10px rgba(255,255,255,0.05) !important;
+        box-shadow: 0 4px 14px rgba(99, 102, 241, 0.4) !important;
+        padding: 8px 16px !important;
+    }
+
+    .light-mode .mobile-bottom-nav .nav-item.active {
+        background: linear-gradient(135deg, #6366f1, #4f46e5) !important;
+        color: #ffffff !important;
+        box-shadow: 0 4px 14px rgba(99, 102, 241, 0.35) !important;
+    }
+
+    .mobile-bottom-nav .nav-item.active i {
+        transform: scale(1.06);
+    }
+
+    .mobile-bottom-nav .nav-item.active .nav-text {
+        max-width: 110px !important;
+        opacity: 1 !important;
+        margin-left: 2px !important;
+    }
+
+    .mobile-bottom-nav .nav-item:active {
+        transform: scale(0.88) !important;
+        transition: transform 0.06s ease !important;
     }
     
-    .light-mode .mobile-bottom-nav .nav-item.active {
-        background: rgba(0, 0, 0, 0.06) !important;
-        border: 1px solid rgba(0, 0, 0, 0.05) !important;
-        color: #1a1a1a !important;
+    /* Move Chatbot above bottom nav on mobile */
+    .chatbot-fab {
+        bottom: 90px !important;
+    }
+    .chatbot-window {
+        bottom: 160px !important;
     }
 }
 
-body:has(.sidebar.open) .mobile-nav-wrapper { display: none !important; }
+/* 6. Staggered Sidebar Waterfall Animation */
+@keyframes slideInRightStaggered {
+    0% { opacity: 0; transform: translateX(-25px); }
+    100% { opacity: 1; transform: translateX(0); }
+}
 
+/* By default, prepare elements for animation */
+.sidebar .nav-label,
+.sidebar .nav-item,
+.sidebar .sidebar-user {
+    opacity: 0;
+    animation: slideInRightStaggered 0.4s cubic-bezier(0.2, 0.8, 0.2, 1.1) forwards;
+}
+
+@media (max-width: 768px) {
+    /* On mobile, reset animation when sidebar is closed */
+    .sidebar:not(.open) .nav-label,
+    .sidebar:not(.open) .nav-item,
+    .sidebar:not(.open) .sidebar-user {
+        animation: none;
+        opacity: 0;
+    }
+    /* Trigger animation only when opened */
+    .sidebar.open .nav-label,
+    .sidebar.open .nav-item,
+    .sidebar.open .sidebar-user {
+        animation: slideInRightStaggered 0.4s cubic-bezier(0.2, 0.8, 0.2, 1.1) forwards;
+    }
+}
+
+/* 7. Staggered Card Animation */
+@keyframes slideDownFadeCard {
+    0% { opacity: 0; transform: translateY(-30px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+.stat-card, .course-card, .test-card, .chart-card, .history-card, .review-card, .dsh-card, .result-hero, .stats-row {
+    opacity: 0;
+    animation: slideDownFadeCard 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+/* Disable loader on subsequent navigations */
+html.no-loader #loader {
+    display: none !important;
+}
+body:has(.sidebar.open) .mobile-bottom-nav { display: none !important; }
 
 /* iOS Global Alert Modal */
 .ios-alert-overlay {
@@ -950,165 +987,4 @@ html:not(.light-mode) .ios-alert-box, body:not(.light-mode) .ios-alert-box {
     50% { border-color: var(--text); }
 }
     50% { border-color: var(--primary); }
-}
-
-/* ========================================================
-   FLOATING PILL NAVIGATION (Added via Implementation Plan)
-   ======================================================== */
-.floating-pill-nav {
-    position: fixed;
-    top: 25px;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 99999;
-    background: rgba(255, 255, 255, 0.7);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(255, 255, 255, 0.4);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
-    border-radius: 999px;
-    padding: 6px 8px;
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    transition: all 0.3s ease;
-}
-
-body.dark-mode .floating-pill-nav {
-    background: rgba(20, 20, 30, 0.75);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
-}
-
-.floating-pill-nav.scrolled {
-    top: 15px;
-    background: rgba(255, 255, 255, 0.95);
-    transform: translateX(-50%) scale(0.95);
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.12);
-}
-
-body.dark-mode .floating-pill-nav.scrolled {
-    background: rgba(20, 20, 30, 0.95);
-}
-
-.floating-pill-nav .nav-links-container {
-    display: flex;
-    position: relative;
-    align-items: center;
-    gap: 4px;
-}
-
-.floating-pill-nav .nav-link {
-    text-decoration: none;
-    color: #1f2937;
-    font-weight: 600;
-    font-size: 14px;
-    padding: 10px 20px;
-    border-radius: 999px;
-    position: relative;
-    z-index: 2;
-    transition: color 0.3s ease;
-}
-
-body.dark-mode .floating-pill-nav .nav-link {
-    color: #f3f4f6;
-}
-
-.floating-pill-nav .nav-link:hover,
-.floating-pill-nav .nav-link.active {
-    color: #ffffff !important;
-}
-
-/* Specific styling for the Login button */
-.floating-pill-nav .nav-link.login-btn {
-    color: #4f46e5;
-    font-weight: 700;
-}
-body.dark-mode .floating-pill-nav .nav-link.login-btn {
-    color: #818cf8;
-}
-
-/* Sliding highlight */
-.floating-pill-nav .sliding-highlight {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 0;
-    background: #4f46e5;
-    border-radius: 999px;
-    z-index: 1;
-    transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
-    opacity: 0;
-    box-shadow: 0 4px 15px rgba(79, 70, 229, 0.3);
-}
-
-/* Mobile Toggle */
-.floating-pill-nav .mobile-toggle {
-    display: none;
-    background: transparent;
-    border: none;
-    color: #1f2937;
-    font-size: 20px;
-    padding: 10px 14px;
-    cursor: pointer;
-    border-radius: 999px;
-    transition: background 0.3s ease;
-}
-
-body.dark-mode .floating-pill-nav .mobile-toggle {
-    color: #f3f4f6;
-}
-
-@media (max-width: 768px) {
-    .floating-pill-nav {
-        flex-direction: column;
-        align-items: center;
-        padding: 6px;
-        border-radius: 24px;
-        width: 90%;
-        max-width: 300px;
-    }
-    
-    .floating-pill-nav.collapsed {
-        border-radius: 999px;
-        width: auto;
-    }
-    
-    .floating-pill-nav .mobile-toggle {
-        display: block;
-        width: 100%;
-    }
-    
-    .floating-pill-nav.collapsed .nav-links-container {
-        display: none;
-    }
-
-    .floating-pill-nav .nav-links-container {
-        flex-direction: column;
-        width: 100%;
-        margin-top: 5px;
-        padding-bottom: 10px;
-        gap: 8px;
-    }
-    
-    .floating-pill-nav .nav-link {
-        width: 100%;
-        text-align: center;
-        padding: 12px;
-    }
-    
-    .floating-pill-nav .sliding-highlight {
-        display: none; /* Disable sliding indicator on mobile */
-    }
-    
-    .floating-pill-nav .nav-link:hover {
-        background: rgba(79, 70, 229, 0.1);
-        color: #4f46e5 !important;
-    }
-    
-    body.dark-mode .floating-pill-nav .nav-link:hover {
-        background: rgba(79, 70, 229, 0.2);
-        color: #ffffff !important;
-    }
 }
