@@ -1328,50 +1328,118 @@
 
 <body>
     <div class="bg-animation"></div>
+    <div class="sphere-green"></div>
+    <div class="sphere-small"></div>
+    <div class="sphere-top-right"></div>
     
-    <div class="register-container" style="max-width: 600px; margin: 40px auto; padding: 20px;">
+    <button class="theme-toggle" id="themeToggle" style="position:fixed; top:20px; right:20px; z-index:1000; background: rgba(255,255,255,0.8); color: #333; border: none; border-radius:12px; padding: 10px 14px; cursor:pointer; box-shadow: 0 4px 16px rgba(0,0,0,0.1);" title="Toggle Theme">
+        <i class="fas fa-moon"></i>
+    </button>
+
+    <div class="register-container">
         <div class="logo-area">
             <div class="logo-icon" style="background: transparent;">
-                <img src="dsu_logo.png" alt="Logo" style="height: 100%; width: auto;">
+                <img src="dsu_logo.png" alt="DSU Logo" style="height: 100%; width: auto;">
             </div>
-            <h1>SkillBridge</h1>
-            <p>Join the Academia-Industry Portal</p>
+            <h1>ExamPro DSU</h1>
+            <p>Create your student account</p>
         </div>
 
         <div class="card">
-            <div id="role-selection">
-                <h2 style="margin-bottom: 20px;">Select Your Role</h2>
-                
-                <div class="form-grid" style="grid-template-columns: 1fr; gap: 16px;">
-                    <button class="btn-outline" style="padding: 16px; text-align: left; display: flex; flex-direction: column;" onclick="selectRole('student')">
-                        <span style="font-size: 16px; font-weight: bold; color: var(--primary); margin-bottom: 4px;">👨‍🎓 Student</span>
-                        <span style="color: var(--text-muted); font-size: 12px; font-weight: 400;">Build portfolio, find internships, get skills verified.</span>
-                    </button>
-                    <button class="btn-outline" style="padding: 16px; text-align: left; display: flex; flex-direction: column;" onclick="selectRole('industry')">
-                        <span style="font-size: 16px; font-weight: bold; color: var(--primary); margin-bottom: 4px;">🏢 Industry</span>
-                        <span style="color: var(--text-muted); font-size: 12px; font-weight: 400;">Post internships, find verified talent.</span>
-                    </button>
-                    <button class="btn-outline" style="padding: 16px; text-align: left; display: flex; flex-direction: column;" onclick="selectRole('academician')">
-                        <span style="font-size: 16px; font-weight: bold; color: var(--primary); margin-bottom: 4px;">🏫 Academician</span>
-                        <span style="color: var(--text-muted); font-size: 12px; font-weight: 400;">Verify student skills, view industry demand.</span>
-                    </button>
+            <div class="stepper-container">
+                <div class="step-circle active" id="prog-1">1</div>
+                <div class="step-line" id="line-1"></div>
+                <div class="step-circle" id="prog-2">2</div>
+                <div class="step-line" id="line-2"></div>
+                <div class="step-circle" id="prog-3">3</div>
+                <div class="step-line" id="line-3"></div>
+                <div class="step-circle" id="prog-4">4</div>
+                <div class="step-line" id="line-4"></div>
+                <div class="step-circle" id="prog-5">5</div>
+            </div>
+
+            
+            <!-- Step 1: Location -->
+            <div class="step-section active" id="step1">
+                <div class="step-header">
+                    <div class="step-number">1</div>
+                    <div>
+                        <h3>Your College</h3>
+                        <p style="color:var(--text-muted);font-size:12px">Select your state, district, and college</p>
+                    </div>
                 </div>
-                
-                <div class="switch-link">
-                    <p>Already have an account? <a href="login.html">Login here</a></p>
+                <div class="form-grid">
+                    <div class="form-group full">
+                        <label>State</label>
+                        <div class="input-wrap">
+                            <i class="fas fa-map-marker-alt icon"></i>
+                            <select id="state" required onchange="populateDistricts()">
+                                <option value="" disabled selected>Select your State</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group full">
+                        <label>District</label>
+                        <div class="input-wrap">
+                            <i class="fas fa-map icon"></i>
+                            <select id="district" required onchange="populateColleges()" disabled>
+                                <option value="" disabled selected>Select District (choose State first)</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group full">
+                        <label>College</label>
+                        <div class="input-wrap">
+                            <i class="fas fa-university icon"></i>
+                            <select id="collegeSelect" required onchange="toggleNewCollegeInput()" disabled>
+                                <option value="" disabled selected>Select College (choose District first)</option>
+                                <option value="__other__">My college isn't listed</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group full" id="newCollegeWrap" style="display:none">
+                        <label>College Name</label>
+                        <div class="input-wrap">
+                            <i class="fas fa-plus icon"></i>
+                            <input type="text" id="newCollegeName" placeholder="Type your college's full name" />
+                        </div>
+                        <p style="color:var(--text-muted);font-size:11px;margin-top:4px">Your college will be added and marked unverified until an admin confirms it.</p>
+                    </div>
+                </div>
+                <div class="nav-btns">
+                    <button class="btn-outline btn-next" onclick="nextStep(1)">Next <i class="fas fa-arrow-right"></i></button>
                 </div>
             </div>
 
-            <form id="registration-form" style="display: none;" onsubmit="handleRegister(event)">
+            <!-- Step 2: Personal Info -->
+            <div class="step-section" id="step2">
                 <div class="step-header">
-                    <button type="button" onclick="backToRoles()" style="background: none; border: none; color: var(--primary); cursor: pointer; font-size: 14px; margin-bottom: 10px; text-align: left;"><i class="fas fa-arrow-left"></i> Back to roles</button>
-                    <h3 id="form-title" style="margin-top: 10px;">Registration</h3>
+                    <div class="step-number">2</div>
+                    <div>
+                        <h3>Personal Information</h3>
+                        <p style="color:var(--text-muted);font-size:12px">Your basic details</p>
+                    </div>
                 </div>
-                
-                <input type="hidden" id="selectedRole" name="role" value="" />
-                
-                <!-- Common Fields -->
-                <div class="form-grid" style="margin-bottom: 16px;">
+
+                <!-- Profile Picture Upload -->
+                <div class="avatar-upload-wrapper">
+                    <div class="avatar-upload-box" onclick="document.getElementById('profilePicInput').click()" title="Click to upload profile photo">
+                        <div class="avatar-preview-container">
+                            <i class="fas fa-user-circle avatar-placeholder-icon" id="avatarPlaceholder"></i>
+                            <img id="avatarPreview" class="avatar-preview-img" alt="Profile Preview" />
+                        </div>
+                        <div class="avatar-badge-btn">
+                            <i class="fas fa-camera"></i>
+                        </div>
+                    </div>
+                    <input type="file" id="profilePicInput" accept="image/*" style="display:none" onchange="previewProfilePic(event)" />
+                    <div class="avatar-upload-label">
+                        <span onclick="document.getElementById('profilePicInput').click()">Upload Profile Photo</span> (Optional)
+                    </div>
+                    <button type="button" class="avatar-remove-btn" id="avatarRemoveBtn" onclick="removeProfilePic()">Remove Photo</button>
+                </div>
+
+                <div class="form-grid">
                     <div class="form-group full">
                         <label>Full Name</label>
                         <div class="input-wrap">
@@ -1380,134 +1448,649 @@
                         </div>
                     </div>
                     <div class="form-group full">
+                        <label>Date of Birth</label>
+                        <div class="input-wrap">
+                            <i class="fas fa-calendar icon"></i>
+                            <input type="date" id="dob" required />
+                        </div>
+                    </div>
+                    <div class="form-group full">
+                        <label>Mobile Number</label>
+                        <div class="input-wrap">
+                            <i class="fas fa-phone icon"></i>
+                            <input type="tel" id="phone" placeholder="e.g. 9876543210" required />
+                        </div>
+                    </div>
+                </div>
+                <div class="nav-btns">
+                    <button class="btn-outline btn-next" onclick="nextStep(2)">
+                        Next <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Step 2: Academic Info -->
+            <div class="step-section" id="step3">
+                <div class="step-header">
+                    <div class="step-number">3</div>
+                    <div>
+                        <h3>Academic Details</h3>
+                        <p style="color:var(--text-muted);font-size:12px">Your college information</p>
+                    </div>
+                </div>
+                <div class="form-grid">
+                    
+                    
+                    <div class="form-group">
+                        <label>Department</label>
+                        <div class="input-wrap">
+                            <i class="fas fa-building icon"></i>
+                            <select id="department" required>
+                                <option value="" disabled selected>Select your Course</option>
+                                <option>BCA</option>
+                                <option>MCA</option>
+                                <option>BSc CS</option>
+                                <option>BSc IT</option>
+                                <option>BBA</option>
+                                <option>BCom</option>
+                                <option>BTech</option>
+                                <option>MTech</option>
+                                <option>MBA</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Section</label>
+                        <div class="input-wrap">
+                            <i class="fas fa-users icon"></i>
+                            <select id="section">
+                                <option value="">Select Section</option>
+                                <option>A</option>
+                                <option>B</option>
+                                <option>C</option>
+                                <option>D</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Year</label>
+                        <div class="input-wrap">
+                            <i class="fas fa-calendar icon"></i>
+                            <select id="year">
+                                <option value="">Select Year</option>
+                                <option>1st Year</option>
+                                <option>2nd Year</option>
+                                <option>3rd Year</option>
+                                <option>4th Year</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="nav-btns">
+                    <button class="btn-outline" onclick="prevStep(3)"><i class="fas fa-arrow-left"></i> Back</button>
+                    <button class="btn-outline btn-next" onclick="nextStep(3)">Next <i class="fas fa-arrow-right"></i></button>
+                </div>
+            </div>
+
+            <!-- Step 3: Account Setup -->
+            <div class="step-section" id="step4">
+                <div class="step-header">
+                    <div class="step-number">4</div>
+                    <div>
+                        <h3>Account Setup</h3>
+                        <p style="color:var(--text-muted);font-size:12px">Link your academic identity</p>
+                    </div>
+                </div>
+                <div class="form-grid">
+                    <div class="form-group full">
+                        <label>Register Number</label>
+                        <div class="input-wrap">
+                            <i class="fas fa-id-card icon"></i>
+                            <input type="text" id="registerNumber" placeholder="e.g. 1DS22CS001" required />
+                        </div>
+                    </div>
+                    <div class="form-group full">
                         <label>Email Address</label>
                         <div class="input-wrap">
                             <i class="fas fa-envelope icon"></i>
-                            <input type="email" id="email" placeholder="Enter your email" required />
+                            <input type="email" id="email" placeholder="student@dsu.edu" required />
                         </div>
                     </div>
+                </div>
+                <div class="nav-btns">
+                    <button class="btn-outline" onclick="prevStep(4)"><i class="fas fa-arrow-left"></i> Back</button>
+                    <button class="btn-outline btn-next" onclick="nextStep(4)">Next <i class="fas fa-arrow-right"></i></button>
+                </div>
+            </div>
+
+            <!-- Step 4: Security -->
+            <div class="step-section" id="step5">
+                <div class="step-header">
+                    <div class="step-number">5</div>
+                    <div>
+                        <h3>Security & Terms</h3>
+                        <p style="color:var(--text-muted);font-size:12px">Secure your account</p>
+                    </div>
+                </div>
+                <div class="form-grid">
                     <div class="form-group full">
                         <label>Password</label>
                         <div class="input-wrap">
                             <i class="fas fa-lock icon"></i>
-                            <input type="password" id="password" placeholder="Create a strong password" required />
+                            <input type="password" id="password" placeholder="Min 8 characters" oninput="checkStrength(this.value)" required />
                         </div>
+                        <div class="password-strength" id="strengthBar"></div>
+                        <div class="strength-text" id="strengthText"></div>
                     </div>
-                </div>
-
-                <!-- Student Specific -->
-                <div id="student-fields" class="form-grid" style="display: none; margin-bottom: 16px;">
-                    <div class="form-group">
-                        <label>Register Number</label>
-                        <div class="input-wrap">
-                            <i class="fas fa-id-card icon"></i>
-                            <input type="text" id="registerNumber" placeholder="e.g. ENG20CS001" />
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label>Department</label>
-                        <div class="input-wrap">
-                            <i class="fas fa-building icon"></i>
-                            <select id="department">
-                                <option value="">Select Department</option>
-                                <option value="CSE">Computer Science</option>
-                                <option value="ECE">Electronics</option>
-                                <option value="BCA">BCA</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Industry Specific -->
-                <div id="industry-fields" class="form-grid" style="display: none; margin-bottom: 16px;">
                     <div class="form-group full">
-                        <label>Company Name</label>
+                        <label>Confirm Password</label>
                         <div class="input-wrap">
-                            <i class="fas fa-building icon"></i>
-                            <input type="text" id="companyName" placeholder="Enter company name" />
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label>Industry Type</label>
-                        <div class="input-wrap">
-                            <i class="fas fa-briefcase icon"></i>
-                            <select id="industryType">
-                                <option value="IT / Software">IT / Software</option>
-                                <option value="Healthcare">Healthcare</option>
-                                <option value="Finance">Finance</option>
-                                <option value="Other">Other</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label>Contact Person</label>
-                        <div class="input-wrap">
-                            <i class="fas fa-user-tie icon"></i>
-                            <input type="text" id="contactPerson" placeholder="Your designation/name" />
+                            <i class="fas fa-lock icon"></i>
+                            <input type="password" id="confirmPassword" placeholder="Re-enter password" required />
                         </div>
                     </div>
                 </div>
-
-                <!-- Academician Specific -->
-                <div id="academician-fields" class="form-grid" style="display: none; margin-bottom: 16px;">
-                    <div class="form-group full">
-                        <label>Institution</label>
-                        <div class="input-wrap">
-                            <i class="fas fa-university icon"></i>
-                            <input type="text" id="institution" placeholder="Enter university/college name" />
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label>Department</label>
-                        <div class="input-wrap">
-                            <i class="fas fa-building icon"></i>
-                            <input type="text" id="acadDepartment" placeholder="e.g. CSE" />
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label>Designation</label>
-                        <div class="input-wrap">
-                            <i class="fas fa-chalkboard-teacher icon"></i>
-                            <input type="text" id="designation" placeholder="e.g. Professor" />
-                        </div>
-                    </div>
+                <div class="terms">
+                    <input type="checkbox" id="termsCheck" />
+                    <label for="termsCheck">I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a></label>
                 </div>
-
-                <button type="submit" class="btn-primary" id="registerBtn">
-                    <i class="fas fa-user-plus"></i> Create Account
-                </button>
-            </form>
+                <div class="nav-btns">
+                    <button class="btn-outline" onclick="prevStep(5)"><i class="fas fa-arrow-left"></i> Back</button>
+                    <button class="btn-outline btn-next" onclick="handleRegister()" id="registerBtn">
+                        <i class="fas fa-user-plus"></i> Create Account
+                    </button>
+                </div>
+            </div>
+            <div class="switch-link" style="margin-top:16px;">Already have an account? <a href="login.html">Sign In</a>
+            </div>
         </div>
     </div>
-    <div id="toastContainer" class="toast-container"></div>
-    
+
+    <div class="toast-container" id="toastContainer"></div>
+
     <script type="module">
-        import { auth, db, doc, setDoc, serverTimestamp } from "./js/skillbridge-config.js";
-        import { createUserWithEmailAndPassword, updateProfile } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+        import { initializeAppCheck, ReCaptchaV3Provider } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app-check.js";
+        import { getAuth, createUserWithEmailAndPassword, updateProfile, deleteUser, setPersistence, browserLocalPersistence } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+        import { getFirestore, doc, setDoc, serverTimestamp, collection, query, where, getDocs, addDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+        import { getFunctions, httpsCallable } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-functions.js";
 
-        window.selectRole = function(role) {
-            document.getElementById('role-selection').style.display = 'none';
-            document.getElementById('registration-form').style.display = 'block';
-            document.getElementById('selectedRole').value = role;
-            
-            document.getElementById('student-fields').style.display = role === 'student' ? 'grid' : 'none';
-            document.getElementById('industry-fields').style.display = role === 'industry' ? 'grid' : 'none';
-            document.getElementById('academician-fields').style.display = role === 'academician' ? 'grid' : 'none';
-            
-            const titles = {
-                student: 'Student Registration',
-                industry: 'Industry Partner Registration',
-                academician: 'Academician Registration'
+        const firebaseConfig = {
+            apiKey: "AIzaSyDKDT0kvwEm0cEdh_MpbTb8A9W3_xwAVxY",
+            authDomain: "dsu-exam-system.firebaseapp.com",
+            projectId: "dsu-exam-system",
+            storageBucket: "dsu-exam-system.firebasestorage.app",
+            messagingSenderId: "155083834622",
+            appId: "1:155083834622:web:ff0a9780b88bad0b8811af",
+            measurementId: "G-1TPT1BR6GD"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const appCheck = initializeAppCheck(app, {
+            provider: new ReCaptchaV3Provider('6Leua30tAAAAANy_qYf2oF4vC-BLxBBPPKHgKdZe'),
+            isTokenAutoRefreshEnabled: true
+        });
+        const auth = getAuth(app);
+        await setPersistence(auth, browserLocalPersistence);
+        const db = getFirestore(app);
+        const functions = getFunctions(app);
+
+        // --- Rate Limiting Helper ---
+        const checkRateLimitFn = httpsCallable(functions, 'checkRateLimit');
+        async function enforceRateLimit(action, identifier) {
+            try {
+                await checkRateLimitFn({ action, identifier });
+                return true;
+            } catch (error) {
+                if (error.code === 'resource-exhausted') {
+                    showToast(error.message, 'error');
+                    return false;
+                } else {
+                    console.warn("Rate limit check bypassed due to error:", error);
+                    return true;
+                }
+            }
+        }
+
+        // --- Theme Management ---
+        const themeToggle = document.getElementById('themeToggle');
+        const sunIcon = '<i class="fas fa-sun"></i>';
+        const moonIcon = '<i class="fas fa-moon"></i>';
+
+        function updateThemeIcon(isLight) {
+            themeToggle.innerHTML = isLight ? sunIcon : moonIcon;
+        }
+
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'light') {
+            document.body.classList.add('light-mode');
+            updateThemeIcon(true);
+        }
+
+        themeToggle.addEventListener('click', () => {
+            const isLight = document.body.classList.toggle('light-mode');
+            localStorage.setItem('theme', isLight ? 'light' : 'dark');
+            updateThemeIcon(isLight);
+        });
+
+        const CLOUDINARY_CLOUD_NAME = "dxsa93rr2";
+        const CLOUDINARY_UPLOAD_PRESET = "DSU EXAM";
+
+        let selectedPhotoFile = null;
+
+        window.previewProfilePic = function (event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            if (file.size > 5 * 1024 * 1024) {
+                showToast('Image size should be under 5MB', 'error');
+                event.target.value = '';
+                return;
+            }
+
+            selectedPhotoFile = file;
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                const preview = document.getElementById('avatarPreview');
+                const placeholder = document.getElementById('avatarPlaceholder');
+                const removeBtn = document.getElementById('avatarRemoveBtn');
+
+                preview.src = e.target.result;
+                preview.style.display = 'block';
+                placeholder.style.display = 'none';
+                if (removeBtn) removeBtn.style.display = 'inline-block';
             };
-            document.getElementById('form-title').innerText = titles[role];
+            reader.readAsDataURL(file);
         };
 
-        window.backToRoles = function() {
-            document.getElementById('role-selection').style.display = 'block';
-            document.getElementById('registration-form').style.display = 'none';
+        window.removeProfilePic = function () {
+            selectedPhotoFile = null;
+            document.getElementById('profilePicInput').value = '';
+            const preview = document.getElementById('avatarPreview');
+            const placeholder = document.getElementById('avatarPlaceholder');
+            const removeBtn = document.getElementById('avatarRemoveBtn');
+
+            preview.src = '';
+            preview.style.display = 'none';
+            placeholder.style.display = 'block';
+            if (removeBtn) removeBtn.style.display = 'none';
         };
 
-        window.showToast = function(msg, type = 'info') {
+        
+        // College Selection Logic
+        let locationsData = null;
+        
+        async function fetchLocations() {
+            try {
+                const res = await fetch('js/india-states-districts.json');
+                locationsData = await res.json();
+                const stateSelect = document.getElementById('state');
+                Object.keys(locationsData).sort().forEach(state => {
+                    const opt = document.createElement('option');
+                    opt.value = state;
+                    opt.textContent = state;
+                    stateSelect.appendChild(opt);
+                });
+            } catch (e) {
+                console.error("Error loading states:", e);
+                showToast("Failed to load states. Please refresh.", "error");
+            }
+        }
+        
+        window.populateDistricts = function() {
+            const state = document.getElementById('state').value;
+            const distSelect = document.getElementById('district');
+            const colSelect = document.getElementById('collegeSelect');
+            
+            distSelect.innerHTML = '<option value="" disabled selected>Select District</option>';
+            distSelect.disabled = true;
+            colSelect.innerHTML = '<option value="" disabled selected>Select College (choose District first)</option><option value="__other__">My college isn\'t listed</option>';
+            colSelect.disabled = true;
+            document.getElementById('newCollegeWrap').style.display = 'none';
+            
+            if (state && locationsData && locationsData[state]) {
+                locationsData[state].sort().forEach(dist => {
+                    const opt = document.createElement('option');
+                    opt.value = dist;
+                    opt.textContent = dist;
+                    distSelect.appendChild(opt);
+                });
+                distSelect.disabled = false;
+            }
+        };
+        
+        let allCollegesData = null;
+        
+                let allCollegesData = null;
+
+        window.populateColleges = async function() {
+            const state = document.getElementById('state').value;
+            const district = document.getElementById('district').value;
+            const colSelect = document.getElementById('collegeSelect');
+            
+            colSelect.innerHTML = '<option value="" disabled selected>Loading colleges...</option>';
+            colSelect.disabled = true;
+            document.getElementById('newCollegeWrap').style.display = 'none';
+            
+            if (!state || !district) return;
+            
+            try {
+                if (!allCollegesData) {
+                    const res = await fetch('js/colleges-grouped.json');
+                    allCollegesData = await res.json();
+                }
+                
+                colSelect.innerHTML = '<option value="" disabled selected>Select College</option>';
+                
+                const districtColleges = (allCollegesData[state] && allCollegesData[state][district]) || [];
+                const colleges = districtColleges.map(name => ({ id: name, name: name }));
+                colleges.sort((a,b) => a.name.localeCompare(b.name));
+                
+                colleges.forEach(c => {
+                    const opt = document.createElement('option');
+                    opt.value = c.id;
+                    opt.textContent = c.name;
+                    colSelect.appendChild(opt);
+                });
+                
+                const optOther = document.createElement('option');
+                optOther.value = '__other__';
+                optOther.textContent = "My college isn't listed";
+                colSelect.appendChild(optOther);
+                
+                colSelect.disabled = false;
+            } catch(e) {
+                console.error("Error loading colleges", e);
+                showToast("Failed to load colleges", "error");
+            }
+        };
+        
+        window.toggleNewCollegeInput = function() {
+            const colSelect = document.getElementById('collegeSelect');
+            document.getElementById('newCollegeWrap').style.display = colSelect.value === '__other__' ? 'block' : 'none';
+        };
+        
+        fetchLocations();
+
+        
+        window.handleRegister = async function(e) {
+            e.preventDefault();
+            const btn = document.getElementById('registerBtn');
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value;
+            const name = document.getElementById('name').value.trim();
+            
+            // College Info
+            const state = document.getElementById('state').value;
+            const district = document.getElementById('district').value;
+            const colSelect = document.getElementById('collegeSelect');
+            let collegeId = colSelect.value;
+            let collegeName = colSelect.options[colSelect.selectedIndex]?.text;
+            
+            btn.disabled = true;
+            btn.innerHTML = '<span class="spinner"></span> Creating Account...';
+
+            if (!(await enforceRateLimit('registration', email))) {
+                resetBtn();
+                return;
+            }
+
+            let photoURL = '';
+            if (selectedPhotoFile) {
+                btn.innerHTML = '<span class="spinner"></span> Uploading Profile Picture...';
+                try {
+                    const formData = new FormData();
+                    formData.append('file', selectedPhotoFile);
+                    formData.append('upload_preset', CLOUDINARY_UPLOAD_PRESET);
+                    formData.append('folder', 'exampro-avatars');
+
+                    const res = await fetch(`https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/image/upload`, {
+                        method: 'POST',
+                        body: formData
+                    });
+
+                    if (res.ok) {
+                        const data = await res.json();
+                        photoURL = data.secure_url || '';
+                    } else {
+                        console.warn('Cloudinary upload status:', res.status);
+                    }
+                } catch (uploadErr) {
+                    console.error('Profile photo upload error:', uploadErr);
+                }
+            }
+
+            btn.innerHTML = '<span class="spinner"></span> Creating Account...';
+
+            let cred = null;
+            try {
+                cred = await createUserWithEmailAndPassword(auth, email, password);
+                await updateProfile(cred.user, { 
+                    displayName: name,
+                    photoURL: photoURL || undefined
+                });
+                
+                const uid = cred.user.uid;
+                
+                // If new college, add it
+                if (collegeId === '__other__') {
+                    const newName = document.getElementById('newCollegeName').value.trim();
+                    if (!newName) throw new Error("Please enter your college name.");
+                    
+                    const { addDoc, collection, serverTimestamp } = await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js');
+                    const docRef = await addDoc(collection(db, 'colleges'), {
+                        name: newName,
+                        state: state,
+                        district: district,
+                        addedBy: uid,
+                        verified: false,
+                        createdAt: serverTimestamp()
+                    });
+                    collegeId = docRef.id;
+                    collegeName = newName;
+                }
+
+
+                // 2. Now user is authenticated, check for duplicate register number or phone
+                try {
+                    const studentsRef = collection(db, 'students');
+                    const [snapReg, snapPhone] = await Promise.all([
+                        getDocs(query(studentsRef, where('registerNumber', '==', registerNumber))),
+                        getDocs(query(studentsRef, where('phone', '==', phone)))
+                    ]);
+
+                    const isDuplicateReg = snapReg.docs.some(d => d.id !== cred.user.uid);
+                    const isDuplicatePhone = snapPhone.docs.some(d => d.id !== cred.user.uid);
+
+                    if (isDuplicateReg) {
+                        await deleteUser(cred.user);
+                        showToast('An account with this Register Number already exists.', 'error');
+                        resetBtn();
+                        return;
+                    }
+                    if (isDuplicatePhone) {
+                        await deleteUser(cred.user);
+                        showToast('An account with this Mobile Number already exists.', 'error');
+                        resetBtn();
+                        return;
+                    }
+                } catch (checkErr) {
+                    console.warn('Duplicate check warning:', checkErr);
+                    // Continue profile creation even if query check fails
+                }
+
+                // 3. Save student profile
+                await setDoc(doc(db, 'students', cred.user.uid), {
+                    uid: cred.user.uid,
+                    name, email, registerNumber, phone, dob,
+                    college, branch, department, section, year,
+                    photoURL: photoURL || '',
+                    role: 'student',
+                    approvalStatus: 'pending', // Section 2: must be approved by admin before login
+                    createdAt: serverTimestamp(),
+                    lastLogin: serverTimestamp()
+                });
+
+                // 4. Write to studentLookup (Section 1.1 — public lookup, email only, no PII)
+                //    This lets login.html resolve register number / phone to email
+                //    without needing public read access on the full students collection.
+                try {
+                    await setDoc(doc(db, 'studentLookup', cred.user.uid), {
+                        email: email.trim().toLowerCase(),
+                        uid: cred.user.uid,
+                        registerNumber: registerNumber || '',
+                        usn: registerNumber || '',
+                        phone: phone || '',
+                        mobile: phone || '',
+                        createdAt: serverTimestamp()
+                    });
+                } catch (lookupErr) {
+                    console.warn('studentLookup write failed (non-critical):', lookupErr);
+                }
+
+                // 5. Notify admins of new registration
+                try {
+                    await addDoc(collection(db, 'notifications'), {
+                        type: 'new_registration',
+                        studentUID: cred.user.uid,
+                        name, email, phone, department, registerNumber,
+                        branch, section, year, college,
+                        targetRole: 'admin',
+                        approvalStatus: 'pending',
+                        timestamp: serverTimestamp(),
+                        read: false
+                    });
+                } catch (notifErr) {
+                    console.error('Failed to write registration notification', notifErr);
+                }
+
+                showToast('✅ Account created! Waiting for admin approval...', 'success');
+                setTimeout(() => {
+                    document.body.innerHTML = `
+                    <div style="min-height:100vh;background:#0a0a1a;display:flex;align-items:center;justify-content:center;font-family:'Inter',sans-serif;">
+                        <div style="text-align:center;padding:48px 32px;max-width:480px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:20px;box-shadow:0 20px 60px rgba(0,0,0,.5);">
+                            <div style="font-size:60px;margin-bottom:20px">⏳</div>
+                            <h2 style="color:#e2e8f0;font-size:22px;margin-bottom:12px">Registration Submitted!</h2>
+                            <p style="color:#94a3b8;font-size:14px;line-height:1.7;margin-bottom:24px">
+                                Your account has been created successfully.<br>
+                                <strong style="color:#6c63ff">Admin approval is pending.</strong><br>
+                                You'll receive an email once approved. This usually takes a few minutes.
+                            </p>
+                            <div style="background:rgba(108,99,255,.12);border:1px solid rgba(108,99,255,.3);border-radius:10px;padding:14px;margin-bottom:24px;font-size:13px;color:#a78bfa">
+                                📧 Registered email: <strong>${email}</strong>
+                            </div>
+                            <a href="login.html" style="display:inline-block;padding:13px 32px;background:linear-gradient(135deg,#6c63ff,#4f46e5);color:#fff;text-decoration:none;border-radius:10px;font-weight:600;font-size:14px">
+                                Go to Login
+                            </a>
+                        </div>
+                    </div>`;
+                }, 1500);
+            } catch (err) {
+                console.error("Registration error:", err);
+                let msg = err.message || 'Registration failed.';
+                if (err.code === 'auth/email-already-in-use') msg = 'Email already registered. Please login.';
+                else if (err.code === 'auth/weak-password') msg = 'Password too weak. Must be at least 8 characters.';
+                else if (err.code === 'auth/invalid-email') msg = 'Invalid email address format.';
+                else if (err.code === 'permission-denied') msg = 'Database permission error. Please publish firestore.rules.';
+                showToast(msg, 'error');
+                resetBtn();
+            }
+
+            function resetBtn() {
+                btn.disabled = false;
+                btn.innerHTML = '<i class="fas fa-user-plus"></i> Create Account';
+            }
+        };
+    </script>
+
+    <script>
+        document.addEventListener('contextmenu', e => e.preventDefault());
+        document.addEventListener('keydown', e => {
+            if (e.key === 'F12') { e.preventDefault(); return false; }
+            if (e.ctrlKey && e.shiftKey && ['I', 'J', 'C'].includes(e.key)) { e.preventDefault(); return false; }
+            if (e.ctrlKey && e.key === 'U') { e.preventDefault(); return false; }
+        });
+
+        let currentStep = 1;
+
+                window.nextStep = function (step) {
+            if (step === 1) {
+                const colSelect = document.getElementById('collegeSelect');
+                if (!document.getElementById('state').value || !document.getElementById('district').value || !colSelect.value) {
+                    showToast('Please select your college location and name.', 'error'); return;
+                }
+                if (colSelect.value === '__other__' && !document.getElementById('newCollegeName').value.trim()) {
+                    showToast('Please enter your college name.', 'error'); return;
+                }
+            }
+            if (step === 2) {
+                if (!document.getElementById('name').value.trim() ||
+                    !document.getElementById('dob').value ||
+                    !document.getElementById('phone').value.trim()) {
+                    showToast('Please fill all personal details.', 'error'); return;
+                }
+            }
+            if (step === 3) {
+                if (!document.getElementById('department').value.trim() ||
+                    !document.getElementById('section').value ||
+                    !document.getElementById('year').value) {
+                    showToast('Please fill all academic details.', 'error'); return;
+                }
+            }
+            if (step === 4) {
+                if (!document.getElementById('registerNumber').value.trim() ||
+                    !document.getElementById('email').value.trim()) {
+                    showToast('Please fill account details.', 'error'); return;
+                }
+            }
+            document.getElementById(`step${step}`).classList.remove('active');
+            document.getElementById(`step${step + 1}`).classList.add('active');
+            
+            document.getElementById(`prog-${step}`).classList.remove('active');
+            document.getElementById(`prog-${step}`).classList.add('done');
+            if (document.getElementById(`line-${step}`)) {
+                document.getElementById(`line-${step}`).classList.add('done');
+            }
+            document.getElementById(`prog-${step + 1}`).classList.add('active');
+            currentStep = step + 1;
+        };
+
+        window.prevStep = function (step) {
+            document.getElementById(`step${step}`).classList.remove('active');
+            document.getElementById(`step${step - 1}`).classList.add('active');
+            
+            document.getElementById(`prog-${step}`).classList.remove('active');
+            document.getElementById(`prog-${step - 1}`).classList.remove('done');
+            document.getElementById(`prog-${step - 1}`).classList.add('active');
+            
+            if (document.getElementById(`line-${step - 1}`)) {
+                document.getElementById(`line-${step - 1}`).classList.remove('done');
+            }
+            currentStep = step - 1;
+        };
+
+        window.checkStrength = function (pw) {
+            const bar = document.getElementById('strengthBar');
+            const text = document.getElementById('strengthText');
+            let strength = 0;
+            if (pw.length >= 8) strength++;
+            if (/[A-Z]/.test(pw)) strength++;
+            if (/[0-9]/.test(pw)) strength++;
+            if (/[^A-Za-z0-9]/.test(pw)) strength++;
+            const levels = [
+                { label: 'Very Weak', color: '#ef4444', width: '25%' },
+                { label: 'Weak', color: '#f59e0b', width: '50%' },
+                { label: 'Good', color: '#06b6d4', width: '75%' },
+                { label: 'Strong', color: '#10b981', width: '100%' }
+            ];
+            const l = levels[strength - 1] || { label: '', color: 'rgba(255,255,255,.1)', width: '0%' };
+            bar.style.background = l.color;
+            bar.style.width = l.width;
+            text.textContent = l.label;
+            text.style.color = l.color;
+        };
+
+        function showToast(msg, type = 'info') {
             const container = document.getElementById('toastContainer');
             const toast = document.createElement('div');
             toast.className = `toast ${type}`;
@@ -1515,67 +2098,8 @@
             toast.innerHTML = `<i class="fas ${icons[type]}"></i> ${msg}`;
             container.appendChild(toast);
             setTimeout(() => toast.remove(), 3500);
-        };
-
-        window.handleRegister = async function(e) {
-            e.preventDefault();
-            const btn = document.getElementById('registerBtn');
-            const role = document.getElementById('selectedRole').value;
-            const email = document.getElementById('email').value.trim();
-            const password = document.getElementById('password').value;
-            const name = document.getElementById('name').value.trim();
-            
-            btn.disabled = true;
-            btn.innerHTML = 'Creating Account...';
-
-            try {
-                const cred = await createUserWithEmailAndPassword(auth, email, password);
-                await updateProfile(cred.user, { displayName: name });
-
-                // Common user doc
-                await setDoc(doc(db, 'users', cred.user.uid), {
-                    role: role,
-                    name: name,
-                    email: email,
-                    createdAt: serverTimestamp(),
-                    profileComplete: true
-                });
-
-                // Role-specific doc
-                if (role === 'student') {
-                    await setDoc(doc(db, 'studentProfiles', cred.user.uid), {
-                        registerNumber: document.getElementById('registerNumber').value.trim(),
-                        department: document.getElementById('department').value,
-                        skills: [],
-                        education: '',
-                        resumeUrl: '',
-                        portfolioLinks: '',
-                        bio: ''
-                    });
-                } else if (role === 'industry') {
-                    await setDoc(doc(db, 'industryProfiles', cred.user.uid), {
-                        companyName: document.getElementById('companyName').value.trim(),
-                        industryType: document.getElementById('industryType').value,
-                        contactPerson: document.getElementById('contactPerson').value.trim(),
-                        verified: false
-                    });
-                } else if (role === 'academician') {
-                    await setDoc(doc(db, 'academicianProfiles', cred.user.uid), {
-                        institution: document.getElementById('institution').value.trim(),
-                        department: document.getElementById('acadDepartment').value.trim(),
-                        designation: document.getElementById('designation').value.trim()
-                    });
-                }
-
-                showToast('✅ Account created successfully!', 'success');
-                setTimeout(() => { window.location.href = 'login.html'; }, 1500);
-            } catch (err) {
-                console.error("Registration error:", err);
-                showToast(err.message || 'Registration failed.', 'error');
-                btn.disabled = false;
-                btn.innerHTML = '<i class="fas fa-user-plus"></i> Create Account';
-            }
-        };
+        }
+        window.showToast = showToast;
     </script>
 </body>
 

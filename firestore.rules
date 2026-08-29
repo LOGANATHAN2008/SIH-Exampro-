@@ -63,6 +63,13 @@ service cloud.firestore {
       allow write: if isSuperAdmin();
     }
 
+    // ===== Colleges Collection =====
+    match /colleges/{id} {
+      allow read: if true;
+      allow create: if request.auth != null;
+      allow update, delete: if isSuperAdmin();
+    }
+
     // ===== OTP Verifications =====
     match /otpVerifications/{uid} {
       allow read, create, update, delete: if request.auth != null && request.auth.uid == uid;
