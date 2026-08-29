@@ -104,7 +104,27 @@
         .icon-edit { background: rgba(108,99,255,.15); color: var(--primary); }
         .icon-del { background: rgba(239,68,68,.15); color: var(--danger); }
         @media(max-width:768px) { .sidebar { display: none; } .main { margin-left: 0; } .form-grid { grid-template-columns: 1fr; } }
-    </style>
+    
+        /* iOS-style custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background-color: rgba(150, 150, 150, 0.3);
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background-color: rgba(150, 150, 150, 0.5);
+        }
+        * {
+            scrollbar-width: thin;
+            scrollbar-color: rgba(150, 150, 150, 0.3) transparent;
+        }
+</style>
 </head>
 <body>
 

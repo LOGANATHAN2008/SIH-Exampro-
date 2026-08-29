@@ -1184,7 +1184,27 @@
             background: var(--bg2, #111111);
             color: var(--text, #e2e8f0);
         }
-    </style>
+    
+        /* iOS-style custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background-color: rgba(150, 150, 150, 0.3);
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background-color: rgba(150, 150, 150, 0.5);
+        }
+        * {
+            scrollbar-width: thin;
+            scrollbar-color: rgba(150, 150, 150, 0.3) transparent;
+        }
+</style>
     <script src="theme.js"></script>
 <script>if(sessionStorage.getItem('appLoaded')) document.documentElement.classList.add('no-loader');</script>
 
