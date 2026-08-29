@@ -1203,7 +1203,7 @@
 
                 try {
                     // -- Step 1: Initialise AI Proctoring module ------------------
-                    await Exam Erpctor.init({
+                    await ExamProctor.init({
                         db:           db,
                         currentUser:  currentUser,
                         selectedTest: selectedTest,
@@ -1218,7 +1218,7 @@
                     // -- Step 2: Close confirm modal, show proctoring guidelines --
                     document.getElementById('testConfirmView').classList.remove('active');
 
-                Exam Erpctor.showGuidelines(
+                ExamProctor.showGuidelines(
                     // onConfirm - student clicked "Allow Camera & Start Exam"
                     async () => {
                         // -- Step 3: Enter fullscreen synchronously BEFORE await ---
@@ -1237,7 +1237,7 @@
                         }
 
                         // Request webcam + start proctoring
-                        const procOk = await Exam Erpctor.start();
+                        const procOk = await ExamProctor.start();
                         if (!procOk) return; // webcam denied - blocked by proctor module
 
                         // -- Step 4: Show exam view ---------------------------
@@ -1498,10 +1498,10 @@
             if (vp) vp.setAttribute('content', 'width=device-width,initial-scale=1.0');
 
             // -- Stop Proctoring & save violation log ----------------------
-            Exam Erpctor.stop();
+            ExamProctor.stop();
             try {
-                await Exam Erpctor.saveViolationLog();
-            } catch (e) { console.warn('[Exam Erpctor] Log save error on submit:', e); }
+                await ExamProctor.saveViolationLog();
+            } catch (e) { console.warn('[ExamProctor] Log save error on submit:', e); }
 
             try {
                 const qs = selectedTest.questions;
@@ -1537,8 +1537,8 @@
                 const percentage = Math.round((score / totalMarks) * 100);
 
                 // Build proctoring summary to attach to result
-                const procLog = Exam Erpctor.getLog();
-                const procSummary = Exam Erpctor.getSummary();
+                const procLog = ExamProctor.getLog();
+                const procSummary = ExamProctor.getSummary();
 
                 // Save result
                 const resultId = `${currentUser.uid}_${selectedTest.id}`;

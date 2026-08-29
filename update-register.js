@@ -285,7 +285,7 @@ const handleRegisterReplacement = `
                     const formData = new FormData();
                     formData.append('file', selectedPhotoFile);
                     formData.append('upload_preset', CLOUDINARY_UPLOAD_PRESET);
-                    formData.append('folder', 'Exam Erp-avatars');
+                    formData.append('folder', 'ExamPro-avatars');
 
                     const res = await fetch(\`https://api.cloudinary.com/v1_1/\${CLOUDINARY_CLOUD_NAME}/image/upload\`, {
                         method: 'POST',
