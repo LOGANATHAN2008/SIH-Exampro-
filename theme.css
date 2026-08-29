@@ -669,25 +669,6 @@ body {
 
 /* 5. iOS Mobile Bottom Navigation (Liquid Dock) */
 .mobile-bottom-nav {
-    display: none; /* Hidden on desktop */
-}
-
-@media (max-width: 768px) {
-    .mobile-header {
-        display: flex !important;
-    }
-
-    /* Hide duplicate action buttons inside body header since mobile-header has them */
-    .header-actions .icon-btn {
-        display: none !important;
-    }
-    .header-actions, .header-actions .search-bar {
-        width: 100% !important;
-        max-width: 100% !important;
-    }
-    
-    /* Show bottom nav on mobile */
-    .mobile-bottom-nav {
         display: flex !important;
         position: fixed !important;
         bottom: 16px !important;
@@ -699,12 +680,22 @@ body {
         align-items: center !important;
         padding: 6px !important;
         border-radius: 9999px !important;
-        background: #0066FF !important; /* Premium solid blue from reference */
-        box-shadow: 0 20px 40px rgba(0, 102, 255, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.2) !important;
+        
+        /* Dark Mode Liquid Glass */
+        background: rgba(18, 18, 38, 0.6) !important;
+        backdrop-filter: blur(25px) saturate(200%) !important;
+        -webkit-backdrop-filter: blur(25px) saturate(200%) !important;
+        border: 1px solid rgba(255, 255, 255, 0.1) !important;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.05) !important;
     }
     
     .light-mode .mobile-bottom-nav {
-        background: #0066FF !important; /* Force same beautiful blue in light mode */
+        /* Light Mode Liquid Glass */
+        background: rgba(255, 255, 255, 0.75) !important;
+        backdrop-filter: blur(25px) saturate(200%) !important;
+        -webkit-backdrop-filter: blur(25px) saturate(200%) !important;
+        border: 1px solid rgba(255, 255, 255, 0.8) !important;
+        box-shadow: 0 10px 30px rgba(31, 38, 135, 0.1), inset 0 1px 1px rgba(255, 255, 255, 0.9) !important;
     }
     
     /* Sliding Glass Indicator */
@@ -712,12 +703,12 @@ body {
         position: absolute !important;
         top: 6px !important;
         bottom: 6px !important;
-        background: rgba(255, 255, 255, 0.2) !important;
-        backdrop-filter: blur(12px) !important;
-        -webkit-backdrop-filter: blur(12px) !important;
-        border: 1px solid rgba(255, 255, 255, 0.5) !important;
+        
+        /* Primary color pill for active item */
+        background: linear-gradient(135deg, #21a19b, #19807b) !important;
         border-radius: 9999px !important;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08), inset 0 1px 1px rgba(255, 255, 255, 0.8) !important;
+        box-shadow: 0 4px 12px rgba(33, 161, 155, 0.4) !important;
+        
         transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
         z-index: 1 !important;
         pointer-events: none !important;
@@ -749,7 +740,7 @@ body {
     }
 
     .light-mode .mobile-bottom-nav .nav-item {
-        color: rgba(255, 255, 255, 0.65) !important;
+        color: rgba(15, 23, 42, 0.55) !important;
     }
 
     .mobile-bottom-nav .nav-item i {
