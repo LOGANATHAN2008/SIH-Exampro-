@@ -1714,6 +1714,21 @@
         const auth = getAuth(app);
         await setPersistence(auth, browserLocalPersistence);
         const db = getFirestore(app);
+        
+        window.fetchCollegesFromFirestore = async function(state, district) {
+            try {
+                const collegesRef = collection(db, 'colleges');
+                const q = query(collegesRef, where("state", "==", state), where("district", "==", district));
+                const snapshot = await getDocs(q);
+                let results = [];
+                snapshot.forEach(doc => results.push(doc.data()));
+                return results;
+            } catch(e) {
+                console.error("Error fetching colleges:", e);
+                return [];
+            }
+        };
+
         const functions = getFunctions(app);
 
         // --- Rate Limiting Helper ---
@@ -1837,34 +1852,30 @@
         
         
 
-        window.populateColleges = function() {
+        window.populateColleges = async function() {
             const state = document.getElementById('state').value;
             const district = document.getElementById('district').value;
             const colSelect = document.getElementById('collegeSelect');
             
             colSelect.innerHTML = '<option value="" disabled selected>Loading colleges...</option>';
             colSelect.disabled = true;
+            if(colSelect.liquidSelect) colSelect.liquidSelect.refreshOptions();
             document.getElementById('newCollegeWrap').style.display = 'none';
             
             if (!state || !district) return;
             
-            if (!window.ALL_COLLEGES_DATA) {
-                showToast("Failed to load colleges", "error");
-                return;
+            if (window.fetchCollegesFromFirestore) {
+                const colleges = await window.fetchCollegesFromFirestore(state, district);
+                colSelect.innerHTML = '<option value="" disabled selected>Select College</option>';
+                colleges.sort((a,b) => a.name.localeCompare(b.name)).forEach(c => {
+                    const opt = document.createElement('option');
+                    opt.value = c.name;
+                    opt.textContent = c.name;
+                    colSelect.appendChild(opt);
+                });
+            } else {
+                colSelect.innerHTML = '<option value="" disabled selected>Select College</option>';
             }
-            
-            colSelect.innerHTML = '<option value="" disabled selected>Select College</option>';
-            
-            const districtColleges = (window.ALL_COLLEGES_DATA[state] && window.ALL_COLLEGES_DATA[state][district]) || [];
-            const colleges = districtColleges.map(name => ({ id: name, name: name }));
-            colleges.sort((a,b) => a.name.localeCompare(b.name));
-            
-            colleges.forEach(c => {
-                const opt = document.createElement('option');
-                opt.value = c.id;
-                opt.textContent = c.name;
-                colSelect.appendChild(opt);
-            });
             
             const optOther = document.createElement('option');
             optOther.value = '__other__';
@@ -1872,6 +1883,7 @@
             colSelect.appendChild(optOther);
             
             colSelect.disabled = false;
+            if(colSelect.liquidSelect) colSelect.liquidSelect.refreshOptions();
         };
         
         window.toggleNewCollegeInput = function() {

@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "css": "^3.0.0",
+    "firebase": "^12.18.0",
     "indian-colleges": "^1.1.1",
     "jsdom": "^30.0.1"
   }
