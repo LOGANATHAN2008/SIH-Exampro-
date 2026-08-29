@@ -972,3 +972,17 @@ html:not(.light-mode) .ios-alert-box, body:not(.light-mode) .ios-alert-box {
 .dynamic-island-btn.accept {
     background: #34c759;
 }
+
+/* Mobile Header College Typing Animation */
+.college-typing {
+    animation: typingMobile 4s steps(30, end) infinite alternate, blinkCaret .75s step-end infinite;
+}
+@keyframes typingMobile {
+    0% { max-width: 0; opacity: 0; }
+    5% { max-width: 0; opacity: 1; }
+    100% { max-width: 150px; opacity: 1; }
+}
+@keyframes blinkCaret {
+    from, to { border-color: transparent; }
+    50% { border-color: var(--primary); }
+}
