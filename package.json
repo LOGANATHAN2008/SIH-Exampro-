@@ -1,5 +1,7 @@
 {
   "dependencies": {
-    "indian-colleges": "^1.1.1"
+    "css": "^3.0.0",
+    "indian-colleges": "^1.1.1",
+    "jsdom": "^30.0.1"
   }
 }

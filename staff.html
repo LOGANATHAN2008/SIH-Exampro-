@@ -125,6 +125,18 @@
             scrollbar-color: rgba(150, 150, 150, 0.3) transparent;
         }
 </style>
+
+    <!-- Failsafe Sidebar CSS -->
+    <style>
+        .sidebar { display: flex !important; flex-direction: column !important; }
+        .sidebar-nav { display: flex !important; flex-direction: column !important; width: 100% !important; flex: 1 !important; overflow-y: auto !important; }
+        .nav-section { display: flex !important; flex-direction: column !important; width: 100% !important; margin-bottom: 8px !important; }
+        .nav-label { display: block !important; width: 100% !important; padding: 8px 10px !important; }
+        .nav-item { display: flex !important; align-items: center !important; gap: 12px !important; width: 100% !important; padding: 11px 14px !important; text-decoration: none !important; color: var(--text-muted) !important; margin-bottom: 2px !important; border-radius: 12px !important; box-sizing: border-box !important; }
+        .nav-item i { width: 18px !important; text-align: center !important; font-size: 15px !important; }
+        .sidebar-logo { display: flex !important; align-items: center !important; justify-content: center !important; width: 100% !important; box-sizing: border-box !important; }
+        .sidebar-logo .logo-icon { display: flex !important; align-items: center !important; justify-content: center !important; width: 100% !important; }
+    </style>
 </head>
 <body>
 
