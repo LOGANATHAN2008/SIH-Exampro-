@@ -984,7 +984,7 @@ html:not(.light-mode) .ios-alert-box, body:not(.light-mode) .ios-alert-box {
 }
 @keyframes blinkCaret {
     from, to { border-color: transparent; }
-    50% { border-color: #1a1a2e; }
+    50% { border-color: var(--text); }
 }
     50% { border-color: var(--primary); }
 }
