@@ -1718,21 +1718,16 @@
 
         
         // College Selection Logic
-        let locationsData = null;
-        
-        async function fetchLocations() {
-            try {
-                const res = await fetch('js/india-states-districts.json');
-                locationsData = await res.json();
-                const stateSelect = document.getElementById('state');
-                Object.keys(locationsData).sort().forEach(state => {
+        function fetchLocations() {
+            const stateSelect = document.getElementById('state');
+            if (window.INDIA_STATES_DATA) {
+                Object.keys(window.INDIA_STATES_DATA).sort().forEach(state => {
                     const opt = document.createElement('option');
                     opt.value = state;
                     opt.textContent = state;
                     stateSelect.appendChild(opt);
                 });
-            } catch (e) {
-                console.error("Error loading states:", e);
+            } else {
                 showToast("Failed to load states. Please refresh.", "error");
             }
         }
@@ -1748,8 +1743,8 @@
             colSelect.disabled = true;
             document.getElementById('newCollegeWrap').style.display = 'none';
             
-            if (state && locationsData && locationsData[state]) {
-                locationsData[state].sort().forEach(dist => {
+            if (state && window.INDIA_STATES_DATA && window.INDIA_STATES_DATA[state]) {
+                window.INDIA_STATES_DATA[state].sort().forEach(dist => {
                     const opt = document.createElement('option');
                     opt.value = dist;
                     opt.textContent = dist;
@@ -1759,11 +1754,9 @@
             }
         };
         
-        let allCollegesData = null;
         
-                let allCollegesData = null;
 
-        window.populateColleges = async function() {
+        window.populateColleges = function() {
             const state = document.getElementById('state').value;
             const district = document.getElementById('district').value;
             const colSelect = document.getElementById('collegeSelect');
@@ -1774,35 +1767,30 @@
             
             if (!state || !district) return;
             
-            try {
-                if (!allCollegesData) {
-                    const res = await fetch('js/colleges-grouped.json');
-                    allCollegesData = await res.json();
-                }
-                
-                colSelect.innerHTML = '<option value="" disabled selected>Select College</option>';
-                
-                const districtColleges = (allCollegesData[state] && allCollegesData[state][district]) || [];
-                const colleges = districtColleges.map(name => ({ id: name, name: name }));
-                colleges.sort((a,b) => a.name.localeCompare(b.name));
-                
-                colleges.forEach(c => {
-                    const opt = document.createElement('option');
-                    opt.value = c.id;
-                    opt.textContent = c.name;
-                    colSelect.appendChild(opt);
-                });
-                
-                const optOther = document.createElement('option');
-                optOther.value = '__other__';
-                optOther.textContent = "My college isn't listed";
-                colSelect.appendChild(optOther);
-                
-                colSelect.disabled = false;
-            } catch(e) {
-                console.error("Error loading colleges", e);
+            if (!window.ALL_COLLEGES_DATA) {
                 showToast("Failed to load colleges", "error");
+                return;
             }
+            
+            colSelect.innerHTML = '<option value="" disabled selected>Select College</option>';
+            
+            const districtColleges = (window.ALL_COLLEGES_DATA[state] && window.ALL_COLLEGES_DATA[state][district]) || [];
+            const colleges = districtColleges.map(name => ({ id: name, name: name }));
+            colleges.sort((a,b) => a.name.localeCompare(b.name));
+            
+            colleges.forEach(c => {
+                const opt = document.createElement('option');
+                opt.value = c.id;
+                opt.textContent = c.name;
+                colSelect.appendChild(opt);
+            });
+            
+            const optOther = document.createElement('option');
+            optOther.value = '__other__';
+            optOther.textContent = "My college isn't listed";
+            colSelect.appendChild(optOther);
+            
+            colSelect.disabled = false;
         };
         
         window.toggleNewCollegeInput = function() {
