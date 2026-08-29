@@ -1717,14 +1717,17 @@
         
         window.fetchCollegesFromFirestore = async function(state, district) {
             try {
+                if (typeof showToast !== 'undefined') showToast("Fetching colleges from server...", "success");
                 const collegesRef = collection(db, 'colleges');
                 const q = query(collegesRef, where("state", "==", state), where("district", "==", district));
                 const snapshot = await getDocs(q);
                 let results = [];
                 snapshot.forEach(doc => results.push(doc.data()));
+                if (typeof showToast !== 'undefined') showToast("Found " + results.length + " colleges!", "success");
                 return results;
             } catch(e) {
                 console.error("Error fetching colleges:", e);
+                if (typeof showToast !== 'undefined') showToast("DB Error: " + e.message, "error");
                 return [];
             }
         };
