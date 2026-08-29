@@ -9,7 +9,7 @@ new_body = """<body>
     <div class="register-container" style="max-width: 600px; margin: 40px auto; padding: 20px;">
         <div class="logo-area">
             <div class="logo-icon" style="background: transparent;">
-                <img src="exam_erp_logo.png" alt="Logo" style="height: 100%; width: auto;">
+                <img src="ERP_logo.png" alt="Logo" style="height: 100%; width: auto;">
             </div>
             <h1>SkillBridge</h1>
             <p>Join the Academia-Industry Portal</p>
