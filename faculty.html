@@ -137,20 +137,19 @@
             padding: 24px 20px;
             display: flex;
             align-items: center;
+            justify-content: center;
             gap: 12px;
             border-bottom: 1px solid var(--glass-border);
         }
 
         .sidebar-logo .logo-icon {
-            width: 44px;
-            height: 44px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            border-radius: 12px;
+            width: 100%;
+            max-width: 180px;
+            height: 46px;
+            background: transparent;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 20px;
-            color: #fff;
             flex-shrink: 0;
         }
 
@@ -1222,9 +1221,8 @@
 <!-- Mobile Header -->
     <div class="mobile-header">
         <button class="menu-toggle" onclick="toggleSidebar()" aria-label="Toggle navigation menu"><i class="fas fa-bars"></i></button>
-        <div class="mobile-logo" onclick="window.location.href='faculty.html'">
-            <img src="exam_erp_logo.png" alt="DSU Logo">
-            
+        <div class="mobile-logo" onclick="window.location.href='dashboard.html'">
+            <img src="exam_erp_logo.png" alt="Exam Erp Logo" style="height: 38px; width: auto; object-fit: contain;">
         </div>
         <div>
             <div class="icon-btn mobile-theme-toggle" onclick="toggleTheme()" title="Toggle Theme"><i class="fas fa-sun"></i></div>
@@ -1240,8 +1238,8 @@
     <!-- Sidebar -->
     <nav class="sidebar" id="sidebar">
         <div class="sidebar-logo">
-            <div class="logo-icon" style="background: transparent;">
-                <img src="exam_erp_logo.png" alt="DSU Logo" style="height: 100%; width: auto;">
+            <div class="logo-icon" style="background: transparent; width: 100%; display: flex; justify-content: center;">
+                <img src="exam_erp_logo.png" alt="Exam Erp Logo" style="height: 44px; width: auto; max-width: 100%; object-fit: contain;">
             </div>
             
         </div>
