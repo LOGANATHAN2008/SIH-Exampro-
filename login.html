@@ -467,7 +467,92 @@
             scrollbar-width: thin;
             scrollbar-color: rgba(150, 150, 150, 0.3) transparent;
         }
-</style>
+
+        .g-recaptcha-replica {
+            background: #f9f9f9;
+            border: 1px solid #d3d3d3;
+            border-radius: 3px;
+            box-shadow: 0px 0px 4px 1px rgba(0,0,0,0.08);
+            width: 100%;
+            max-width: 300px;
+            height: 74px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 12px;
+            margin: 0 auto 16px auto;
+            cursor: pointer;
+            user-select: none;
+            box-sizing: border-box;
+            font-family: Roboto, helvetica, arial, sans-serif;
+            transition: border 0.3s;
+        }
+        .g-recaptcha-replica:hover {
+            border-color: #b2b2b2;
+        }
+        .g-recaptcha-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .g-checkbox {
+            width: 28px;
+            height: 28px;
+            border: 2px solid #c1c1c1;
+            border-radius: 2px;
+            background: #fff;
+            position: relative;
+            transition: all 0.3s;
+        }
+        .g-recaptcha-replica:hover .g-checkbox {
+            border-color: #b2b2b2;
+        }
+        .g-checkbox.loading {
+            border: 2px solid transparent;
+            border-top-color: #4285f4;
+            border-radius: 50%;
+            animation: g-spin 1s linear infinite;
+        }
+        .g-checkbox.verified {
+            border-color: transparent;
+            background: none;
+        }
+        .g-checkbox.verified::after {
+            content: '';
+            position: absolute;
+            left: 8px;
+            top: 2px;
+            width: 8px;
+            height: 16px;
+            border: solid #009e55;
+            border-width: 0 3px 3px 0;
+            transform: rotate(45deg);
+        }
+        .g-text {
+            font-size: 14px;
+            color: #282828;
+            font-weight: 500;
+        }
+        .g-recaptcha-right {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2px;
+        }
+        .g-brand {
+            font-size: 10px;
+            color: #555;
+            margin-top: 2px;
+        }
+        .g-links {
+            font-size: 8px;
+            color: #555;
+        }
+        @keyframes g-spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
@@ -523,14 +608,21 @@
                 </div>
                 
                 <!-- CAPTCHA -->
-                <div class="captcha-container" style="background:#f7f7f7; padding:10px; border-radius:12px; display:flex; flex-direction:column; gap:10px; margin-bottom: 10px;">
-                    <div style="display:flex; justify-content:space-between; align-items:center;">
-                        <span style="font-size: 11px; font-weight:600; color: var(--auth-muted);">CAPTCHA:</span>
-                        <div id="captchaText" style="font-weight:bold; letter-spacing:3px;">0U1EE</div>
-                        <button type="button" style="background:none; border:none; color:var(--auth-primary); cursor:pointer;" onclick="generateCaptcha()" title="Refresh"><i class="fas fa-sync-alt"></i></button>
+                
+                <!-- Google reCAPTCHA Replica -->
+                <div class="g-recaptcha-replica" id="captchaWidget" onclick="verifyFakeCaptcha()">
+                    <div class="g-recaptcha-left">
+                        <div class="g-checkbox" id="gCheckbox"></div>
+                        <span class="g-text">I'm not a robot</span>
                     </div>
-                    <input type="text" id="captchaInput" placeholder="Enter captcha" required autocomplete="off" style="width:100%; border:none; border-bottom:1px solid #ccc; background:transparent; outline:none; font-size:14px; padding:5px 0;">
+                    <div class="g-recaptcha-right">
+                        <img src="https://www.gstatic.com/recaptcha/api2/logo_48.png" alt="reCAPTCHA logo" width="24">
+                        <div class="g-brand">reCAPTCHA</div>
+                        <div class="g-links">Privacy - Terms</div>
+                    </div>
                 </div>
+                <input type="hidden" id="captchaInput" value="">
+    
 
                 <div class="auth-options">
                     <label>
@@ -874,16 +966,28 @@
         };
 
         let currentCaptcha = "";
-        window.generateCaptcha = function() {
-            const chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-            let captcha = "";
-            for (let i = 0; i < 5; i++) {
-                captcha += chars[Math.floor(Math.random() * chars.length)];
-            }
-            currentCaptcha = captcha;
-            const textEl = document.getElementById('captchaText');
-            if(textEl) textEl.textContent = currentCaptcha;
+        
+        let captchaVerified = false;
+        window.verifyFakeCaptcha = function() {
+            if (captchaVerified) return;
+            const cb = document.getElementById('gCheckbox');
+            cb.classList.add('loading');
+            setTimeout(() => {
+                cb.classList.remove('loading');
+                cb.classList.add('verified');
+                captchaVerified = true;
+                document.getElementById('captchaInput').value = 'VERIFIED';
+            }, 800);
         };
+        window.generateCaptcha = function() {
+            captchaVerified = false;
+            document.getElementById('captchaInput').value = '';
+            const cb = document.getElementById('gCheckbox');
+            if (cb) {
+                cb.classList.remove('loading', 'verified');
+            }
+        };
+        
 
         document.addEventListener('DOMContentLoaded', () => {
             if(window.generateCaptcha) window.generateCaptcha();
@@ -897,10 +1001,9 @@
             const adminCode = adminCodeInput ? adminCodeInput.value.trim() : '';
             const btn = document.getElementById('loginBtn');
 
-            const enteredCaptcha = document.getElementById('captchaInput').value.trim().toUpperCase().replace(/\s/g, '');
-            const expectedCaptcha = currentCaptcha.toUpperCase();
-            if (enteredCaptcha !== expectedCaptcha) {
-                showToast('Invalid CAPTCHA code. Please try again.', 'error');
+            const isVerified = document.getElementById('captchaInput').value === 'VERIFIED';
+            if (!isVerified) {
+                showToast('Please verify that you are not a robot.', 'error');
                 generateCaptcha();
                 document.getElementById('captchaInput').value = '';
                 return;
