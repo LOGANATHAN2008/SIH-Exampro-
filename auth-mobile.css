@@ -19,12 +19,15 @@
 }
 
 body {
-    background-color: var(--auth-bg);
+    background-color: var(--auth-bg) !important;
+    background-image: none !important;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
     overflow-x: hidden;
     position: relative;
+    padding: 0 !important;
+    margin: 0 !important;
 }
 
 /* Center on Desktop */
@@ -49,7 +52,7 @@ body {
 
 @media (max-width: 599px) {
     .auth-wrapper {
-        width: 100vw;
+        width: 100%;
         min-height: 100vh;
         height: auto;
         display: flex;
