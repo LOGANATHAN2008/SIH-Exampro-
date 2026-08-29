@@ -1826,6 +1826,7 @@
                     opt.textContent = state;
                     stateSelect.appendChild(opt);
                 });
+                if (stateSelect.liquidSelect) stateSelect.liquidSelect.refreshOptions();
             } else {
                 showToast("Failed to load states. Please refresh.", "error");
             }
@@ -1850,6 +1851,8 @@
                     distSelect.appendChild(opt);
                 });
                 distSelect.disabled = false;
+                if(distSelect.liquidSelect) distSelect.liquidSelect.refreshOptions();
+                if(colSelect.liquidSelect) colSelect.liquidSelect.refreshOptions();
             }
         };
         
