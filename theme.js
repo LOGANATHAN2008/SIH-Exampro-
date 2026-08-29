@@ -95,8 +95,10 @@ window.addEventListener('DOMContentLoaded', () => {
         }
 
         a.addEventListener('click', (e) => {
-            // Let the pointerup event handle navigation to prevent conflict with dragging
-            e.preventDefault();
+            // Only prevent native click if the user actually dragged/scrubbed
+            if (hasMoved) {
+                e.preventDefault();
+            }
         });
 
         let iconHtml = '<i class="fas ' + item.icon + '"></i>';
@@ -230,11 +232,11 @@ window.addEventListener('DOMContentLoaded', () => {
             closestItem.classList.add('active');
             updateIndicator(closestItem, true);
             
-            // Navigate if a new item is selected
-            if (closestItem !== activeItemObj) {
+            // Navigate manually ONLY if they scrubbed to a new item (otherwise native click handles it)
+            if (hasMoved && closestItem !== activeItemObj) {
                 setTimeout(() => {
                     window.location.href = closestItem.getAttribute('href');
-                }, 150); // slight delay to enjoy the snap animation
+                }, 150);
             }
         }
     };
