@@ -63,9 +63,9 @@ window.addEventListener('DOMContentLoaded', () => {
 
     const navItems = [
         { name: 'Home', icon: 'fa-home', url: 'dashboard.html' },
-        { name: 'Learning', icon: 'fa-book-open', url: 'materials.html' },
-        { name: 'Assignments', icon: 'fa-clipboard-list', url: 'test.html' },
-        { name: 'Progress', icon: 'fa-chart-bar', url: 'result.html' },
+        { name: 'Courses', icon: 'fa-book-open', url: 'materials.html' },
+        { name: 'Tests', icon: 'fa-clipboard-list', url: 'test.html' },
+        { name: 'Results', icon: 'fa-chart-bar', url: 'result.html' },
         { name: 'Profile', icon: 'fa-user', url: 'profile.html' }
     ];
     
