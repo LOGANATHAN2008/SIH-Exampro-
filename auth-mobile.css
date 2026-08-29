@@ -50,7 +50,8 @@ body {
 @media (max-width: 599px) {
     .auth-wrapper {
         width: 100vw;
-        height: 100vh;
+        min-height: 100vh;
+        height: auto;
         display: flex;
         flex-direction: column;
         position: relative;
@@ -69,21 +70,21 @@ body {
 }
 
 .auth-illustration img {
-    width: 120%;
-    max-width: 500px;
+    width: 110%;
+    max-width: 450px;
     height: auto;
     object-fit: cover;
-    margin-bottom: -10%; /* pull it down slightly into the card */
+    margin-bottom: -15%; /* pull it down slightly into the card */
 }
 
 /* For screens where the illustration text says "Log In to stay on top..." */
 .auth-hero-text {
     position: absolute;
-    top: 10%;
+    top: 6%;
     left: 8%;
     width: 80%;
     color: white;
-    font-size: 28px;
+    font-size: 24px;
     font-weight: 700;
     line-height: 1.2;
     text-align: left;
@@ -94,7 +95,7 @@ body {
     background-color: var(--auth-card);
     border-radius: 40px 40px 0 0;
     width: 100%;
-    padding: 40px 30px;
+    padding: 25px 25px 30px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -112,17 +113,17 @@ body {
 }
 
 .auth-title {
-    font-size: 26px;
+    font-size: 24px;
     font-weight: 700;
     color: var(--auth-text);
-    margin-bottom: 8px;
+    margin-bottom: 4px;
     text-align: center;
 }
 
 .auth-subtitle {
     font-size: 13px;
     color: var(--auth-muted);
-    margin-bottom: 30px;
+    margin-bottom: 20px;
     text-align: center;
     font-weight: 500;
 }
@@ -137,7 +138,7 @@ body {
     width: 100%;
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 12px;
 }
 
 .input-group {
@@ -164,8 +165,8 @@ body {
     width: 100%;
     background-color: var(--auth-input-bg);
     border: none;
-    border-radius: 20px;
-    padding: 18px 20px 18px 48px;
+    border-radius: 16px;
+    padding: 14px 16px 14px 44px;
     font-size: 14px;
     font-weight: 500;
     color: var(--auth-text);
@@ -189,8 +190,8 @@ body {
     width: 100%;
     font-size: 12px;
     font-weight: 600;
-    margin-top: -4px;
-    margin-bottom: 10px;
+    margin-top: -2px;
+    margin-bottom: 8px;
 }
 
 .auth-options label {
@@ -218,7 +219,7 @@ body {
     color: white;
     border: none;
     border-radius: 25px;
-    padding: 18px;
+    padding: 15px;
     font-size: 16px;
     font-weight: 700;
     cursor: pointer;
@@ -240,7 +241,7 @@ body {
     font-size: 12px;
     font-weight: 500;
     width: 100%;
-    margin: 20px 0;
+    margin: 12px 0;
 }
 
 .divider::before, .divider::after {
@@ -264,8 +265,8 @@ body {
     align-items: center;
     justify-content: center;
     gap: 8px;
-    padding: 14px;
-    border-radius: 20px;
+    padding: 12px;
+    border-radius: 16px;
     font-size: 14px;
     font-weight: 600;
     cursor: pointer;
