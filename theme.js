@@ -59,27 +59,21 @@ window.addEventListener('DOMContentLoaded', () => {
 
 // 4. Inject Mobile Bottom Navigation
 window.addEventListener('DOMContentLoaded', () => {
-    // Only inject if not already present
-    if (document.querySelector('.mobile-bottom-nav')) return;
+    if (document.querySelector('.mobile-nav-wrapper')) return;
 
-    // Define the navigation items
     const navItems = [
         { name: 'Home', icon: 'fa-home', url: 'dashboard.html' },
-        { name: 'Materials', icon: 'fa-book-reader', url: 'materials.html' },
-        { name: 'Tests', icon: 'fa-clipboard-check', url: 'test.html' },
-        { name: 'Results', icon: 'fa-chart-bar', url: 'result.html' },
-        { name: 'Profile', icon: 'fa-user', url: 'profile.html' }
+        { name: 'Feed', icon: 'fa-newspaper', url: 'community.html' },
+        { name: 'Search', icon: 'fa-search', url: '#' },
+        { name: 'Settings', icon: 'fa-cog', url: 'profile.html' }
     ];
     
-    // Determine current page index
     let currentPage = window.location.pathname.split('/').pop();
     if (!currentPage) currentPage = 'dashboard.html';
     
-    // Do not inject navigation on authentication or standalone full-screen apps (like chats)
     if (['', 'index.html', 'about.html', 'login.html', 'register.html', 'admin.html', 'faculty.html', 'chats.html'].includes(currentPage.split('?')[0])) return;
     
-    // Background Page Prefetching for Ultra-Fast Instant Transitions
-    const prefetchPages = ['dashboard.html', 'materials.html', 'test.html', 'result.html', 'profile.html'];
+    const prefetchPages = ['dashboard.html', 'community.html', 'profile.html'];
     prefetchPages.forEach(p => {
         if (p !== currentPage) {
             const link = document.createElement('link');
@@ -89,6 +83,16 @@ window.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    const wrapper = document.createElement('div');
+    wrapper.className = 'mobile-nav-wrapper';
+
+    // Create the floating capture button
+    const fab = document.createElement('div');
+    fab.className = 'mobile-nav-fab';
+    fab.innerHTML = '<i class="fas fa-camera"></i> Capture';
+    fab.onclick = () => { /* Action for capture */ };
+    wrapper.appendChild(fab);
+
     const nav = document.createElement('nav');
     nav.className = 'mobile-bottom-nav';
 
@@ -97,30 +101,25 @@ window.addEventListener('DOMContentLoaded', () => {
         a.href = item.url;
         a.className = 'nav-item';
         
-        // Mark active if matches current page
-        if (currentPage === item.url || (currentPage === '' && item.url === 'dashboard.html')) {
+        if (currentPage === item.url || (currentPage === '' && item.url === 'dashboard.html') || (item.name === 'Search' && currentPage === 'search.html')) {
             a.classList.add('active');
         }
 
-        // Instant visual active state on tap (0ms latency response)
         a.addEventListener('click', (e) => {
-            document.querySelectorAll('.mobile-bottom-nav .nav-item').forEach(el => el.classList.remove('active'));
-            a.classList.add('active');
+            if (item.url === '#') {
+                e.preventDefault();
+                // Just trigger a visual active state for now
+                document.querySelectorAll('.mobile-bottom-nav .nav-item').forEach(el => el.classList.remove('active'));
+                a.classList.add('active');
+            }
         });
 
-        let iconHtml = '<i class="fas ' + item.icon + '"></i>';
-        if (item.name === 'Profile') {
-            const userPhoto = localStorage.getItem('userPhoto');
-            if (userPhoto) {
-                iconHtml = '<img src="' + userPhoto + '" style="width: 20px; height: 20px; border-radius: 50%; object-fit: cover; margin-bottom: 2px;">';
-            }
-        }
-
-        a.innerHTML = iconHtml + '<span class="nav-text">' + item.name + '</span>';
+        a.innerHTML = '<i class="fas ' + item.icon + '"></i><span class="nav-text">' + item.name + '</span>';
         nav.appendChild(a);
     });
 
-    document.body.appendChild(nav);
+    wrapper.appendChild(nav);
+    document.body.appendChild(wrapper);
 });
 
 // 5. Swipe Navigation (iOS style)
