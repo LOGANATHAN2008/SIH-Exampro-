@@ -1595,10 +1595,16 @@
 <!-- Mobile Header -->
     <div class="mobile-header">
         <button class="menu-toggle" onclick="toggleSidebar()" aria-label="Toggle navigation menu"><i class="fas fa-bars"></i></button>
-        <div class="mobile-logo" onclick="window.location.href='dashboard.html'" style="display: flex; align-items: center; max-width: 50%;">
-            <img src="ERP_logo.png" alt="Logo" style="height: 32px; width: auto; object-fit: contain;">
-            <div class="college-typing" style="margin-left: 6px; font-size: 14px; margin-top: 2px; font-weight: 800; white-space: nowrap; overflow: hidden; border-right: 2px solid var(--primary); color: var(--text);">
-                DSU
+        <div class="mobile-logo" onclick="window.location.href='dashboard.html'" style="display: flex; align-items: center; max-width: 65%; gap: 8px;">
+            <img src="ERP_logo.png" alt="Logo" style="height: 28px; width: auto; object-fit: contain; flex-shrink: 0;">
+            <div style="display: flex; align-items: center; gap: 6px; padding-left: 6px; border-left: 1px solid rgba(0,0,0,0.1);">
+                <div style="width: 26px; height: 26px; background: #eeeffc; border-radius: 6px; display: flex; align-items: center; justify-content: center; color: #6c63ff; flex-shrink: 0;">
+                    <i class="fas fa-university" style="font-size: 11px;"></i>
+                </div>
+                <div style="display: flex; flex-direction: column; justify-content: center;">
+                    <span style="font-size: 9px; color: #8e8e8e; font-weight: 600; line-height: 1;">University</span>
+                    <div class="college-typing" style="font-size: 12px; font-weight: 800; color: #1a1a2e; line-height: 1.2; margin-top: 2px; white-space: nowrap; overflow: hidden; border-right: 2px solid #1a1a2e;">DSU</div>
+                </div>
             </div>
         </div>
         <div>
