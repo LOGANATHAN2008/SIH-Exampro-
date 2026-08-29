@@ -1806,8 +1806,8 @@
                     const opt = document.createElement('option');
                     opt.value = state;
                     opt.textContent = state;
-                    stateSelect.appendChild(opt);
-                });
+                    stateSelect.appendChild(opt); }
+                if(stateSelect.liquidSelect) stateSelect.liquidSelect.refreshOptions(););
             } else {
                 showToast("Failed to load states. Please refresh.", "error");
             }
@@ -1820,8 +1820,10 @@
             
             distSelect.innerHTML = '<option value="" disabled selected>Select District</option>';
             distSelect.disabled = true;
+            if(distSelect.liquidSelect) distSelect.liquidSelect.refreshOptions();
             colSelect.innerHTML = '<option value="" disabled selected>Select College (choose District first)</option><option value="__other__">My college isn\'t listed</option>';
             colSelect.disabled = true;
+            if(colSelect.liquidSelect) colSelect.liquidSelect.refreshOptions();
             document.getElementById('newCollegeWrap').style.display = 'none';
             
             if (state && window.INDIA_STATES_DATA && window.INDIA_STATES_DATA[state]) {
@@ -1831,8 +1833,8 @@
                     opt.textContent = dist;
                     distSelect.appendChild(opt);
                 });
-                distSelect.disabled = false;
-            }
+                distSelect.disabled = false; }
+            if(distSelect.liquidSelect) distSelect.liquidSelect.refreshOptions();
         };
         
         
@@ -1844,6 +1846,7 @@
             
             colSelect.innerHTML = '<option value="" disabled selected>Loading colleges...</option>';
             colSelect.disabled = true;
+            if(colSelect.liquidSelect) colSelect.liquidSelect.refreshOptions();
             document.getElementById('newCollegeWrap').style.display = 'none';
             
             if (!state || !district) return;
@@ -1870,8 +1873,8 @@
             optOther.value = '__other__';
             optOther.textContent = "My college isn't listed";
             colSelect.appendChild(optOther);
-            
             colSelect.disabled = false;
+            if(colSelect.liquidSelect) colSelect.liquidSelect.refreshOptions();
         };
         
         window.toggleNewCollegeInput = function() {
@@ -2170,6 +2173,17 @@
         }
         window.showToast = showToast;
     </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            if(typeof LiquidSelect !== 'undefined') {
+                new LiquidSelect('state', 'Select State', true);
+                new LiquidSelect('district', 'Select District', true);
+                new LiquidSelect('collegeSelect', 'Select College', true);
+            }
+        });
+    </script>
+
 </body>
 
 </html>
