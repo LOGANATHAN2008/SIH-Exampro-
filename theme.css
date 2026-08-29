@@ -727,14 +727,16 @@ body {
         bottom: 4px !important;
         
         /* Vibrant pinkish glass bubble matching reference image */
-        background: linear-gradient(135deg, rgba(255, 240, 245, 0.9), rgba(255, 220, 235, 0.8)) !important;
+        background: rgba(255, 255, 255, 0.5) !important;
+        backdrop-filter: blur(16px) !important;
+        -webkit-backdrop-filter: blur(16px) !important;
         border-radius: 9999px !important;
         
         /* Subtle rim highlight and pink glow */
         border: 1px solid rgba(255, 255, 255, 0.8) !important;
         box-shadow: 
-            0 8px 24px rgba(255, 51, 102, 0.15), 
-            inset 0 2px 2px rgba(255, 255, 255, 1) !important;
+            0 4px 16px rgba(0, 0, 0, 0.08), 
+            inset 0 1px 2px rgba(255, 255, 255, 1) !important;
         
         /* Note: smooth transition is handled in JS (0.5s cubic-bezier) */
         z-index: 1 !important;
@@ -743,11 +745,11 @@ body {
     }
     
     .dark-mode .nav-indicator, body:not(.light-mode) .nav-indicator {
-        background: linear-gradient(135deg, rgba(255, 51, 102, 0.15), rgba(255, 51, 102, 0.05)) !important;
-        border: 1px solid rgba(255, 51, 102, 0.3) !important;
+        background: rgba(255, 255, 255, 0.15) !important;
+        border: 1px solid rgba(255, 255, 255, 0.25) !important;
         box-shadow: 
-            0 8px 24px rgba(255, 51, 102, 0.2), 
-            inset 0 1px 1px rgba(255, 100, 150, 0.4) !important;
+            0 4px 16px rgba(0, 0, 0, 0.2), 
+            inset 0 1px 1px rgba(255, 255, 255, 0.25) !important;
     }
 
     /* Ensure body has padding so content doesn't hide behind nav */
@@ -798,17 +800,17 @@ body {
 
     /* Active State (Pink accent) */
     .mobile-bottom-nav .nav-item.active {
-        color: #E11D48 !important; /* Premium Pink/Rose */
+        color: #21a19b !important; /* Premium Teal */
         background: transparent !important;
         box-shadow: none !important;
     }
 
     .light-mode .mobile-bottom-nav .nav-item.active {
-        color: #E11D48 !important;
+        color: #21a19b !important;
         background: transparent !important;
     }
     .dark-mode .mobile-bottom-nav .nav-item.active, body:not(.light-mode) .mobile-bottom-nav .nav-item.active {
-        color: #FDA4AF !important; /* Bright pink for dark mode */
+        color: #ffffff !important; /* Clean white for dark mode */
     }
 
     .mobile-bottom-nav .nav-item.active i {
