@@ -65,8 +65,8 @@ window.addEventListener('DOMContentLoaded', () => {
     // Define the navigation items
     const navItems = [
         { name: 'Home', icon: 'fa-home', url: 'dashboard.html' },
-        { name: 'Materials', icon: 'fa-book-reader', url: 'materials.html' },
-        { name: 'Tests', icon: 'fa-clipboard-check', url: 'test.html' },
+        { name: 'Courses', icon: 'fa-book-open', url: 'materials.html' },
+        { name: 'Tests', icon: 'fa-clipboard-list', url: 'test.html' },
         { name: 'Results', icon: 'fa-chart-bar', url: 'result.html' },
         { name: 'Profile', icon: 'fa-user', url: 'profile.html' }
     ];
@@ -92,6 +92,11 @@ window.addEventListener('DOMContentLoaded', () => {
     const nav = document.createElement('nav');
     nav.className = 'mobile-bottom-nav';
 
+    // Inject sliding indicator
+    const indicator = document.createElement('div');
+    indicator.className = 'nav-indicator';
+    nav.appendChild(indicator);
+
     navItems.forEach(item => {
         const a = document.createElement('a');
         a.href = item.url;
@@ -104,8 +109,10 @@ window.addEventListener('DOMContentLoaded', () => {
 
         // Instant visual active state on tap (0ms latency response)
         a.addEventListener('click', (e) => {
+            // We don't prevent default, we want it to navigate, but we can instantly animate
             document.querySelectorAll('.mobile-bottom-nav .nav-item').forEach(el => el.classList.remove('active'));
             a.classList.add('active');
+            updateIndicator();
         });
 
         let iconHtml = '<i class="fas ' + item.icon + '"></i>';
@@ -121,6 +128,23 @@ window.addEventListener('DOMContentLoaded', () => {
     });
 
     document.body.appendChild(nav);
+
+    // Function to update indicator position and width
+    function updateIndicator() {
+        const activeItem = document.querySelector('.mobile-bottom-nav .nav-item.active');
+        if (activeItem && indicator) {
+            const navRect = nav.getBoundingClientRect();
+            const itemRect = activeItem.getBoundingClientRect();
+            // Calculate relative to the nav container
+            const offsetLeft = itemRect.left - navRect.left;
+            indicator.style.width = `${itemRect.width}px`;
+            indicator.style.transform = `translateX(${offsetLeft}px)`;
+        }
+    }
+
+    // Initial position
+    setTimeout(updateIndicator, 50);
+    window.addEventListener('resize', updateIndicator);
 });
 
 // 5. Swipe Navigation (iOS style)
