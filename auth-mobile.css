@@ -30,6 +30,10 @@ body {
     margin: 0 !important;
 }
 
+body::before, body::after {
+    display: none !important;
+}
+
 /* Center on Desktop */
 @media (min-width: 600px) {
     body {
