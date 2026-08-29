@@ -259,7 +259,7 @@ window.alert = function(msg) {
 
     overlay.innerHTML = `
         <div class="ios-alert-box">
-            <div class="ios-alert-title">ExamPro says</div>
+            <div class="ios-alert-title">Exam Erp says</div>
             <div class="ios-alert-message">${textHtml}</div>
             <div class="ios-alert-buttons">
                 <button class="ios-alert-btn" onclick="this.closest('.ios-alert-overlay').remove()">OK</button>

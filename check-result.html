@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Check Result | ExamPro DSU</title>
+    <title>Check Result | Exam Erp</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
@@ -514,7 +514,7 @@
                     <tbody>
                         <tr>
                             <td id="printDateDetailed"></td>
-                            <td>ExamPro DSU</td>
+                            <td>Exam Erp</td>
                             <td id="verificationId"></td>
                             <td>www.dsu.edu.in | dsu.loganathanm.in</td>
                         </tr>
@@ -755,7 +755,7 @@
                     const file = new File([blob], 'exam_result.png', { type: 'image/png' });
                     const shareData = {
                         title: 'My Exam Results',
-                        text: 'I just got my Exam Results on the ExamPro DSU Portal!',
+                        text: 'I just got my Exam Results on the Exam Erp Portal!',
                         url: window.location.href,
                         files: [file]
                     };
@@ -767,7 +767,7 @@
                             // Fallback to text only
                             await navigator.share({
                                 title: 'My Exam Results',
-                                text: 'I just got my Exam Results on the ExamPro DSU Portal!',
+                                text: 'I just got my Exam Results on the Exam Erp Portal!',
                                 url: window.location.href
                             });
                         } else {
@@ -856,7 +856,7 @@
                         <div style="font-size:32px; font-weight:700;">${sName}</div>
                         <div style="font-size:20px; color:#c7d2fe; margin-top:5px;">Overall Performance: ${sPerc}</div>
                     </div>
-                    <div style="margin-top:60px; font-size:16px; opacity:0.8;">#DSU #ExamPro #StudentSuccess</div>
+                    <div style="margin-top:60px; font-size:16px; opacity:0.8;">#DSU #Exam Erp #StudentSuccess</div>
                 `;
                 document.body.appendChild(badge);
 

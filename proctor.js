@@ -1,21 +1,21 @@
 /**
  * ╔══════════════════════════════════════════════════════════════════╗
- * ║           ExamPro DSU — AI Proctoring Module (proctor.js)        ║
+ * ║           Exam Erp — AI Proctoring Module (proctor.js)        ║
  * ║  Modular · Lightweight · Plug-and-play for any exam page         ║
  * ╚══════════════════════════════════════════════════════════════════╝
  *
  * Usage:
- *   await ExamProctor.init({ db, currentUser, selectedTest, onTerminate });
- *   ExamProctor.showGuidelines(onConfirm, onCancel);
- *   ExamProctor.start();   // call after exam view is shown + webcam confirmed
- *   ExamProctor.stop();    // call on exam submit
- *   ExamProctor.getLog();  // returns full violation log array
+ *   await Exam Erpctor.init({ db, currentUser, selectedTest, onTerminate });
+ *   Exam Erpctor.showGuidelines(onConfirm, onCancel);
+ *   Exam Erpctor.start();   // call after exam view is shown + webcam confirmed
+ *   Exam Erpctor.stop();    // call on exam submit
+ *   Exam Erpctor.getLog();  // returns full violation log array
  *
  * Dependencies:
  *   face-api.js loaded dynamically via CDN (no install needed)
  */
 
-const ExamProctor = (() => {
+const Exam Erpctor = (() => {
     'use strict';
 
     // ─── State ──────────────────────────────────────────────────────────
@@ -266,7 +266,7 @@ const ExamProctor = (() => {
                     You switched tabs, minimized the window, or exited fullscreen. This has been recorded.<br>
                     <strong id="proctor-warn-left">2 warnings remaining before auto-submit.</strong>
                 </p>
-                <button class="proctor-tab-btn" onclick="ExamProctor._dismissTabWarning()">
+                <button class="proctor-tab-btn" onclick="Exam Erpctor._dismissTabWarning()">
                     <i class="fas fa-arrow-left"></i>&nbsp; Return to Exam
                 </button>`;
             document.body.appendChild(o);
@@ -348,7 +348,7 @@ const ExamProctor = (() => {
             document.getElementById('proctor-webcam-widget').style.display = 'block';
             return true;
         } catch (err) {
-            console.error('[ExamProctor] Webcam denied:', err);
+            console.error('[Exam Erpctor] Webcam denied:', err);
             return false;
         }
     }
@@ -369,19 +369,19 @@ const ExamProctor = (() => {
                         window.faceapi.nets.faceLandmark68TinyNet.loadFromUri(CONFIG.FACE_API_MODELS),
                     ]);
                     _state.faceApiReady = true;
-                    console.info('[ExamProctor] face-api.js ready ✓');
+                    console.info('[Exam Erpctor] face-api.js ready ✓');
                 } catch (e) {
-                    console.warn('[ExamProctor] face-api models failed to load:', e);
+                    console.warn('[Exam Erpctor] face-api models failed to load:', e);
                 }
                 resolve();
             };
-            sc.onerror = () => { console.warn('[ExamProctor] face-api CDN failed.'); resolve(); };
+            sc.onerror = () => { console.warn('[Exam Erpctor] face-api CDN failed.'); resolve(); };
             document.head.appendChild(sc);
         });
     }
 
     function _startFaceDetection() {
-        if (!_state.faceApiReady) { console.warn('[ExamProctor] Face detection unavailable.'); return; }
+        if (!_state.faceApiReady) { console.warn('[Exam Erpctor] Face detection unavailable.'); return; }
         _state.faceDetectionInterval = setInterval(_detectFace, CONFIG.FACE_CHECK_MS);
     }
 
@@ -406,7 +406,7 @@ const ExamProctor = (() => {
                 _setWidgetDot('');
             }
         } catch (e) {
-            console.warn('[ExamProctor] Detection error:', e);
+            console.warn('[Exam Erpctor] Detection error:', e);
         }
     }
 
@@ -576,7 +576,7 @@ const ExamProctor = (() => {
     function _logViolation(type, description) {
         const entry = { type, description, timestamp: new Date().toISOString(), count: _state.violations.length + 1 };
         _state.violations.push(entry);
-        console.warn('[ExamProctor] Violation:', entry);
+        console.warn('[Exam Erpctor] Violation:', entry);
     }
 
     async function _persistLog() {
@@ -584,7 +584,7 @@ const ExamProctor = (() => {
         const summary = getSummary();
 
         // Always log to console for faculty review
-        console.group('[ExamProctor] Proctoring Violation Report');
+        console.group('[Exam Erpctor] Proctoring Violation Report');
         console.table(log);
         console.log('Summary:', summary);
         console.groupEnd();
@@ -605,9 +605,9 @@ const ExamProctor = (() => {
                     summary,
                     submittedAt:  serverTimestamp(),
                 });
-                console.info('[ExamProctor] Log saved to Firestore proctoringLogs ✓');
+                console.info('[Exam Erpctor] Log saved to Firestore proctoringLogs ✓');
             } catch (e) {
-                console.error('[ExamProctor] Firestore save error:', e);
+                console.error('[Exam Erpctor] Firestore save error:', e);
             }
         }
         return log;

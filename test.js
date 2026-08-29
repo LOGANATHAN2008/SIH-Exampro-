@@ -488,7 +488,7 @@
                 document.getElementById('noticePopup').checked = false;
                 fileInput.value = '';
                 showToast('Notice posted successfully!', 'success');
-                triggerSMS(`New Notice: ${title}. Login to ExamPro to view details!`);
+                triggerSMS(`New Notice: ${title}. Login to Exam Erp to view details!`);
             } catch (err) {
                 console.error("Post Error:", err);
                 showToast(err.message || 'Failed to post notice', 'error');
@@ -894,7 +894,7 @@
                     await updateDoc(doc(db, 'tests', editingTestId), testData);
                 } else {
                     const newTestRef = await addDoc(collection(db, 'tests'), testData);
-                    triggerSMS(`New Test Available: ${testData.title}. Login to ExamPro to check it out!`);
+                    triggerSMS(`New Test Available: ${testData.title}. Login to Exam Erp to check it out!`);
                     try {
                         await addDoc(collection(db, 'notifications'), {
                             type: 'test',

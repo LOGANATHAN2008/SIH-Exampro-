@@ -1,5 +1,5 @@
 // ============================================
-// Firebase Configuration - ExamPro DSU
+// Firebase Configuration - Exam Erp
 // Shared across all pages
 // ============================================
 
@@ -33,7 +33,7 @@ const ADMIN_EMAILS = [
     "admin@dsu.edu",
     "loganathan@dsu.edu",
     "mloganathan082008@gmail.com",
-    "exampro.loganathanm.in@gmail.com"
+    "Exam Erp.loganathanm.in@gmail.com"
 ];
 
 const DEPARTMENTS = [

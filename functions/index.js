@@ -237,7 +237,7 @@ exports.createStaffAccount = functions.https.onCall(async (data, context) => {
   if (!adminDoc.exists) {
     // Check if caller's email is one of the hardcoded super admins
     const callerEmail = context.auth.token.email || "";
-    const adminEmails = ['admin@dsu.edu','loganathan@dsu.edu','mloganathan082008@gmail.com','exampro.loganathanm.in@gmail.com'];
+    const adminEmails = ['admin@dsu.edu','loganathan@dsu.edu','mloganathan082008@gmail.com','Exam Erp.loganathanm.in@gmail.com'];
     if (!adminEmails.includes(callerEmail.toLowerCase())) {
         throw new functions.https.HttpsError("permission-denied", "You must be an admin to create staff accounts.");
     }
@@ -313,7 +313,7 @@ exports.onCallCreated = functions.firestore
             token: fcmToken,
             notification: {
                 title: `Incoming ${callType} call...`,
-                body: `${callerName} is calling you. Tap to open ExamPro DSU.`
+                body: `${callerName} is calling you. Tap to open Exam Erp.`
             },
             data: {
                 click_action: "FLUTTER_NOTIFICATION_CLICK", // for flutter compat if needed
@@ -365,7 +365,7 @@ exports.onMessageSent = functions.firestore
 
         const payload = {
             notification: {
-                title: `ExamPro DSU: ${senderName}`,
+                title: `Exam Erp: ${senderName}`,
                 body: messageText
             },
             data: {

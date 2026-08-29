@@ -6,12 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <!-- PRIMARY SEO METADATA -->
-    <title>Student Login | ExamPro DSU - Student Portal</title>
+    <title>Student Login | Exam Erp - Student Portal</title>
     <meta name="description"
-        content="Login to ExamPro DSU student portal to access your academic dashboard, hall ticket, results, internal marks, attendance, and campus services.">
+        content="Login to Exam Erp student portal to access your academic dashboard, hall ticket, results, internal marks, attendance, and campus services.">
     <meta name="keywords"
-        content="ExamPro DSU Login, Student Login, DSU Student Portal Login, Student Portal Access, Exam Portal Login, Academic Portal Login">
-    <meta name="author" content="ExamPro DSU Team">
+        content="Exam Erp Login, Student Login, DSU Student Portal Login, Student Portal Access, Exam Portal Login, Academic Portal Login">
+    <meta name="author" content="Exam Erp Team">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
     <meta name="googlebot" content="index, follow">
     <meta name="language" content="English">
@@ -23,27 +23,27 @@
 
     <!-- OPEN GRAPH -->
     <meta property="og:type" content="website">
-    <meta property="og:site_name" content="ExamPro DSU">
-    <meta property="og:title" content="Student Login | ExamPro DSU - Student Portal">
+    <meta property="og:site_name" content="Exam Erp">
+    <meta property="og:title" content="Student Login | Exam Erp - Student Portal">
     <meta property="og:description"
-        content="Login to ExamPro DSU student portal to access your academic dashboard, hall ticket, results, internal marks, attendance, and campus services.">
+        content="Login to Exam Erp student portal to access your academic dashboard, hall ticket, results, internal marks, attendance, and campus services.">
     <meta property="og:url" content="https://dsu.loganathanm.in/login.html">
     <meta property="og:image" content="https://dsu.loganathanm.in/dsu_logo.png">
-    <meta property="og:image:alt" content="ExamPro DSU Student Portal Logo">
+    <meta property="og:image:alt" content="Exam Erp Student Portal Logo">
     <meta property="og:locale" content="en_US">
 
     <!-- TWITTER CARD -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Student Login | ExamPro DSU - Student Portal">
+    <meta name="twitter:title" content="Student Login | Exam Erp - Student Portal">
     <meta name="twitter:description"
-        content="Login to ExamPro DSU student portal to access your academic dashboard, hall ticket, results, internal marks, attendance, and campus services.">
+        content="Login to Exam Erp student portal to access your academic dashboard, hall ticket, results, internal marks, attendance, and campus services.">
     <meta name="twitter:image" content="https://dsu.loganathanm.in/dsu_logo.png">
 
     <!-- THEME & FAVICON -->
     <meta name="theme-color" content="#00a6a0">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-title" content="ExamPro DSU">
-    <meta name="application-name" content="ExamPro DSU">
+    <meta name="apple-mobile-web-app-title" content="Exam Erp">
+    <meta name="application-name" content="Exam Erp">
     <link rel="icon" type="image/png" href="dsu_logo.png">
     <link rel="apple-touch-icon" href="dsu_logo.png">
     <link rel="manifest" href="manifest.json">
@@ -64,8 +64,8 @@
       "@type": "WebPage",
       "@id": "https://dsu.loganathanm.in/login.html#webpage",
       "url": "https://dsu.loganathanm.in/login.html",
-      "name": "Student Login | ExamPro DSU - Student Portal",
-      "description": "Login to ExamPro DSU student portal to access your academic dashboard, hall ticket, results, internal marks, attendance, and campus services.",
+      "name": "Student Login | Exam Erp - Student Portal",
+      "description": "Login to Exam Erp student portal to access your academic dashboard, hall ticket, results, internal marks, attendance, and campus services.",
       "isPartOf": { "@id": "https://dsu.loganathanm.in/#website" },
       "breadcrumb": {
         "@type": "BreadcrumbList",
@@ -717,9 +717,9 @@
                     });
                 }
                 qrCodeInstance.clear();
-                qrCodeInstance.makeCode(`examprodsu://qrlogin?session=${sessionId}`);
+                qrCodeInstance.makeCode(`Exam Erpdsu://qrlogin?session=${sessionId}`);
                 
-                qrStatus.textContent = "Scan this code with the ExamPro DSU App";
+                qrStatus.textContent = "Scan this code with the Exam Erp App";
 
                 // Listen for changes
                 currentQrSessionUnsubscribe = onSnapshot(doc(db, 'qrSessions', sessionId), async (docSnap) => {
@@ -770,7 +770,7 @@
         // ============================================================
         // BOOTSTRAP SUPER-ADMIN EMAIL LIST
         // ============================================================
-        const ADMIN_EMAILS = ['admin@dsu.edu', 'loganathan@dsu.edu', 'mloganathan082008@gmail.com', 'exampro.loganathanm.in@gmail.com'];
+        const ADMIN_EMAILS = ['admin@dsu.edu', 'loganathan@dsu.edu', 'mloganathan082008@gmail.com', 'Exam Erp.loganathanm.in@gmail.com'];
 
         // Do not auto-redirect on page load — allow user to manually choose role & enter credentials
         onAuthStateChanged(auth, (user) => {

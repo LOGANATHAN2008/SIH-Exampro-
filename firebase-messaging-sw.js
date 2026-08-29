@@ -18,7 +18,7 @@ messaging.onBackgroundMessage((payload) => {
     console.log('[firebase-messaging-sw.js] Received background message ', payload);
     
     // Customize notification here
-    const notificationTitle = payload.notification.title || "ExamPro DSU";
+    const notificationTitle = payload.notification.title || "Exam Erp";
     const notificationOptions = {
         body: payload.notification.body || "You have a new message.",
         icon: '/dsu_logo.png'

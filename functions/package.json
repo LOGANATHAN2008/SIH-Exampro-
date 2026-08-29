@@ -1,6 +1,6 @@
 {
-  "name": "exampro-functions",
-  "description": "Cloud Functions for ExamPro DSU",
+  "name": "Exam Erp-functions",
+  "description": "Cloud Functions for Exam Erp",
   "scripts": {
     "serve": "firebase emulators:start --only functions",
     "shell": "firebase functions:shell",

@@ -7,7 +7,7 @@ service cloud.firestore {
     //    If you update this list, update login.html ADMIN_EMAILS too (and vice versa).
     function isSuperAdmin() {
       return request.auth != null && (
-        request.auth.token.email in ['admin@dsu.edu','loganathan@dsu.edu','mloganathan082008@gmail.com','exampro.loganathanm.in@gmail.com'] ||
+        request.auth.token.email in ['admin@dsu.edu','loganathan@dsu.edu','mloganathan082008@gmail.com','Exam Erp.loganathanm.in@gmail.com'] ||
         (exists(/databases/$(database)/documents/admins/$(request.auth.uid)) &&
          (get(/databases/$(database)/documents/admins/$(request.auth.uid)).data.role == 'super' ||
           get(/databases/$(database)/documents/admins/$(request.auth.uid)).data.role == 'staff'))

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chats - ExamPro</title>
+    <title>Chats - Exam Erp</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
     <link rel="icon" type="image/png" href="dsu_logo.png">
@@ -928,7 +928,7 @@
         <div class="conversation-panel" id="conversationPanel" style="position:relative;">
             <div class="empty-state" id="emptyState">
                 <i class="fab fa-whatsapp"></i>
-                <h3>ExamPro Messages</h3>
+                <h3>Exam Erp Messages</h3>
                 <p>Select a chat from the left panel to start messaging with students, staff, and admins securely.</p>
             </div>
             
@@ -2897,7 +2897,7 @@
     // ═══════════════════════════════════════════════════
     window.sendCallLink = async function() {
         const roomId = crypto.randomUUID ? crypto.randomUUID() : Math.random().toString(36).substring(2);
-        const callLink = `https://meet.jit.si/ExamPro-${roomId}`;
+        const callLink = `https://meet.jit.si/Exam Erp-${roomId}`;
         try {
             await navigator.clipboard.writeText(callLink);
             // Also send as a message in the chat
@@ -2929,7 +2929,7 @@
         const scheduledAt = new Date(val);
         try {
             const roomId = crypto.randomUUID ? crypto.randomUUID() : Math.random().toString(36).substring(2);
-            const callLink = `https://meet.jit.si/ExamPro-${roomId}`;
+            const callLink = `https://meet.jit.si/Exam Erp-${roomId}`;
             await addDoc(collection(db, "scheduledCalls"), {
                 chatId: currentChatId, scheduledBy: currentUser.uid,
                 scheduledAt: scheduledAt, callLink, participants: []
@@ -2953,7 +2953,7 @@
     window.startGroupCall = async function() {
         if (!currentChatId) return;
         const roomId = crypto.randomUUID ? crypto.randomUUID() : Math.random().toString(36).substring(2);
-        const callLink = `https://meet.jit.si/ExamPro-Group-${roomId}`;
+        const callLink = `https://meet.jit.si/Exam Erp-Group-${roomId}`;
         try {
             await navigator.clipboard.writeText(callLink);
             await addDoc(collection(db, "chats", currentChatId, "messages"), {

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1.0" />
-    <title>Test | ExamPro DSU</title>
+    <title>Test | Exam Erp</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
@@ -1203,7 +1203,7 @@
 
                 try {
                     // -- Step 1: Initialise AI Proctoring module ------------------
-                    await ExamProctor.init({
+                    await Exam Erpctor.init({
                         db:           db,
                         currentUser:  currentUser,
                         selectedTest: selectedTest,
@@ -1218,7 +1218,7 @@
                     // -- Step 2: Close confirm modal, show proctoring guidelines --
                     document.getElementById('testConfirmView').classList.remove('active');
 
-                ExamProctor.showGuidelines(
+                Exam Erpctor.showGuidelines(
                     // onConfirm - student clicked "Allow Camera & Start Exam"
                     async () => {
                         // -- Step 3: Enter fullscreen synchronously BEFORE await ---
@@ -1237,7 +1237,7 @@
                         }
 
                         // Request webcam + start proctoring
-                        const procOk = await ExamProctor.start();
+                        const procOk = await Exam Erpctor.start();
                         if (!procOk) return; // webcam denied - blocked by proctor module
 
                         // -- Step 4: Show exam view ---------------------------
@@ -1364,7 +1364,7 @@
         let attemptDocRef = null, isPreviewMode = false;
         if (new URLSearchParams(window.location.search).get('preview') === '1') {
             isPreviewMode = true;
-            const draftJson = sessionStorage.getItem('examProPreviewDraft');
+            const draftJson = sessionStorage.getItem('Exam ErpPreviewDraft');
             if (draftJson) {
                 try {
                     selectedTest = JSON.parse(draftJson);
@@ -1498,10 +1498,10 @@
             if (vp) vp.setAttribute('content', 'width=device-width,initial-scale=1.0');
 
             // -- Stop Proctoring & save violation log ----------------------
-            ExamProctor.stop();
+            Exam Erpctor.stop();
             try {
-                await ExamProctor.saveViolationLog();
-            } catch (e) { console.warn('[ExamProctor] Log save error on submit:', e); }
+                await Exam Erpctor.saveViolationLog();
+            } catch (e) { console.warn('[Exam Erpctor] Log save error on submit:', e); }
 
             try {
                 const qs = selectedTest.questions;
@@ -1537,8 +1537,8 @@
                 const percentage = Math.round((score / totalMarks) * 100);
 
                 // Build proctoring summary to attach to result
-                const procLog = ExamProctor.getLog();
-                const procSummary = ExamProctor.getSummary();
+                const procLog = Exam Erpctor.getLog();
+                const procSummary = Exam Erpctor.getSummary();
 
                 // Save result
                 const resultId = `${currentUser.uid}_${selectedTest.id}`;

@@ -1,6 +1,6 @@
-# ExamPro DSU 3.0 🎓
+# Exam Erp 3.0 🎓
 
-ExamPro DSU 3.0 is a premium, real-time college examination and student portal system. It offers a secure and seamless experience for both students and administrators with modern glassmorphism UI/UX design.
+Exam Erp 3.0 is a premium, real-time college examination and student portal system. It offers a secure and seamless experience for both students and administrators with modern glassmorphism UI/UX design.
 
 ## 🚀 Key Features
 
@@ -23,8 +23,8 @@ ExamPro DSU 3.0 is a premium, real-time college examination and student portal s
 
 1.  **Clone the repository:**
     ```bash
-    git clone https://github.com/LOGANATHAN2008/exampro-dsu-3.0.git
-    cd exampro-dsu-3.0
+    git clone https://github.com/LOGANATHAN2008/Exam-Erp-3.0.git
+    cd Exam-Erp-3.0
     ```
 2.  **Firebase Configuration:**
     *   Create a project on [Firebase Console](https://console.firebase.google.com/).

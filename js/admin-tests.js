@@ -1,5 +1,5 @@
 // ============================================
-// Admin Tests Module - ExamPro DSU
+// Admin Tests Module - Exam Erp
 // Handles test CRUD, .txt upload, scheduling
 // ============================================
 

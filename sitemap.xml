@@ -8,7 +8,7 @@
                             http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
 
     <!-- ═══════════════════════════════════════════════════════════════ -->
-    <!--  ExamPro DSU Sitemap                                             -->
+    <!--  Exam Erp Sitemap                                             -->
     <!--  Student Portal & Exam Management System                         -->
     <!--  https://dsu.loganathanm.in/                                    -->
     <!-- ═══════════════════════════════════════════════════════════════ -->
@@ -22,8 +22,8 @@
         <xhtml:link rel="alternate" hreflang="en" href="https://dsu.loganathanm.in/"/>
         <image:image>
             <image:loc>https://dsu.loganathanm.in/dsu_logo.png</image:loc>
-            <image:title>ExamPro DSU Student Portal Logo</image:title>
-            <image:caption>ExamPro DSU - Student Portal for Registration, Hall Ticket, Results and Internal Marks</image:caption>
+            <image:title>Exam Erp Student Portal Logo</image:title>
+            <image:caption>Exam Erp - Student Portal for Registration, Hall Ticket, Results and Internal Marks</image:caption>
         </image:image>
     </url>
 

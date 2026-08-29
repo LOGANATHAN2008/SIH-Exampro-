@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1.0" />
-    <title>Admin Panel | ExamPro DSU</title>
+    <title>Admin Panel | Exam Erp</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
@@ -1279,7 +1279,7 @@
             <div class="logo-icon" style="background: transparent;">
                 <img src="dsu_logo.png" alt="DSU Logo" style="height: 100%; width: auto;">
             </div>
-            <span class="logo-text">ExamPro <span class="logo-badge">ADMIN</span></span>
+            <span class="logo-text">Exam Erp <span class="logo-badge">ADMIN</span></span>
         </div>
         <div class="nav-section" style="flex:1;overflow-y:auto;">
             <div class="nav-label">Overview</div>
@@ -2535,7 +2535,7 @@
             atob("YWRtaW5AZHN1LmVkdQ=="), // admin@dsu.edu
             atob("bG9nYW5hdGhhbkBkc3UuZWR1"), // loganathan@dsu.edu
             atob("bWxvZ2FuYXRoYW4wODIwMDhAZ21haWwuY29t"), // mloganathan082008@gmail.com
-            atob("ZXhhbXByby5sb2dhbmF0aGFubS5pbkBnbWFpbC5jb20=") // exampro.loganathanm.in@gmail.com
+            atob("ZXhhbXByby5sb2dhbmF0aGFubS5pbkBnbWFpbC5jb20=") // Exam Erp.loganathanm.in@gmail.com
         ];
 
         // Cloudinary Config (Updated)
@@ -3090,9 +3090,9 @@ const body = document.getElementById('resultsBody');
                 });
                 // Send email notification to student
                 const statusMessages = {
-                    approved: 'Γ£à Your ExamPro DSU account has been approved! You can now login at https://dsu.loganathanm.in/login.html',
-                    rejected: 'Γ¥î Your ExamPro DSU registration was rejected. Please verify your Name, Email, Phone, and Register Number then re-register.',
-                    blocked: '≡ƒÜ½ Your ExamPro DSU account has been blocked due to suspicious activity. Contact: support.loga@gmail.com'
+                    approved: 'Γ£à Your Exam Erp account has been approved! You can now login at https://dsu.loganathanm.in/login.html',
+                    rejected: 'Γ¥î Your Exam Erp registration was rejected. Please verify your Name, Email, Phone, and Register Number then re-register.',
+                    blocked: '≡ƒÜ½ Your Exam Erp account has been blocked due to suspicious activity. Contact: support.loga@gmail.com'
                 };
                 try {
                     await fetch('https://api.emailjs.com/api/v1.0/email/send', {
@@ -3105,7 +3105,7 @@ const body = document.getElementById('resultsBody');
                             template_params: {
                                 to_email: email,
                                 passcode: statusMessages[status],
-                                time: 'ExamPro DSU Account Update'
+                                time: 'Exam Erp Account Update'
                             }
                         })
                     });
@@ -3389,7 +3389,7 @@ const body = document.getElementById('resultsBody');
                 document.getElementById('noticePopup').checked = false;
                 fileInput.value = '';
                 showToast('Notice posted successfully!', 'success');
-                triggerSMS(`New Notice: ${title}. Login to ExamPro to view details!`);
+                triggerSMS(`New Notice: ${title}. Login to Exam Erp to view details!`);
             } catch (err) {
                 console.error("Post Error:", err);
                 showToast(err.message || 'Failed to post notice', 'error');
@@ -3709,7 +3709,7 @@ const body = document.getElementById('resultsBody');
                 
                 // Trigger Email Alert if enabled
                 if (smsEnabled && sInfo && sInfo.email) {
-                    const alertMsg = `ExamPro DSU: You have a new Direct Message from Admin - "${content.substring(0, 50)}${content.length > 50 ? '...' : ''}"`;
+                    const alertMsg = `Exam Erp: You have a new Direct Message from Admin - "${content.substring(0, 50)}${content.length > 50 ? '...' : ''}"`;
                     window.sendEmailAlert(sInfo.email, sInfo.name, alertMsg);
                 }
 
@@ -3853,7 +3853,7 @@ const body = document.getElementById('resultsBody');
                     await updateDoc(doc(db, 'tests', editingTestId), testData);
                 } else {
                     const newTestRef = await addDoc(collection(db, 'tests'), testData);
-                    triggerSMS(`New Test Available: ${testData.title}. Login to ExamPro to check it out!`);
+                    triggerSMS(`New Test Available: ${testData.title}. Login to Exam Erp to check it out!`);
                     try {
                         await addDoc(collection(db, 'notifications'), {
                             type: 'test',
@@ -4859,7 +4859,7 @@ const body = document.getElementById('resultsBody');
         window.showToast = showToast;
     </script>
 
-    <!-- ExamPro Phase 1-5: Dynamic Question Builder, Bank, Parsers, Preview, Audit Log -->
+    <!-- Exam Erp Phase 1-5: Dynamic Question Builder, Bank, Parsers, Preview, Audit Log -->
     <script>
     // =========================================================
     // Phase 1: Dynamic Question Builder
@@ -5079,7 +5079,7 @@ const body = document.getElementById('resultsBody');
     window.previewTestDraft=function(){
         var questions=[]; document.querySelectorAll('.q-item').forEach(function(item){var id=item.id.replace('q-','');var q=window.extractQuestionData(id);if(q)questions.push(q);});
         var draft={id:'PREVIEW',title:document.getElementById('t_title').value||'Preview',subject:document.getElementById('t_subject').value,duration:parseInt(document.getElementById('t_duration').value)||30,totalMarks:parseInt(document.getElementById('t_marks').value)||100,marksPerQuestion:parseInt(document.getElementById('t_mpq').value)||1,questions:questions,isPreview:true};
-        sessionStorage.setItem('examProPreviewDraft',JSON.stringify(draft));window.open('test.html?preview=1','_blank');
+        sessionStorage.setItem('Exam ErpPreviewDraft',JSON.stringify(draft));window.open('test.html?preview=1','_blank');
     };
     window.cloneTest = async function(id){
         var src=allTests&&allTests.find(function(t){return t.id===id;});if(!src)return;

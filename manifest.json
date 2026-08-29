@@ -29,21 +29,21 @@
       "src": "dsu_logo.png",
       "sizes": "1280x720",
       "type": "image/png",
-      "label": "ExamPro DSU Student Portal Home"
+      "label": "Exam Erp Student Portal Home"
     }
   ],
   "shortcuts": [
     {
       "name": "Student Login",
       "short_name": "Login",
-      "description": "Login to your ExamPro DSU student account",
+      "description": "Login to your Exam Erp student account",
       "url": "/login.html",
       "icons": [{ "src": "dsu_logo.png", "sizes": "96x96" }]
     },
     {
       "name": "Student Registration",
       "short_name": "Register",
-      "description": "Register a new student account on ExamPro DSU",
+      "description": "Register a new student account on Exam Erp",
       "url": "/register.html",
       "icons": [{ "src": "dsu_logo.png", "sizes": "96x96" }]
     }
@@ -52,7 +52,7 @@
     {
       "platform": "play",
       "url": "https://dsu.loganathanm.in/app-release.apk",
-      "id": "com.exampro.dsu"
+      "id": "com.Exam Erp.dsu"
     }
   ],
   "prefer_related_applications": false,

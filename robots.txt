@@ -1,4 +1,4 @@
-# ExamPro DSU - robots.txt
+# Exam Erp - robots.txt
 # Student Portal & Exam Management System
 # https://dsu.loganathanm.in/
 # Last updated: 2026-07-23
