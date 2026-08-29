@@ -1376,7 +1376,14 @@
             scrollbar-width: thin;
             scrollbar-color: rgba(150, 150, 150, 0.3) transparent;
         }
+
+    @media (max-width: 599px) {
+        body.light-mode { background: #21a19b !important; }
+        body.dark-mode { background: #21a19b !important; }
+        body { background: #21a19b !important; }
+    }
 </style>
+
     <script src="theme.js"></script>
     <script src="js/india-states-districts.js"></script>
     <script src="js/colleges-data.js"></script>
@@ -1403,15 +1410,12 @@
 
 <body>
     <div class="auth-wrapper" style="overflow-y: auto;">
-        <div class="auth-hero-text" style="top: 8%; text-align: center; width: 100%; left: 0;">
-            <div style="font-size: 36px; font-weight: 800; color: #ffffff;">Join Us</div>
-            <div style="font-size: 16px; font-weight: 600; color: #ffffff; margin-top: 4px;">Create Free Account</div>
-        </div>
+        
         <div class="auth-illustration">
             
             
             <!-- Top Logo Image -->
-            <img src="auth_illustration.jpg" alt="App Illustration" style="width: 100%; max-width: 350px; height: auto; margin: 0 auto -20px auto; display: block; object-fit: contain;">
+            <img src="auth_illustration.jpg" alt="App Illustration">
 
 
         </div>

@@ -552,7 +552,14 @@
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
-    </style>
+    
+    @media (max-width: 599px) {
+        body.light-mode { background: #21a19b !important; }
+        body.dark-mode { background: #21a19b !important; }
+        body { background: #21a19b !important; }
+    }
+</style>
+
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
@@ -583,7 +590,7 @@
             
             
             <!-- Top Logo Image -->
-            <img src="auth_illustration.jpg" alt="App Illustration" style="width: 100%; max-width: 350px; height: auto; margin: 0 auto -20px auto; display: block; object-fit: contain;">
+            <img src="auth_illustration.jpg" alt="App Illustration">
 
 
         </div>
