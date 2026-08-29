@@ -13,7 +13,7 @@ Allow: /login.html
 Allow: /register.html
 Allow: /about.html
 Allow: /materials.html
-Allow: /dsu_logo.png
+Allow: /exam_erp_logo.png
 Allow: /theme.css
 Allow: /sitemap.xml
 Allow: /manifest.json
@@ -43,7 +43,7 @@ Disallow: /js/
 Crawl-delay: 1
 
 User-agent: Googlebot-Image
-Allow: /dsu_logo.png
+Allow: /exam_erp_logo.png
 
 # ─────────────────────────────────────────────────────────────
 #  BING / MICROSOFT

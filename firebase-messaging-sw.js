@@ -21,7 +21,7 @@ messaging.onBackgroundMessage((payload) => {
     const notificationTitle = payload.notification.title || "Exam Erp";
     const notificationOptions = {
         body: payload.notification.body || "You have a new message.",
-        icon: '/dsu_logo.png'
+        icon: '/exam_erp_logo.png'
     };
 
     self.registration.showNotification(notificationTitle, notificationOptions);

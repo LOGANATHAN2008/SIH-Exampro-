@@ -7,7 +7,7 @@ const STATIC_ASSETS = [
   '/login.html',
   '/dashboard.html',
   '/manifest.json',
-  '/dsu_logo.png',
+  '/exam_erp_logo.png',
   '/theme.css',
   '/theme.js',
 ];

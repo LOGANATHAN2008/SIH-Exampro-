@@ -27,22 +27,22 @@
     <meta property="og:description"
         content="Access your Exam Erp academic dashboard to view results, internal marks, attendance, hall ticket, fee status, and manage your academic profile.">
     <meta property="og:url" content="https://dsu.loganathanm.in/dashboard.html">
-    <meta property="og:image" content="https://dsu.loganathanm.in/dsu_logo.png">
+    <meta property="og:image" content="https://dsu.loganathanm.in/exam_erp_logo.png">
     <meta property="og:locale" content="en_US">
 
     <!-- TWITTER CARD -->
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="Academic Dashboard | Exam Erp - Student Portal">
     <meta name="twitter:description" content="Access your Exam Erp academic dashboard.">
-    <meta name="twitter:image" content="https://dsu.loganathanm.in/dsu_logo.png">
+    <meta name="twitter:image" content="https://dsu.loganathanm.in/exam_erp_logo.png">
 
     <!-- THEME & FAVICON -->
     <meta name="theme-color" content="#4f46e5">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-title" content="Exam Erp">
     <meta name="application-name" content="Exam Erp">
-    <link rel="icon" type="image/png" href="dsu_logo.png">
-    <link rel="apple-touch-icon" href="dsu_logo.png">
+    <link rel="icon" type="image/png" href="exam_erp_logo.png">
+    <link rel="apple-touch-icon" href="exam_erp_logo.png">
     <link rel="manifest" href="manifest.json">
 
     <!-- PERFORMANCE -->
@@ -53,7 +53,7 @@
     <link rel="dns-prefetch" href="//www.gstatic.com">
     <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preload" as="image" href="dsu_logo.png">
+    <link rel="preload" as="image" href="exam_erp_logo.png">
 
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet" />
@@ -1559,7 +1559,7 @@
     <div class="mobile-header">
         <button class="menu-toggle" onclick="toggleSidebar()" aria-label="Toggle navigation menu"><i class="fas fa-bars"></i></button>
         <div class="mobile-logo" onclick="window.location.href='dashboard.html'">
-            <img src="dsu_logo.png" alt="DSU Logo">
+            <img src="exam_erp_logo.png" alt="DSU Logo">
             <span>Exam Erp <span style="background:linear-gradient(135deg,#6366f1,#8b5cf6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:800;">DSU</span></span>
         </div>
         <div>
@@ -1578,7 +1578,7 @@
     <nav class="sidebar" id="sidebar">
         <div class="sidebar-logo">
             <div class="logo-icon" style="background: transparent;">
-                <img src="dsu_logo.png" alt="DSU Logo" style="height: 100%; width: auto;">
+                <img src="exam_erp_logo.png" alt="DSU Logo" style="height: 100%; width: auto;">
             </div>
             <span>Exam Erp</span>
         </div>
@@ -2996,7 +2996,7 @@ showToast('Error loading dashboard: ' + (err.message || 'Unknown error'), 'error
                     qrContainer.style.position = 'relative';
                     qrContainer.innerHTML = `
                         <img src="https://api.qrserver.com/v1/create-qr-code/?size=500x500&margin=1&ecc=H&data=${encodeURIComponent(qrData)}" style="width:100%;height:100%;object-fit:contain" alt="QR">
-                        <img src="dsu_logo.png" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:16%;height:16%;background:#fff;padding:2px;border-radius:4px;box-shadow:0 1px 3px rgba(0,0,0,0.2)" alt="logo">
+                        <img src="exam_erp_logo.png" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:16%;height:16%;background:#fff;padding:2px;border-radius:4px;box-shadow:0 1px 3px rgba(0,0,0,0.2)" alt="logo">
                     `;
                 }
             }
@@ -3065,7 +3065,7 @@ showToast('Error loading dashboard: ' + (err.message || 'Unknown error'), 'error
 
                 // Load Images
                 const [logoB64, photoB64, barcodeB64, qrB64] = await Promise.all([
-                    getBase64Image('dsu_logo.png'),
+                    getBase64Image('exam_erp_logo.png'),
                     STUDENT_PROFILE.photoURL ? getBase64Image(STUDENT_PROFILE.photoURL) : Promise.resolve(null),
                     getBase64Image('https://bwipjs-api.metafloor.com/?bcid=code128&text=' + encodeURIComponent(STUDENT_PROFILE.regNo || 'DSU') + '&scale=3&includetext=false'),
                     getBase64Image('https://api.qrserver.com/v1/create-qr-code/?size=300x300&margin=1&ecc=H&data=' + encodeURIComponent(STUDENT_PROFILE.regNo || 'DSU'))

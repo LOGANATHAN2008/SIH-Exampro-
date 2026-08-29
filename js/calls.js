@@ -454,7 +454,7 @@ export function initGlobalListener(db, currentUser) {
                 if (document.hidden && "Notification" in window && Notification.permission === "granted") {
                     new Notification("Incoming " + callData.type + " call...", {
                         body: callData.callerName || "Unknown",
-                        icon: callData.callerAvatar || "/dsu_logo.png"
+                        icon: callData.callerAvatar || "/exam_erp_logo.png"
                     });
                 }
                 
@@ -506,7 +506,7 @@ export function initGlobalListener(db, currentUser) {
                         if ("Notification" in window && Notification.permission === "granted") {
                             new Notification(`Exam Erp: ${senderName}`, {
                                 body: msgText,
-                                icon: "/dsu_logo.png"
+                                icon: "/exam_erp_logo.png"
                             });
                         }
                     }
