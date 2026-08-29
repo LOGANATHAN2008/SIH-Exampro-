@@ -81,248 +81,298 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+    
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
         :root {
-            --primary: #00a6a0;
-            /* Cyan */
-            --secondary: #005a8d;
-            /* DSU Blue */
-            --accent: #f05a5b;
-            /* Coral */
+            --primary: #2b96d9;
+            --primary-hover: #1e7eb8;
             --text-dark: #333333;
-            --text-light: #666666;
-            --bg-gray: #f8f9fa;
+            --text-light: #888888;
+            --bg-body: #e6f0f9;
             --white: #ffffff;
             --border: #dddddd;
+            --border-focus: #2b96d9;
+            --danger: #ef4444;
+            --success: #10b981;
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
         }
 
         body {
-            font-family: 'Inter', sans-serif;
-            background: var(--bg-gray);
+            background: var(--bg-body);
             color: var(--text-dark);
             height: 100vh;
-            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            overflow-x: hidden;
         }
 
         .login-wrapper {
+            background: var(--white);
+            border-radius: 12px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.05);
             display: flex;
-            height: 100vh;
-            width: 100vw;
-        }
-
-        /* Left Side - Hero */
-        .hero-side {
-            flex: 1.4;
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
+            width: 100%;
+            max-width: 1000px;
+            height: 600px;
             overflow: hidden;
         }
 
-        .hero-side::before {
-            content: "";
-            position: absolute;
-            inset: 0;
-            background: url('dsu_hero_campus.jpg') center/cover no-repeat;
-            filter: brightness(1.25) contrast(1.1) saturate(1.1);
-            z-index: 0;
-        }
-
-        .hero-side>* {
-            position: relative;
-            z-index: 1;
-        }
-
-        .hero-content {
-            position: relative;
-            z-index: 2;
-            padding: 60px 10%;
-        }
-
-        .hero-logo-row {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            margin-bottom: 50px;
-        }
-
-        .hero-logo-row img {
-            width: 80px;
-            height: auto;
-            background: white;
-            padding: 10px;
-            border-radius: 50%;
-        }
-
-        .hero-logo-row h1 {
-            color: white;
-            font-size: 28px;
-            font-weight: 800;
-            line-height: 1.2;
-        }
-
-        .admission-box {
-            background: rgba(255, 255, 255, 0.95);
-            padding: 40px;
-            border-radius: 12px;
-            max-width: 500px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
-        }
-
-        .admission-box h2 {
-            color: var(--secondary);
-            font-size: 24px;
-            font-weight: 700;
-            margin-bottom: 15px;
-        }
-
-        .admission-box p {
-            color: var(--text-dark);
-            font-size: 18px;
-            font-weight: 600;
-            margin-bottom: 10px;
-        }
-
-        .hero-footer {
-            position: relative;
-            z-index: 2;
-            background: var(--secondary);
-            padding: 15px 10%;
-            display: flex;
-            justify-content: space-between;
-            color: white;
-            font-size: 14px;
-        }
-
-        /* Right Side - Form */
-        .form-side {
+        /* Left Side */
+        .hero-side {
             flex: 1;
-            background: var(--white);
+            background: #f4f9fd;
             display: flex;
-            flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 20px 40px;
             position: relative;
-            overflow-y: auto;
         }
 
-
-        .form-container {
-            width: 100%;
+        .hero-side img {
+            width: 80%;
             max-width: 400px;
+            height: auto;
+            object-fit: contain;
+            mix-blend-mode: multiply;
+        }
+
+        /* Right Side Form */
+        .form-side {
+            flex: 1;
+            padding: 40px 60px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            overflow-y: auto;
+            position: relative;
         }
 
         .form-header {
             text-align: center;
-            margin-bottom: 24px;
-            padding-top: 10px;
+            margin-bottom: 25px;
         }
 
         .form-header img {
-            width: 100px;
+            width: 80px;
             height: auto;
-            display: block;
-            margin: 0 auto 14px auto;
-            object-fit: contain;
+            margin-bottom: 10px;
         }
 
+        .form-header h2 {
+            font-size: 18px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            color: #000;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+        }
+
+        .form-header h4 {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--primary);
+            text-transform: uppercase;
+        }
+
+        /* Tabs */
+        .login-tabs {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid var(--border);
+            justify-content: center;
+        }
+
+        .login-tab {
+            padding: 8px 15px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 14px;
+            color: var(--text-light);
+            border-bottom: 2px solid transparent;
+            transition: all 0.2s;
+        }
+
+        .login-tab.active {
+            color: var(--primary);
+            border-bottom: 2px solid var(--primary);
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.3s;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Role Selection */
         .role-selection {
             display: flex;
-            gap: 30px;
-            margin-bottom: 25px;
+            gap: 20px;
+            margin-bottom: 20px;
+            justify-content: center;
         }
 
         .role-item {
             display: flex;
             align-items: center;
-            gap: 8px;
-            cursor: pointer;
+            gap: 6px;
+            font-size: 13px;
             font-weight: 600;
-            font-size: 15px;
+            color: var(--text-light);
+            cursor: pointer;
         }
 
         .role-item input {
+            accent-color: var(--primary);
             cursor: pointer;
-            accent-color: var(--secondary);
         }
 
+        /* Inputs */
         .input-group {
-            margin-bottom: 25px;
+            margin-bottom: 20px;
             position: relative;
         }
 
         .input-group label {
             display: block;
-            font-size: 14px;
-            font-weight: 700;
-            margin-bottom: 8px;
-            color: var(--text-dark);
-        }
-
-        .input-group label span {
-            color: var(--accent);
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-light);
+            margin-bottom: 4px;
         }
 
         .input-group input {
             width: 100%;
-            padding: 12px 15px;
-            border: 1px solid var(--border);
-            border-radius: 4px;
-            font-size: 15px;
-            font-family: inherit;
+            padding: 8px 0;
+            border: none;
+            border-bottom: 2px solid #eeeeee;
+            font-size: 14px;
             outline: none;
             transition: border-color 0.2s;
+            background: transparent;
+            color: var(--text-dark);
         }
 
         .input-group input:focus {
-            border-color: var(--primary);
+            border-bottom-color: var(--border-focus);
         }
 
-        .show-pass-row {
+        .input-group input::placeholder {
+            color: #bbbbbb;
+            font-weight: 400;
+        }
+
+        .password-toggle {
+            position: absolute;
+            right: 0;
+            bottom: 8px;
+            color: var(--text-light);
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        /* Options Row */
+        .options-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .options-row label {
             display: flex;
             align-items: center;
-            gap: 8px;
-            margin-bottom: 30px;
-            font-size: 14px;
-            color: var(--text-light);
-        }
-
-        .show-pass-row input {
+            gap: 6px;
+            color: var(--text-dark);
             cursor: pointer;
-            accent-color: var(--secondary);
         }
 
-        .btn-group {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
+        .options-row input[type="checkbox"] {
+            accent-color: var(--primary);
+            width: 14px;
+            height: 14px;
+            cursor: pointer;
         }
 
-        .action-btns {
+        .forgot-link {
+            color: var(--text-dark);
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .forgot-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Captcha */
+        .captcha-container {
+            margin-bottom: 20px;
+        }
+
+        .captcha-row {
             display: flex;
+            align-items: center;
+            justify-content: space-between;
             gap: 10px;
+            background: #f9f9f9;
+            padding: 8px 12px;
+            border-radius: 6px;
+            border: 1px dashed #ccc;
+            margin-bottom: 8px;
         }
 
+        #captchaText {
+            font-family: monospace;
+            font-size: 16px;
+            font-weight: bold;
+            color: var(--primary);
+            letter-spacing: 4px;
+        }
+
+        .btn-refresh {
+            background: none;
+            border: none;
+            color: var(--text-light);
+            cursor: pointer;
+            font-size: 14px;
+        }
+        
+        .btn-refresh:hover {
+            color: var(--primary);
+        }
+
+        /* Buttons */
         .btn {
+            width: 100%;
             padding: 12px;
             border: none;
             border-radius: 4px;
             font-weight: 600;
-            font-size: 15px;
+            font-size: 14px;
             cursor: pointer;
             transition: opacity 0.2s;
-            color: white;
             text-align: center;
+            display: inline-block;
             text-decoration: none;
-            flex: 1;
         }
 
         .btn:hover {
@@ -331,58 +381,38 @@
 
         .btn-login {
             background-color: var(--primary);
+            color: white;
+            margin-bottom: 15px;
         }
 
-        .btn-forgot {
-            background-color: var(--accent);
+        .btn-outline {
+            background-color: transparent;
+            color: var(--primary);
+            border: 1px solid var(--primary);
         }
 
-        .btn-otp {
-            background-color: var(--secondary);
+        /* Modals & Toasts (mostly reused structure, cleaned up CSS) */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
         }
-
-        .maintenance-box {
-            margin-top: 40px;
-            background-color: #ffe4e6;
-            border-radius: 6px;
-            padding: 15px;
+        
+        .modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 400px;
             text-align: center;
-            color: var(--accent);
-            font-size: 12px;
-            font-weight: 700;
-            line-height: 1.4;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            position: relative;
         }
 
-        .chrome-tip {
-            text-align: center;
-            font-size: 12px;
-            color: #888;
-            margin-top: 25px;
-        }
-
-        @media (max-width: 992px) {
-            .hero-side {
-                display: none;
-            }
-
-            .form-side {
-                flex: 1;
-                padding: 30px 24px 40px 24px;
-                justify-content: flex-start;
-            }
-
-            .form-header {
-                margin-bottom: 14px;
-                padding-top: 0;
-            }
-
-            .form-header img {
-                width: 70px;
-                margin-bottom: 10px;
-            }
-        }
-
-        /* Toast styles */
         .toast-box {
             position: fixed;
             bottom: 20px;
@@ -398,235 +428,171 @@
             margin-top: 10px;
             font-size: 14px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            animation: slideIn 0.3s ease-out;
+            animation: slideIn 0.3s;
         }
+
+        .toast-msg.error { border-left: 4px solid var(--danger); }
+        .toast-msg.success { border-left: 4px solid var(--success); }
+        .toast-msg.info { border-left: 4px solid var(--primary); }
 
         @keyframes slideIn {
-            from {
-                transform: translateX(100%);
-                opacity: 0;
-            }
-
-            to {
-                transform: translateX(0);
-                opacity: 1;
-            }
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
         }
 
-        .spinner {
-            animation: rotate 1s linear infinite;
-        }
-
-        @keyframes rotate {
-            to {
-                transform: rotate(360deg);
-            }
-        }
-        
-        .login-tabs {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 24px;
-            background: rgba(128, 128, 128, 0.05);
-            padding: 4px;
-            border-radius: 12px;
-        }
-        
-        .login-tab {
-            flex: 1;
-            padding: 10px;
-            text-align: center;
-            font-size: 14px;
-            font-weight: 700;
-            cursor: pointer;
-            border-radius: 8px;
-            color: var(--text-muted);
-            transition: all 0.3s;
-        }
-        
-        .login-tab.active {
-            background: var(--white);
-            color: var(--primary);
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-        }
-
-        .tab-content {
-            display: none;
-            animation: fadeIn 0.4s ease;
-        }
-
-        .tab-content.active {
-            display: block;
+        @media (max-width: 768px) {
+            .hero-side { display: none; }
+            .login-wrapper { height: auto; border-radius: 8px; }
+            .form-side { padding: 30px 20px; }
         }
     </style>
+
     <link rel="stylesheet" href="theme.css">
     <script src="theme.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 </head>
 
+
 <body>
     <div class="login-wrapper">
-        <!-- Hero Side -->
+        <!-- Left Side - Illustration -->
         <div class="hero-side">
-            <div class="hero-footer">
-                <div><i class="fas fa-phone"></i> +91 9880147004</div>
-                <div><i class="fas fa-envelope"></i> admissions@dsuonline.com</div>
-            </div>
+            <img src="login_illustration.jpg" alt="Online Education">
         </div>
 
-        <!-- Form Side -->
+        <!-- Right Side - Form -->
         <div class="form-side">
-            <!-- Top Navigation Links -->
-            <div style="position: absolute; top: 25px; right: 30px; display: flex; gap: 20px; z-index: 10;">
-                <a href="about.html"
-                    style="text-decoration: none; color: var(--text-muted); font-size: 15px; font-weight: 600; transition: color 0.2s;"
-                    onmouseover="this.style.color='var(--primary)'"
-                    onmouseout="this.style.color='var(--text-muted)'">About</a>
+            <!-- Top Links -->
+            <div style="position: absolute; top: 20px; right: 25px; font-size: 12px;">
+                <a href="about.html" style="color: var(--text-light); text-decoration: none;">www.universityname.ac.in</a>
             </div>
 
-            <div class="form-container" id="loginContent">
-                <div class="form-header">
-                    <img src="dsu_logo.png" alt="DSU Logo">
-                </div>
+            <div class="form-header">
+                <img src="dsu_logo.png" alt="University Logo">
+                <h2>UNIVERSITY NAME</h2>
+                <h4>STUDENT PANEL</h4>
+            </div>
 
-                <div class="login-tabs">
-                    <div class="login-tab active" onclick="switchLoginTab('email')">Email / Pass</div>
-                    <div class="login-tab" onclick="switchLoginTab('qr')">QR Login</div>
-                </div>
+            <div class="login-tabs">
+                <div class="login-tab active" onclick="switchLoginTab('email')">Email / Pass</div>
+                <div class="login-tab" onclick="switchLoginTab('qr')">QR Login</div>
+            </div>
 
-                <div id="tab-email" class="tab-content active">
-                    <form id="loginForm" onsubmit="handleLogin(event)">
-                        <div class="role-selection">
-                            <label class="role-item">
-                                <input type="radio" name="role" value="staff" id="roleStaffRadio" onchange="toggleUserType('admin')">
-                                Role Staff
-                            </label>
-                            <label class="role-item">
-                                <input type="radio" name="role" value="student" id="roleStudentRadio" checked
-                                    onchange="toggleUserType('student')">
-                                Role Student
-                            </label>
-                        </div>
-
-                        <div class="input-group">
-                            <label id="usernameLabel">Email / Register No. / Mobile No. <span>*</span></label>
-                            <input type="text" id="email" placeholder="Email, Register No, or Mobile No" required autocomplete="username">
-                        </div>
-                        <div class="input-group">
-                            <label>Password <span>*</span></label>
-                            <input type="password" id="password" placeholder="Password" required autocomplete="current-password">
-                        </div>
-
-                        <div class="show-pass-row">
-                            <label style="display: flex; align-items:center; gap:8px; cursor:pointer;">
-                                <input type="checkbox" id="showPassCheckbox" onchange="togglePasswordVisibility()">
-                                Show Password
-                            </label>
-                        </div>
-
-                        <div class="input-group" id="adminCodeGroup" style="display: none;">
-                            <label>Admin Security Code <span>*</span></label>
-                            <input type="password" id="adminCode" placeholder="Enter 4-digit security code">
-                        </div>
-
-                        <div class="captcha-container" style="border: 1px solid var(--border); border-radius: 10px; padding: 10px 12px; margin-bottom: 14px; background: rgba(255,255,255,0.02);">
-                            <!-- Row 1: Label + Code + Refresh -->
-                            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
-                                <div style="display: flex; align-items: center; gap: 5px; color: var(--text-muted); font-weight: 600; font-size: 11px; text-transform: uppercase; letter-spacing: 0.8px; white-space: nowrap; flex-shrink: 0;">
-                                    <i class="fas fa-shield-alt" style="color: var(--primary); font-size: 11px;"></i> Captcha:
-                                </div>
-                                <div id="captchaText" style="font-size: 17px; font-weight: 700; color: #38bdf8; letter-spacing: 6px; font-family: monospace; flex: 1; text-align: center; white-space: nowrap; overflow: hidden;">0U1EE</div>
-                                <button type="button" onclick="generateCaptcha()" title="Refresh" style="background: var(--primary); color: white; border: none; border-radius: 6px; width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0; font-size: 11px;">
-                                    <i class="fas fa-sync-alt"></i>
-                                </button>
-                            </div>
-                            <!-- Row 2: Input full width -->
-                            <input type="text" id="captchaInput" placeholder="Enter captcha code" required autocomplete="off" style="width: 100%; box-sizing: border-box; padding: 9px 12px; background: var(--input-bg, rgba(255,255,255,0.05)); border: 1px solid var(--border); border-radius: 8px; color: var(--text); font-size: 14px; outline: none;">
-                        </div>
-
-                        <div class="btn-group">
-                            <button type="submit" class="btn btn-login" id="loginBtn">Login</button>
-                            <div class="action-btns">
-                                <button type="button" class="btn btn-forgot" onclick="openForgotModal(event)">Forgot Password</button>
-                            </div>
-                            <a href="check-result.html" class="btn"
-                                style="background: var(--white); color: var(--secondary); border: 1px solid var(--border); margin-top: 10px;">Check Result without login</a>
-                        </div>
-                    </form>
-                </div>
-
-                <div id="tab-qr" class="tab-content">
-                    <div style="text-align: center; padding: 10px 0;">
-                        <h3 style="font-size:18px; margin-bottom: 8px;">Log in with QR code</h3>
-                        <ol style="text-align:left; font-size:14px; color:var(--text-muted); line-height:1.6; margin:0 auto 20px auto; max-width: 250px; padding-left: 20px;">
-                            <li>Open ExamPro DSU app on your phone</li>
-                            <li>Tap Menu &rarr; Linked Devices</li>
-                            <li>Point your phone at this screen to capture the code</li>
-                        </ol>
-                        
-                        <div id="qrCodeContainer" style="background:white; padding:15px; border-radius:12px; display:inline-block; margin-bottom:15px; min-width:200px; min-height:200px;">
-                            <div id="qrCode"></div>
-                        </div>
-                        <div id="qrStatus" style="font-size:14px; font-weight:600; color:var(--text-muted);">Generating QR code...</div>
+            <div id="tab-email" class="tab-content active">
+                <form id="loginForm" onsubmit="handleLogin(event)">
+                    
+                    <!-- Role Selection (Kept for backend requirements) -->
+                    <div class="role-selection">
+                        <label class="role-item">
+                            <input type="radio" name="role" value="staff" id="roleStaffRadio" onchange="toggleUserType('admin')">
+                            Role Staff
+                        </label>
+                        <label class="role-item">
+                            <input type="radio" name="role" value="student" id="roleStudentRadio" checked onchange="toggleUserType('student')">
+                            Role Student
+                        </label>
                     </div>
-                </div>
 
-                <p class="chrome-tip">Please use Google Chrome for better experience</p>
+                    <div class="input-group">
+                        <label id="usernameLabel">Enrollment number</label>
+                        <input type="text" id="email" placeholder="Email, Register No, or Mobile No" required autocomplete="username">
+                    </div>
+                    
+                    <div class="input-group">
+                        <label>Password</label>
+                        <input type="password" id="password" placeholder="Password" required autocomplete="current-password">
+                        <i class="fas fa-eye password-toggle" id="eyeIcon" onclick="togglePasswordVisibilityUI()"></i>
+                    </div>
 
-                <!-- App Store Ad -->
-                <div style="margin-top: 25px; text-align: center;">
-                    <a href="https://app.loganathanm.in/" target="_blank">
-                        <img src="loga_app_store_ad.png" alt="Get it on App Store"
-                            style="max-width: 240px; width: 100%; height: auto; border-radius: 10px; box-shadow: 0 6px 15px rgba(0,0,0,0.1); transition: transform 0.3s ease;"
-                            onmouseover="this.style.transform='scale(1.04)'"
-                            onmouseout="this.style.transform='scale(1)'">
-                    </a>
-                </div>
+                    <div class="input-group" id="adminCodeGroup" style="display: none;">
+                        <label>Admin Security Code</label>
+                        <input type="password" id="adminCode" placeholder="Enter 4-digit code">
+                    </div>
 
+                    <div class="captcha-container">
+                        <div class="captcha-row">
+                            <span style="font-size: 11px; font-weight:600; color: var(--text-light);">CAPTCHA:</span>
+                            <div id="captchaText">0U1EE</div>
+                            <button type="button" class="btn-refresh" onclick="generateCaptcha()" title="Refresh">
+                                <i class="fas fa-sync-alt"></i>
+                            </button>
+                        </div>
+                        <div class="input-group" style="margin-bottom:0;">
+                            <input type="text" id="captchaInput" placeholder="Enter captcha code" required autocomplete="off">
+                        </div>
+                    </div>
+
+                    <div class="options-row">
+                        <label>
+                            <input type="checkbox" id="rememberMe" checked>
+                            Remember me
+                        </label>
+                        <a onclick="openForgotModal(event)" class="forgot-link">Forgot Password?</a>
+                    </div>
+
+                    <button type="submit" class="btn btn-login" id="loginBtn">Sign in</button>
+                    <a href="check-result.html" class="btn btn-outline">Check Result without login</a>
+                </form>
             </div>
+
+            <div id="tab-qr" class="tab-content">
+                <div style="text-align: center; padding: 10px 0;">
+                    <h3 style="font-size:16px; margin-bottom: 15px;">Log in with QR code</h3>
+                    <div id="qrCodeContainer" style="background:white; padding:15px; border-radius:12px; display:inline-block; margin-bottom:15px; border: 1px solid var(--border);">
+                        <div id="qrCode"></div>
+                    </div>
+                    <div id="qrStatus" style="font-size:13px; font-weight:600; color:var(--text-light);">Generating QR code...</div>
+                </div>
+            </div>
+
         </div>
     </div>
 
+    <!-- Modals and Toasts -->
     <div class="toast-box" id="toastContainer"></div>
 
     <!-- OTP Modal -->
-    <div class="modal-overlay" id="otpModal"
-        style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); z-index:9999; justify-content:center; align-items:center;">
-        <div class="modal-content"
-            style="background:var(--bg2); padding:30px; border-radius:12px; width:90%; max-width:400px; text-align:center; box-shadow: 0 10px 40px rgba(0,0,0,0.5); border: 4px solid var(--primary);">
+    <div class="modal-overlay" id="otpModal">
+        <div class="modal-content">
             <h3 style="margin-bottom:10px;">Two-Factor Authentication</h3>
-            <p style="color:var(--text-muted); font-size:14px; margin-bottom:20px;">We've sent a 6-digit code to your
-                email. Please enter it below.</p>
-            <input type="text" id="otpInput" maxlength="6"
-                style="width:100%; padding:12px; text-align:center; letter-spacing:8px; font-size:24px; font-weight:bold; background:var(--bg1); border:1px solid rgba(255,255,255,0.1); border-radius:8px; color:#fff; margin-bottom:20px;"
-                placeholder="------">
-            <button id="verifyOtpBtn"
-                style="width:100%; padding:14px; background:var(--primary); color:#fff; border:none; border-radius:8px; font-weight:800; cursor:pointer; font-family:'Inter', sans-serif; text-transform:uppercase; letter-spacing:1px; box-shadow:0 4px 12px color-mix(in srgb, var(--primary) 40%, transparent);">Verify
-                Code</button>
-            <p id="otpError" style="color:var(--danger); font-size:13px; margin-top:10px; display:none;"></p>
+            <p style="color:var(--text-light); font-size:13px; margin-bottom:20px;">We've sent a 6-digit code to your email.</p>
+            <input type="text" id="otpInput" maxlength="6" style="width:100%; padding:12px; text-align:center; letter-spacing:8px; font-size:20px; font-weight:bold; border:2px solid var(--border); border-radius:6px; margin-bottom:20px; outline:none;" placeholder="------">
+            <button id="verifyOtpBtn" class="btn btn-login">Verify Code</button>
+            <p id="otpError" style="color:var(--danger); font-size:12px; margin-top:10px; display:none;"></p>
         </div>
     </div>
 
     <!-- Forgot Password Modal -->
-    <div class="modal-overlay" id="forgotModal"
-        style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); z-index:9999; justify-content:center; align-items:center;">
-        <div class="modal-content"
-            style="background:var(--bg2); padding:30px; border-radius:12px; width:90%; max-width:400px; text-align:center; box-shadow: 0 10px 40px rgba(0,0,0,0.5); border: 4px solid var(--primary); position: relative;">
-            <button onclick="closeForgotModal()" style="position:absolute; top:15px; right:15px; background:none; border:none; color:var(--text-muted); cursor:pointer; font-size:18px;"><i class="fas fa-times"></i></button>
+    <div class="modal-overlay" id="forgotModal">
+        <div class="modal-content">
+            <button onclick="closeForgotModal()" style="position:absolute; top:15px; right:15px; background:none; border:none; color:var(--text-light); cursor:pointer; font-size:16px;"><i class="fas fa-times"></i></button>
             <h3 style="margin-bottom:10px;">Reset Password</h3>
-            <p style="color:var(--text-muted); font-size:14px; margin-bottom:20px;">Enter your Email, Register No, or Mobile No to receive a reset link.</p>
-            <input type="text" id="forgotInput"
-                style="width:100%; padding:12px; background:var(--bg1); border:1px solid rgba(255,255,255,0.1); border-radius:8px; color:#fff; margin-bottom:20px;"
-                placeholder="Email, Reg No, or Mobile No">
-            <button id="sendResetBtn" onclick="submitForgotPassword()"
-                style="width:100%; padding:14px; background:var(--primary); color:#fff; border:none; border-radius:8px; font-weight:800; cursor:pointer; font-family:'Inter', sans-serif; text-transform:uppercase; letter-spacing:1px; box-shadow:0 4px 12px color-mix(in srgb, var(--primary) 40%, transparent);">Send Reset Link</button>
+            <p style="color:var(--text-light); font-size:13px; margin-bottom:20px;">Enter your info to receive a reset link.</p>
+            <input type="text" id="forgotInput" style="width:100%; padding:10px; border:2px solid var(--border); border-radius:6px; margin-bottom:20px; outline:none; font-size:14px;" placeholder="Email, Reg No, or Mobile No">
+            <button id="sendResetBtn" onclick="submitForgotPassword()" class="btn btn-login">Send Reset Link</button>
         </div>
     </div>
-
-    <script type="module">
+    
+    <script>
+        // Custom toggle for the eye icon in the new UI
+        function togglePasswordVisibilityUI() {
+            const pwdInput = document.getElementById('password');
+            const eyeIcon = document.getElementById('eyeIcon');
+            if (pwdInput.type === 'password') {
+                pwdInput.type = 'text';
+                eyeIcon.classList.remove('fa-eye');
+                eyeIcon.classList.add('fa-eye-slash');
+            } else {
+                pwdInput.type = 'password';
+                eyeIcon.classList.remove('fa-eye-slash');
+                eyeIcon.classList.add('fa-eye');
+            }
+        }
+        
+        // Ensure standard function exists if backend calls it
+        window.togglePasswordVisibility = togglePasswordVisibilityUI;
+    </script>
+<script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
         import { initializeAppCheck, ReCaptchaV3Provider } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app-check.js";
         import {
