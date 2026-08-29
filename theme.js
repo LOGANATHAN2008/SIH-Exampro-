@@ -242,13 +242,7 @@ window.addEventListener('DOMContentLoaded', () => {
     nav.addEventListener('pointerup', handlePointerUp);
     nav.addEventListener('pointercancel', handlePointerUp);
 });
-// 6. Staggered Sidebar Animation Delays (Fast 15ms waterfall)
-window.addEventListener('DOMContentLoaded', () => {
-    const animateElements = document.querySelectorAll('.sidebar .nav-label, .sidebar .nav-item, .sidebar-user');
-    animateElements.forEach((el, index) => {
-        el.style.animationDelay = (index * 0.015) + 's';
-    });
-});
+
 
 // 7. Staggered Card Delays (Ultra Snappy micro-delays)
 const cardObserver = new MutationObserver((mutations) => {

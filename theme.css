@@ -831,34 +831,15 @@ body {
 }
 
 /* 6. Staggered Sidebar Waterfall Animation */
-@keyframes slideInRightStaggered {
-    0% { opacity: 0; transform: translateX(-25px); }
+
     100% { opacity: 1; transform: translateX(0); }
 }
 
 /* By default, prepare elements for animation */
-.sidebar .nav-label,
-.sidebar .nav-item,
-.sidebar .sidebar-user {
-    opacity: 0;
-    animation: slideInRightStaggered 0.4s cubic-bezier(0.2, 0.8, 0.2, 1.1) forwards;
-}
+
 
 @media (max-width: 768px) {
-    /* On mobile, reset animation when sidebar is closed */
-    .sidebar:not(.open) .nav-label,
-    .sidebar:not(.open) .nav-item,
-    .sidebar:not(.open) .sidebar-user {
-        animation: none;
-        opacity: 0;
     }
-    /* Trigger animation only when opened */
-    .sidebar.open .nav-label,
-    .sidebar.open .nav-item,
-    .sidebar.open .sidebar-user {
-        animation: slideInRightStaggered 0.4s cubic-bezier(0.2, 0.8, 0.2, 1.1) forwards;
-    }
-}
 
 /* 7. Staggered Card Animation */
 @keyframes slideDownFadeCard {
@@ -1022,3 +1003,5 @@ html:not(.light-mode) .ios-alert-box, body:not(.light-mode) .ios-alert-box {
 }
     50% { border-color: var(--primary); }
 }
+
+.sidebar .nav-label, .sidebar .nav-item, .sidebar .sidebar-user { opacity: 1 !important; animation: none !important; transform: none !important; }
