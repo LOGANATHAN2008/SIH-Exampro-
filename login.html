@@ -825,7 +825,7 @@
                 </div>
 
                 <div style="display: flex; gap: 15px; justify-content: center; margin-bottom: 25px;">
-                    <button type="button" style="flex: 1; display: flex; align-items: center; justify-content: center; gap: 8px; padding: 10px; border-radius: 20px; border: 1px solid var(--border); background: white; cursor: pointer; font-family: inherit; font-weight: 600; font-size: 14px; color: #333; box-shadow: 0 2px 5px rgba(0,0,0,0.05);" onclick="showToast('Google login coming soon!')">
+                    <button type="button" style="flex: 1; display: flex; align-items: center; justify-content: center; gap: 8px; padding: 10px; border-radius: 20px; border: 1px solid var(--border); background: white; cursor: pointer; font-family: inherit; font-weight: 600; font-size: 14px; color: #333; box-shadow: 0 2px 5px rgba(0,0,0,0.05);" onclick="signInWithGoogle()">
                         <img src="https://img.icons8.com/color/24/000000/google-logo.png" alt="Google" style="width: 20px; height: 20px;">
                         Google
                     </button>
@@ -915,7 +915,8 @@
         import {
             getAuth, signInWithEmailAndPassword, sendPasswordResetEmail,
             onAuthStateChanged, signOut, signInWithCustomToken,
-            setPersistence, browserLocalPersistence
+            setPersistence, browserLocalPersistence,
+            GoogleAuthProvider, signInWithPopup
         } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
         import { getFirestore, doc, getDoc, setDoc, collection, query, where, orderBy, getDocs, addDoc, serverTimestamp, deleteDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
         import { getFunctions, httpsCallable } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-functions.js";
@@ -1630,6 +1631,44 @@
                 setTimeout(() => toast.remove(), 300);
             }, 3500);
         }
+
+        window.signInWithGoogle = async () => {
+            try {
+                const provider = new GoogleAuthProvider();
+                const result = await signInWithPopup(auth, provider);
+                showToast("Google Login successful! Redirecting...", "success");
+
+                let isSuperAdmin = ADMIN_EMAILS.includes(result.user.email.toLowerCase());
+                let isAdminData = null;
+                try {
+                    const adminDoc = await getDoc(doc(db, 'admins', result.user.uid));
+                    if (adminDoc.exists()) {
+                        isAdminData = adminDoc.data();
+                    }
+                } catch(e) {}
+                const isAdmin = (isAdminData !== null) || isSuperAdmin;
+
+                let isStaffMember = false;
+                if (!isAdmin) {
+                    try {
+                        const staffDoc = await getDoc(doc(db, 'staff', result.user.uid));
+                        if (staffDoc.exists()) {
+                            isStaffMember = true;
+                        }
+                    } catch(e) {}
+                }
+
+                setTimeout(() => {
+                    if (isAdmin) window.location.replace('admin.html');
+                    else if (isStaffMember) window.location.replace('staff.html');
+                    else window.location.replace('dashboard.html');
+                }, 100);
+
+            } catch (error) {
+                console.error("Google Login Error:", error);
+                showToast("Google Login failed: " + error.message, "error");
+            }
+        };
 
         window.openQrModal = (e) => {
             if(e) e.preventDefault();
