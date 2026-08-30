@@ -880,6 +880,7 @@
             </div>
             
             <p id="qrStatus" style="font-size:15px; font-weight:600; text-align:center; color: #475569; margin: 0;"></p>
+            <p id="qrTimer" style="font-size:13px; font-weight:500; text-align:center; color: #94a3b8; margin-top: 8px;"></p>
         </div>
     </div>
 
@@ -984,6 +985,10 @@
                     currentQrSessionUnsubscribe();
                     currentQrSessionUnsubscribe = null;
                 }
+                if (window.qrCountdownInterval) {
+                    clearInterval(window.qrCountdownInterval);
+                    window.qrCountdownInterval = null;
+                }
             } else if (tab === 'qr') {
                 document.querySelector('.login-tab:nth-child(2)').classList.add('active');
                 document.getElementById('tab-qr').classList.add('active');
@@ -1027,7 +1032,7 @@
             const secretHash = await hashSecret(localSecret);
             const deviceInfo = await fetchLocationInfo();
 
-            const expiresAt = Timestamp.fromDate(new Date(Date.now() + 2 * 60 * 1000)); // 2 mins
+            const expiresAt = Timestamp.fromDate(new Date(Date.now() + 5 * 60 * 1000)); // 5 mins
 
             try {
                 await setDoc(doc(db, 'qrSessions', sessionId), {
@@ -1048,6 +1053,26 @@
 
                 qrStatus.textContent = "Scan this code with the Exam Erp App";
 
+                // Initialize Timer
+                if (window.qrCountdownInterval) clearInterval(window.qrCountdownInterval);
+                let timeLeft = 5 * 60;
+                const timerEl = document.getElementById('qrTimer');
+                timerEl.style.display = 'block';
+                timerEl.textContent = `Code expires in 5:00`;
+                
+                window.qrCountdownInterval = setInterval(() => {
+                    timeLeft--;
+                    if (timeLeft <= 0) {
+                        clearInterval(window.qrCountdownInterval);
+                        timerEl.textContent = "Code expired, generating new...";
+                        initQrLogin(); // Refresh automatically
+                    } else {
+                        const m = Math.floor(timeLeft / 60);
+                        const s = timeLeft % 60;
+                        timerEl.textContent = `Code expires in ${m}:${s.toString().padStart(2, '0')}`;
+                    }
+                }, 1000);
+
                 // Listen for changes
                 currentQrSessionUnsubscribe = onSnapshot(doc(db, 'qrSessions', sessionId), async (docSnap) => {
                     if (!docSnap.exists()) return;
@@ -1056,9 +1081,12 @@
                     if (data.status === 'scanned') {
                         qrStatus.textContent = "Scanned! Please confirm on your phone.";
                         qrStatus.style.color = "var(--primary)";
+                        if (window.qrCountdownInterval) clearInterval(window.qrCountdownInterval);
+                        document.getElementById('qrTimer').style.display = 'none';
                     } else if (data.status === 'approved') {
-                        // HACKATHON PROTOTYPE: Bypass Custom Token generation
-                        // Since we can't deploy Cloud Functions, we simulate a login by passing the UID directly
+                        if (window.qrCountdownInterval) clearInterval(window.qrCountdownInterval);
+                        document.getElementById('qrTimer').style.display = 'none';
+                        
                         if (data.uid) {
                             localStorage.setItem('hackathonFakeUid', data.uid);
                             qrStatus.textContent = "Approved! Redirecting...";
@@ -1072,11 +1100,15 @@
                             setTimeout(initQrLogin, 3000);
                         }
                     } else if (data.status === 'denied') {
+                        if (window.qrCountdownInterval) clearInterval(window.qrCountdownInterval);
+                        document.getElementById('qrTimer').style.display = 'none';
                         qrStatus.textContent = "Login denied from phone. Generating new code...";
                         qrStatus.style.color = "var(--danger)";
-                        setTimeout(initQrLogin, 2000);
+                        setTimeout(initQrLogin, 3000);
                     } else if (data.status === 'expired') {
-                        qrStatus.textContent = "QR Code expired. Generating new code...";
+                        if (window.qrCountdownInterval) clearInterval(window.qrCountdownInterval);
+                        document.getElementById('qrTimer').style.display = 'none';
+                        qrStatus.textContent = "QR Code expired. Generating new...";
                         qrStatus.style.color = "var(--danger)";
                         setTimeout(initQrLogin, 2000);
                     }
