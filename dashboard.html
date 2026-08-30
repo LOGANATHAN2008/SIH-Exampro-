@@ -64,6 +64,7 @@
     <script>window.jsPDF = window.jspdf.jsPDF;</script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
     <style>
         /* Fast Instant Rendering */
         body {
@@ -1655,6 +1656,7 @@
                 <div class="nav-label">Account</div>
                 <a class="nav-item" href="profile.html"><i class="fas fa-user"></i> Profile</a>
                 <a class="nav-item" href="profile.html#loginActivitySection"><i class="fas fa-laptop"></i> Linked Devices</a>
+                <a class="nav-item" href="#" onclick="openQrScannerModal()"><i class="fas fa-qrcode"></i> QR Scan</a>
                 <a class="nav-item" href="#" onclick="showFeedbackModal()"><i class="fas fa-comments"></i> Send Feedback</a>
             </div>
         </div>
@@ -2331,7 +2333,17 @@
 
     <div class="toast-container" id="toastContainer"></div>
 
-
+    <!-- QR Scanner Modal -->
+    <div class="overlay" id="qrScannerOverlay"></div>
+    <div class="modal" id="qrScannerModal" style="max-width: 400px; padding: 25px;">
+        <button class="close-btn" onclick="closeQrScannerModal()"><i class="fas fa-times"></i></button>
+        <h3 class="modal-title" style="margin-bottom: 5px;"><i class="fas fa-qrcode" style="color:var(--primary)"></i> Scan to Login</h3>
+        <p style="text-align: center; color: var(--text-muted); font-size: 13px; margin-bottom: 20px;">
+            Point your camera at the QR code displayed on your laptop screen.
+        </p>
+        <div id="qr-reader" style="width:100%; border-radius: 12px; overflow: hidden; border: 1px solid var(--border);"></div>
+        <p id="qrScanStatus" style="text-align: center; font-weight: 600; color: var(--primary); margin-top: 15px; font-size: 14px;"></p>
+    </div>
 
     <!-- Firebase Module -->
     <script type="module">
@@ -4122,6 +4134,71 @@ showToast('Error loading dashboard: ' + (err.message || 'Unknown error'), 'error
                 setTimeout(() => toast.remove(), 400);
             }, 3500);
         };
+
+        let html5QrcodeScanner = null;
+
+        window.openQrScannerModal = () => {
+            document.getElementById('qrScannerOverlay').style.display = 'block';
+            document.getElementById('qrScannerModal').style.display = 'block';
+            document.getElementById('qrScanStatus').textContent = 'Initializing camera...';
+            document.getElementById('qrScanStatus').style.color = 'var(--primary)';
+
+            html5QrcodeScanner = new Html5QrcodeScanner(
+                "qr-reader", { fps: 10, qrbox: {width: 250, height: 250}, aspectRatio: 1.0 }
+            );
+
+            html5QrcodeScanner.render(onScanSuccess, onScanFailure);
+        };
+
+        window.closeQrScannerModal = () => {
+            if (html5QrcodeScanner) {
+                html5QrcodeScanner.clear().catch(error => {
+                    console.error("Failed to clear html5QrcodeScanner.", error);
+                });
+            }
+            document.getElementById('qrScannerOverlay').style.display = 'none';
+            document.getElementById('qrScannerModal').style.display = 'none';
+        };
+
+        async function onScanSuccess(decodedText, decodedResult) {
+            // Check if it matches Exam Erpdsu://qrlogin?session=
+            if (decodedText.startsWith('Exam Erpdsu://qrlogin?session=')) {
+                // Pause scanning to prevent multiple triggers
+                html5QrcodeScanner.pause(true);
+                document.getElementById('qrScanStatus').textContent = 'QR Code Detected! Authenticating...';
+                document.getElementById('qrScanStatus').style.color = 'var(--success)';
+
+                try {
+                    const url = new URL(decodedText);
+                    const sessionId = url.searchParams.get('session');
+
+                    if (sessionId) {
+                        const approveFn = httpsCallable(functions, 'approveQrSession');
+                        await approveFn({ sessionId });
+                        
+                        document.getElementById('qrScanStatus').textContent = 'Approved! Laptop is logging in...';
+                        setTimeout(() => {
+                            closeQrScannerModal();
+                            showToast('Laptop login approved successfully!', 'success');
+                        }, 2000);
+                    }
+                } catch (error) {
+                    console.error("QR Scan Error:", error);
+                    document.getElementById('qrScanStatus').textContent = 'Error: ' + (error.message || 'Unknown error');
+                    document.getElementById('qrScanStatus').style.color = 'var(--danger)';
+                    // Resume scanning after 3 seconds
+                    setTimeout(() => {
+                        html5QrcodeScanner.resume();
+                        document.getElementById('qrScanStatus').textContent = 'Scanning...';
+                        document.getElementById('qrScanStatus').style.color = 'var(--primary)';
+                    }, 3000);
+                }
+            }
+        }
+
+        function onScanFailure(error) {
+            // Ignore normal failures
+        }
     </script>
 
     <!-- PWA Service Worker Registration -->
