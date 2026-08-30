@@ -339,6 +339,27 @@
                             isProcessing = false;
                         }, 3000);
                     }
+                } else {
+                    // It's not a valid Exam ERP QR code
+                    isProcessing = true;
+                    html5QrCode.pause();
+                    
+                    const toast = document.getElementById('statusToast');
+                    const toastText = document.getElementById('statusText');
+                    
+                    toast.style.display = 'flex';
+                    toastText.textContent = 'Invalid QR Code';
+                    toast.querySelector('i').className = 'fas fa-times-circle';
+                    toast.querySelector('i').style.color = '#ef4444';
+                    
+                    // Vibrate to indicate error if supported
+                    if (navigator.vibrate) navigator.vibrate([100, 50, 100]);
+                    
+                    setTimeout(() => {
+                        toast.style.display = 'none';
+                        html5QrCode.resume();
+                        isProcessing = false;
+                    }, 2500);
                 }
             }).catch(err => {
                 console.error("Camera start failed", err);
