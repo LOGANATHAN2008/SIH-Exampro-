@@ -278,7 +278,6 @@
 
             const config = { 
                 fps: 10, 
-                qrbox: { width: 260, height: 260 },
                 aspectRatio: 1.0,
                 videoConstraints: { facingMode: "environment" } // Prefer back camera
             };
@@ -289,7 +288,7 @@
                 if (isProcessing) return;
                 
                 // Validate payload
-                if (decodedText.startsWith('Exam Erpdsu://qrlogin?session=')) {
+                if (decodedText.startsWith('examerp://qrlogin?session=')) {
                     isProcessing = true;
                     html5QrCode.pause(); // Pause camera feed
                     
