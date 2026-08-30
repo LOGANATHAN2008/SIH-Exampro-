@@ -60,11 +60,10 @@ body::before, body::after {
     }
 
     .auth-illustration {
-        flex: 0 0 auto;
-        min-height: 15vh;
+        flex: 1 1 0;
         width: 100%;
         display: flex;
-        align-items: flex-end;
+        align-items: center; /* Center the illustration vertically in the teal space */
         justify-content: center;
         position: relative;
         overflow: hidden;
@@ -76,17 +75,17 @@ body::before, body::after {
         max-width: 450px;
         height: auto;
         object-fit: cover;
-        margin-bottom: -15%;
+        margin-bottom: 0; /* Remove negative margin so it stays centered */
     }
 
     .auth-card {
         background-color: var(--auth-card);
         border-radius: 40px 40px 0 0;
         width: 100%;
-        flex: 1 1 auto;
+        flex: 0 0 auto; /* Let card wrap its content tightly */
         max-height: 85dvh;
         overflow-y: auto;
-        padding: 25px 22px 30px;
+        padding: 30px 22px 30px;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -736,7 +735,7 @@ body::before, body::after {
     justify-content: center;
     overflow: hidden;
     text-decoration: none;
-    margin: auto auto 0 auto; /* Pushes the button to the bottom of the flex container */
+    margin: 25px auto 10px auto; /* Normal top margin instead of auto */
 }
 .btn-animated .btn-icon {
     background-color: rgba(255, 255, 255, 0.2);
