@@ -1049,11 +1049,10 @@
                     });
                 }
                 qrCodeInstance.clear();
-                // Generate a Universal Link using the current origin (works locally and in production)
-                const currentOrigin = window.location.origin;
-                // If they are deep inside a folder, we ensure we map to the root or relative path
-                let basePath = window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/'));
-                const qrUrl = `${currentOrigin}${basePath}/qr-scanner.html?session=${sessionId}`;
+                // Generate a Universal Link using the production domain
+                // Hardcoding the domain so that even if the laptop is running on localhost,
+                // the phone's scanner will be directed to the live server.
+                const qrUrl = `https://sih.loganathanm.in/qr-scanner.html?session=${sessionId}`;
                 qrCodeInstance.makeCode(qrUrl);
 
                 qrStatus.textContent = "Scan this code with the Exam Erp App or Google Lens";
