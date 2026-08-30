@@ -288,13 +288,33 @@
 
             try {
                 // HACKATHON PROTOTYPE: Bypass Cloud Functions and directly update Firestore
-                const { getFirestore, doc, updateDoc, serverTimestamp } = await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js");
+                const { getFirestore, doc, updateDoc, serverTimestamp, collection, addDoc } = await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js");
                 const db = getFirestore(app);
                 await updateDoc(doc(db, 'qrSessions', sessionId), {
                     status: 'approved',
                     uid: auth.currentUser.uid,
                     approvedAt: serverTimestamp()
                 });
+                
+                // Add to Login History for the laptop session
+                try {
+                    const userAgent = navigator.userAgent;
+                    let approxDevice = 'QR Web Scan';
+                    if (/android/i.test(userAgent)) approxDevice = 'Android Phone Scanner';
+                    else if (/iphone|ipad|ipod/i.test(userAgent)) approxDevice = 'iPhone Scanner';
+                    
+                    const historyRef = collection(db, 'students', auth.currentUser.uid, 'loginHistory');
+                    await addDoc(historyRef, {
+                        timestamp: serverTimestamp(),
+                        deviceId: sessionId,
+                        userAgent: userAgent,
+                        approxDevice: approxDevice,
+                        ip: 'Unknown (QR Login)',
+                        location: 'Unknown'
+                    });
+                } catch (histErr) {
+                    console.error("Failed to add login history:", histErr);
+                }
                 
                 // Success!
                 toastText.textContent = 'Laptop login approved!';
