@@ -1382,6 +1382,60 @@
         body.dark-mode { background: #21a19b !important; }
         body { background: #21a19b !important; }
     }
+
+    /* ── Desktop overrides for register page ─────────────────── */
+    @media (min-width: 768px) {
+        /* Full-height scrollable form panel */
+        .auth-card {
+            overflow-y: auto !important;
+            justify-content: flex-start !important;
+            padding: 48px 0 48px 0 !important;
+            align-items: center !important;
+        }
+        /* Inner content — constrain width to not stretch edge to edge */
+        .auth-card > * {
+            width: 100%;
+            max-width: 440px;
+        }
+        /* Make the step-number bubble match brand */
+        .step-number {
+            background: linear-gradient(135deg, #21a19b, #178a84) !important;
+        }
+        /* Teal buttons instead of purple */
+        .btn-next, .btn-primary {
+            background: linear-gradient(135deg, #21a19b, #178a84) !important;
+            box-shadow: 0 6px 20px rgba(33, 161, 155, 0.35) !important;
+        }
+        .btn-next:hover, .btn-primary:hover {
+            box-shadow: 0 10px 30px rgba(33, 161, 155, 0.5) !important;
+        }
+        /* Step circle active colour */
+        .step-circle.active {
+            border-color: #21a19b !important;
+            color: #21a19b !important;
+            box-shadow: 0 0 0 4px rgba(33, 161, 155, 0.15) !important;
+        }
+        .step-circle.done {
+            background: #21a19b !important;
+            border-color: #21a19b !important;
+        }
+        .step-line.done {
+            background: #21a19b !important;
+        }
+        /* Focus rings */
+        .input-wrap input:focus,
+        .input-wrap select:focus {
+            border-color: #21a19b !important;
+            box-shadow: 0 0 0 3px rgba(33, 161, 155, 0.15) !important;
+        }
+        /* Title/subtitle align left */
+        .auth-title {
+            text-align: left !important;
+        }
+        .auth-subtitle {
+            text-align: left !important;
+        }
+    }
 </style>
 
     <script src="theme.js"></script>
@@ -1409,20 +1463,21 @@
 </head>
 
 <body>
-    <div class="auth-wrapper" style="overflow-y: auto;">
+    <div class="auth-wrapper">
         
         <div class="auth-illustration">
-            
-            
             <!-- Top Logo Image -->
             <img src="auth_illustration.jpg" alt="App Illustration">
-
-
+            <!-- Desktop overlay text on illustration panel -->
+            <div class="auth-illustration-overlay">
+                <h3>Create Your Student Account</h3>
+                <p>Complete your profile in a few simple steps to access hall tickets, results &amp; more.</p>
+            </div>
         </div>
         
-        <div class="auth-card" style="padding: 30px 20px;">
-            <h2 class="auth-title" style="font-size: 22px;">Personal Info</h2>
-            <p class="auth-subtitle" style="font-size: 11px; margin-bottom: 20px;">Please provide your accurate academic details below to get your profile ready.</p>
+        <div class="auth-card">
+            <h2 class="auth-title">Personal Info</h2>
+            <p class="auth-subtitle">Please provide your accurate academic details below to get your profile ready.</p>
             
             <div style="width: 100%;">
                 <div class="stepper-container">
