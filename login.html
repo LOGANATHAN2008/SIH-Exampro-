@@ -1049,9 +1049,14 @@
                     });
                 }
                 qrCodeInstance.clear();
-                qrCodeInstance.makeCode(`examerp://qrlogin?session=${sessionId}`);
+                // Generate a Universal Link using the current origin (works locally and in production)
+                const currentOrigin = window.location.origin;
+                // If they are deep inside a folder, we ensure we map to the root or relative path
+                let basePath = window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/'));
+                const qrUrl = `${currentOrigin}${basePath}/qr-scanner.html?session=${sessionId}`;
+                qrCodeInstance.makeCode(qrUrl);
 
-                qrStatus.textContent = "Scan this code with the Exam Erp App";
+                qrStatus.textContent = "Scan this code with the Exam Erp App or Google Lens";
 
                 // Initialize Timer
                 if (window.qrCountdownInterval) clearInterval(window.qrCountdownInterval);

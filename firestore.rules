@@ -434,7 +434,8 @@ service cloud.firestore {
 
     // ===== Deny all other access =====
     match /{document=**} {
-      allow read, write: if true; // HACKATHON PROTOTYPE: Public read/write bypass
+      allow read: if true; // HACKATHON PROTOTYPE: Public read bypass
+      allow write: if false;
     }
   }
 }

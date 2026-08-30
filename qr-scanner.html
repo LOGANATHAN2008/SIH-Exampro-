@@ -271,10 +271,80 @@
 
         // QR Scanner Initialization
         let html5QrcodeScanner = null;
+        let isProcessing = false;
+
+        // Function to process a scanned session ID
+        async function processSession(sessionId, isFromCamera = false) {
+            if (isProcessing) return;
+            isProcessing = true;
+            
+            const toast = document.getElementById('statusToast');
+            const toastText = document.getElementById('statusText');
+            
+            toast.style.display = 'flex';
+            toastText.textContent = 'Authenticating...';
+            toast.querySelector('i').className = 'fas fa-spinner fa-spin';
+            toast.querySelector('i').style.color = '#3b82f6';
+
+            try {
+                // HACKATHON PROTOTYPE: Bypass Cloud Functions and directly update Firestore
+                const { getFirestore, doc, updateDoc, serverTimestamp } = await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js");
+                const db = getFirestore(app);
+                await updateDoc(doc(db, 'qrSessions', sessionId), {
+                    status: 'approved',
+                    uid: auth.currentUser.uid,
+                    approvedAt: serverTimestamp()
+                });
+                
+                // Success!
+                toastText.textContent = 'Laptop login approved!';
+                toast.querySelector('i').className = 'fas fa-check-circle';
+                toast.querySelector('i').style.color = '#25d366';
+                
+                // Vibrate if supported
+                if (navigator.vibrate) navigator.vibrate(200);
+
+                // Redirect back to dashboard after a moment
+                setTimeout(() => {
+                    window.location.href = 'dashboard.html';
+                }, 1500);
+
+            } catch (error) {
+                console.error("QR Scan Error:", error);
+                toastText.textContent = 'Error: ' + (error.message || 'Unknown error');
+                toast.querySelector('i').className = 'fas fa-exclamation-circle';
+                toast.querySelector('i').style.color = '#ef4444';
+                
+                // Resume scanning on failure if it came from camera
+                setTimeout(() => {
+                    toast.style.display = 'none';
+                    isProcessing = false;
+                    if (isFromCamera && window.html5QrCodeInstance) {
+                        window.html5QrCodeInstance.resume();
+                    }
+                }, 3000);
+            }
+        }
 
         document.addEventListener("DOMContentLoaded", () => {
+            // Check if we came here from Google Lens (URL has session parameter)
+            const urlParams = new URLSearchParams(window.location.search);
+            const urlSessionId = urlParams.get('session');
+            
+            if (urlSessionId) {
+                // Wait briefly for Firebase Auth to initialize before processing
+                const authCheckInterval = setInterval(() => {
+                    if (auth.currentUser) {
+                        clearInterval(authCheckInterval);
+                        processSession(urlSessionId, false);
+                    }
+                }, 500);
+                return; // Skip camera initialization
+            }
+
             // We use Html5Qrcode instead of Html5QrcodeScanner to have full control over the UI
             const html5QrCode = new Html5Qrcode("qr-reader");
+            window.html5QrCodeInstance = html5QrCode;
 
             const config = { 
                 fps: 10, 
@@ -282,63 +352,20 @@
                 videoConstraints: { facingMode: "environment" } // Prefer back camera
             };
 
-            let isProcessing = false;
-
             html5QrCode.start({ facingMode: "environment" }, config, async (decodedText) => {
                 if (isProcessing) return;
                 
-                // Validate payload
+                // Validate payload (supports both old examerp:// and new HTTPS URLs)
+                let sessionId = null;
                 if (decodedText.startsWith('examerp://qrlogin?session=')) {
-                    isProcessing = true;
+                    sessionId = new URL(decodedText).searchParams.get('session');
+                } else if (decodedText.includes('qr-scanner.html?session=')) {
+                    sessionId = new URL(decodedText).searchParams.get('session');
+                }
+                
+                if (sessionId) {
                     html5QrCode.pause(); // Pause camera feed
-                    
-                    const url = new URL(decodedText);
-                    const sessionId = url.searchParams.get('session');
-                    
-                    const toast = document.getElementById('statusToast');
-                    const toastText = document.getElementById('statusText');
-                    
-                    toast.style.display = 'flex';
-                    toastText.textContent = 'Authenticating...';
-                    toast.querySelector('i').className = 'fas fa-spinner fa-spin';
-                    toast.querySelector('i').style.color = '#3b82f6';
-
-                    try {
-                        // HACKATHON PROTOTYPE: Bypass Cloud Functions and directly update Firestore
-                        const { getFirestore, doc, updateDoc, serverTimestamp } = await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js");
-                        const db = getFirestore(app);
-                        await updateDoc(doc(db, 'qrSessions', sessionId), {
-                            status: 'approved',
-                            uid: auth.currentUser.uid,
-                            approvedAt: serverTimestamp()
-                        });
-                        
-                        // Success!
-                        toastText.textContent = 'Laptop login approved!';
-                        toast.querySelector('i').className = 'fas fa-check-circle';
-                        toast.querySelector('i').style.color = '#25d366';
-                        
-                        // Vibrate if supported
-                        if (navigator.vibrate) navigator.vibrate(200);
-
-                        // Redirect back to dashboard after a moment
-                        setTimeout(() => {
-                            window.location.href = 'dashboard.html';
-                        }, 1500);
-
-                    } catch (error) {
-                        console.error("QR Scan Error:", error);
-                        toastText.textContent = 'Error: ' + (error.message || 'Unknown error');
-                        toast.querySelector('i').className = 'fas fa-exclamation-circle';
-                        toast.querySelector('i').style.color = '#ef4444';
-                        
-                        // Resume scanning on failure
-                        setTimeout(() => {
-                            toast.style.display = 'none';
-                            html5QrCode.resume();
-                            isProcessing = false;
-                        }, 3000);
-                    }
+                    processSession(sessionId, true);
                 } else {
                     // It's not a valid Exam ERP QR code
                     isProcessing = true;
