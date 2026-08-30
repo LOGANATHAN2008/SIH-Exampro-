@@ -98,7 +98,7 @@ body::before, body::after {
 }
 
 /* =============================================
-   TABLET  (600px – 767px)  — centred phone card
+   TABLET PHONE CARD  (600px – 767px)  — centred phone card
    ============================================= */
 @media (min-width: 600px) and (max-width: 767px) {
     body {
@@ -163,9 +163,184 @@ body::before, body::after {
 }
 
 /* =============================================
-   DESKTOP  (≥ 768px)  — TRUE FULL-SCREEN split
+   iPAD / TABLET LANDSCAPE  (768px – 1023px)  — split layout
    ============================================= */
-@media (min-width: 768px) {
+@media (min-width: 768px) and (max-width: 1023px) {
+    body {
+        background: #21a19b !important;
+        align-items: stretch;
+        justify-content: stretch;
+        padding: 0 !important;
+        height: 100vh;
+        overflow: hidden;
+    }
+
+    .auth-wrapper {
+        display: flex !important;
+        flex-direction: row !important;
+        width: 100vw;
+        height: 100vh;
+        max-width: none;
+        min-height: 0;
+        background: #ffffff;
+        border-radius: 0;
+        overflow: hidden;
+        box-shadow: none;
+    }
+
+    /* LEFT teal panel — 42% */
+    .auth-illustration {
+        flex: 0 0 42%;
+        width: 42%;
+        display: flex !important;
+        flex-direction: column;
+        align-items: stretch;
+        justify-content: flex-end;
+        position: relative;
+        overflow: hidden;
+        background: linear-gradient(160deg, #21a19b 0%, #0c7a75 100%);
+        padding: 0;
+    }
+
+    .auth-illustration::before {
+        content: '';
+        position: absolute;
+        width: 300px; height: 300px;
+        border-radius: 50%;
+        background: rgba(255,255,255,0.07);
+        top: -80px; right: -80px;
+        pointer-events: none;
+        z-index: 1;
+    }
+
+    .auth-illustration::after {
+        content: '';
+        position: absolute;
+        width: 200px; height: 200px;
+        border-radius: 50%;
+        background: rgba(255,255,255,0.05);
+        bottom: 60px; left: -50px;
+        pointer-events: none;
+        z-index: 1;
+    }
+
+    .auth-illustration img {
+        width: 100%;
+        max-width: none;
+        height: 100%;
+        object-fit: cover;
+        object-position: center top;
+        margin: 0;
+        display: block;
+        opacity: 0.92;
+    }
+
+    .auth-illustration-overlay {
+        display: block !important;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: 24px 20px;
+        background: linear-gradient(to top, rgba(10,80,77,0.88) 0%, rgba(10,80,77,0.3) 60%, transparent 100%);
+        color: #fff;
+        z-index: 5;
+    }
+
+    .auth-illustration-overlay h3 {
+        font-size: 17px;
+        font-weight: 800;
+        line-height: 1.35;
+        margin-bottom: 5px;
+        word-break: break-word;
+        text-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    }
+
+    .auth-illustration-overlay p {
+        font-size: 12px;
+        opacity: 0.9;
+        line-height: 1.5;
+        word-break: break-word;
+    }
+
+    /* RIGHT white panel — 58% */
+    .auth-card {
+        flex: 0 0 58%;
+        width: 58%;
+        height: 100%;
+        background: #ffffff !important;
+        border-radius: 0 !important;
+        padding: 40px 48px !important;
+        display: flex !important;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start !important;
+        overflow-y: auto;
+        box-shadow: none !important;
+        position: relative;
+        gap: 0;
+    }
+
+    .auth-card > * {
+        width: 100%;
+        max-width: 380px;
+    }
+
+    .auth-title {
+        font-size: 28px !important;
+        font-weight: 800 !important;
+        text-align: left !important;
+        margin-bottom: 5px !important;
+        color: #1a1a1a !important;
+        letter-spacing: -0.4px !important;
+    }
+
+    .auth-subtitle {
+        font-size: 13px !important;
+        text-align: left !important;
+        margin-bottom: 24px !important;
+    }
+
+    .auth-form {
+        width: 100% !important;
+        max-width: 380px !important;
+        gap: 14px !important;
+    }
+
+    .input-group input {
+        padding: 14px 16px 14px 48px !important;
+        font-size: 14px !important;
+        border-radius: 12px !important;
+        background-color: #f0f4f4 !important;
+        border: 1.5px solid transparent !important;
+    }
+
+    .input-group i {
+        font-size: 16px !important;
+        left: 16px !important;
+    }
+
+    .btn-primary {
+        padding: 15px !important;
+        font-size: 15px !important;
+        border-radius: 12px !important;
+        margin-top: 6px !important;
+        box-shadow: 0 6px 20px rgba(33, 161, 155, 0.35) !important;
+    }
+
+    .g-recaptcha-replica {
+        max-width: 100% !important;
+    }
+
+    .auth-options {
+        font-size: 12px !important;
+    }
+}
+
+/* =============================================
+   DESKTOP  (≥ 1024px)  — TRUE FULL-SCREEN split
+   ============================================= */
+@media (min-width: 1024px) {
     body {
         background: #21a19b !important;
         align-items: stretch;
@@ -237,7 +412,7 @@ body::before, body::after {
         opacity: 0.92;
     }
 
-    /* Centered brand overlay on illustration */
+    /* Overlay text on illustration */
     .auth-illustration-overlay {
         display: block;
         position: absolute;
@@ -251,7 +426,7 @@ body::before, body::after {
     }
 
     .auth-illustration-overlay h3 {
-        font-size: 20px;
+        font-size: 22px;
         font-weight: 800;
         line-height: 1.35;
         margin-bottom: 6px;
@@ -261,7 +436,7 @@ body::before, body::after {
     }
 
     .auth-illustration-overlay p {
-        font-size: 13px;
+        font-size: 14px;
         opacity: 0.9;
         line-height: 1.55;
         word-break: break-word;
@@ -276,24 +451,24 @@ body::before, body::after {
         height: 100%;
         background: #ffffff !important;
         border-radius: 0 !important;
-        padding: 0 !important;
+        padding: 40px 64px !important;
         display: flex !important;
         flex-direction: column;
         justify-content: center;
-        align-items: center !important;
+        align-items: flex-start !important;
         overflow-y: auto;
         box-shadow: none !important;
         position: relative;
     }
 
-    /* Inner form wrapper — limits width so form doesn't stretch too wide */
+    /* Inner form wrapper */
     .auth-card > * {
         width: 100%;
         max-width: 440px;
     }
 
     .auth-title {
-        font-size: 34px !important;
+        font-size: 36px !important;
         font-weight: 800 !important;
         text-align: left !important;
         margin-bottom: 6px !important;
@@ -357,14 +532,14 @@ body::before, body::after {
     }
 }
 
-/* Slightly wider illustration on large screens */
+/* Large desktop (≥ 1280px) */
 @media (min-width: 1280px) {
     .auth-illustration { flex: 0 0 48%; width: 48%; }
-    .auth-card { flex: 0 0 52%; width: 52%; }
+    .auth-card { flex: 0 0 52%; width: 52%; padding: 40px 80px !important; }
     .auth-card > * { max-width: 480px; }
     .auth-form { max-width: 480px !important; }
-    .auth-title { font-size: 38px !important; }
-    .auth-illustration-overlay h3 { font-size: 30px; }
+    .auth-title { font-size: 40px !important; }
+    .auth-illustration-overlay h3 { font-size: 28px; }
 }
 
 /* =============================================
