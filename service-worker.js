@@ -1,5 +1,5 @@
-// Exam Erp - Service Worker v5
-const CACHE_NAME = 'Exam-Erp-v6';
+// Exam Erp - Service Worker v7
+const CACHE_NAME = 'Exam-Erp-v7';
 
 // Static assets to cache immediately on install (App Shell)
 const STATIC_ASSETS = [
