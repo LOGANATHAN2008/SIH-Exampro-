@@ -603,8 +603,16 @@
             <p class="auth-subtitle">Don't Have An Account? <a href="register.html">Sign Up</a></p>
             
             <form id="loginForm" onsubmit="handleLogin(event)" class="auth-form">
-                <input type="hidden" name="role" value="student" id="roleStudentRadio" checked onchange="toggleUserType('student')">
-                <input type="hidden" name="role" value="staff" id="roleStaffRadio" onchange="toggleUserType('admin')">
+                <div class="role-selection" style="display: flex; gap: 20px; margin-bottom: 20px; justify-content: center;">
+                    <label class="role-item" style="display: flex; align-items: center; gap: 6px; font-size: 14px; font-weight: 600; color: var(--auth-text); cursor: pointer;">
+                        <input type="radio" name="role" value="staff" id="roleStaffRadio" onchange="toggleUserType('admin')" style="accent-color: var(--auth-primary); cursor: pointer; width: 16px; height: 16px;">
+                        Role Staff
+                    </label>
+                    <label class="role-item" style="display: flex; align-items: center; gap: 6px; font-size: 14px; font-weight: 600; color: var(--auth-text); cursor: pointer;">
+                        <input type="radio" name="role" value="student" id="roleStudentRadio" checked onchange="toggleUserType('student')" style="accent-color: var(--auth-primary); cursor: pointer; width: 16px; height: 16px;">
+                        Role Student
+                    </label>
+                </div>
                 
                 <div class="input-group">
                     <i class="fas fa-user"></i>
