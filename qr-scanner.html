@@ -322,17 +322,35 @@
                         }, 1500);
 
                     } catch (error) {
-                        console.error("QR Scan Error:", error);
-                        toastText.textContent = 'Error: ' + (error.message || 'Unknown error');
-                        toast.querySelector('i').className = 'fas fa-exclamation-circle';
-                        toast.querySelector('i').style.color = '#ef4444';
-                        
-                        // Resume scanning on failure
-                        setTimeout(() => {
-                            toast.style.display = 'none';
-                            html5QrCode.resume();
-                            isProcessing = false;
-                        }, 3000);
+                        console.warn("Cloud function failed, attempting direct fallback...", error);
+                        try {
+                            const { getFirestore, doc, updateDoc, serverTimestamp } = await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js");
+                            const db = getFirestore(app);
+                            await updateDoc(doc(db, 'qrSessions', sessionId), {
+                                status: 'approved',
+                                uid: auth.currentUser.uid,
+                                approvedAt: serverTimestamp()
+                            });
+                            
+                            // Success via fallback!
+                            toastText.textContent = 'Laptop login approved! (Fallback)';
+                            toast.querySelector('i').className = 'fas fa-check-circle';
+                            toast.querySelector('i').style.color = '#25d366';
+                            if (navigator.vibrate) navigator.vibrate(200);
+                            setTimeout(() => { window.location.href = 'dashboard.html'; }, 1500);
+                        } catch (fallbackError) {
+                            console.error("QR Scan Fallback Error:", fallbackError);
+                            toastText.textContent = 'Error: ' + (error.message || 'Unknown error');
+                            toast.querySelector('i').className = 'fas fa-exclamation-circle';
+                            toast.querySelector('i').style.color = '#ef4444';
+                            
+                            // Resume scanning on failure
+                            setTimeout(() => {
+                                toast.style.display = 'none';
+                                html5QrCode.resume();
+                                isProcessing = false;
+                            }, 3000);
+                        }
                     }
                 }
             }).catch(err => {
