@@ -817,6 +817,24 @@
 
                 <button type="submit" class="btn-primary" id="loginBtn">Login</button>
 
+                <!-- Social Login Options -->
+                <div style="display: flex; align-items: center; justify-content: center; margin: 25px 0 15px;">
+                    <div style="flex: 1; height: 1px; background: var(--border);"></div>
+                    <span style="padding: 0 15px; color: var(--text-muted); font-size: 13px; font-weight: 500;">Or sign in with</span>
+                    <div style="flex: 1; height: 1px; background: var(--border);"></div>
+                </div>
+
+                <div style="display: flex; gap: 15px; justify-content: center; margin-bottom: 25px;">
+                    <button type="button" style="flex: 1; display: flex; align-items: center; justify-content: center; gap: 8px; padding: 10px; border-radius: 20px; border: 1px solid var(--border); background: white; cursor: pointer; font-family: inherit; font-weight: 600; font-size: 14px; color: #333; box-shadow: 0 2px 5px rgba(0,0,0,0.05);" onclick="showToast('Google login coming soon!')">
+                        <img src="https://img.icons8.com/color/24/000000/google-logo.png" alt="Google" style="width: 20px; height: 20px;">
+                        Google
+                    </button>
+                    <button type="button" style="flex: 1; display: flex; align-items: center; justify-content: center; gap: 8px; padding: 10px; border-radius: 20px; border: none; background: #3b5998; cursor: pointer; font-family: inherit; font-weight: 600; font-size: 14px; color: white; box-shadow: 0 2px 5px rgba(0,0,0,0.1);" onclick="showToast('Facebook login coming soon!')">
+                        <i class="fab fa-facebook-f" style="font-size: 18px;"></i>
+                        Facebook
+                    </button>
+                </div>
+
                 <div style="text-align: center; margin-top: 15px; display: flex; justify-content: center; gap: 15px; align-items: center;">
                     <a href="check-result.html" style="color: var(--auth-primary); font-weight: 600; text-decoration: none; font-size: 14px;">Check Result</a>
                     <span style="color: #ccc;">|</span>
