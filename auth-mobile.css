@@ -108,7 +108,13 @@ body::before, body::after {
     }
     .input-group i {
         font-size: 15px !important;
+    }
+    .input-group i:not(.toggle-password) {
         left: 14px !important;
+    }
+    .input-group .toggle-password {
+        right: 14px !important;
+        left: auto !important;
     }
     .btn-primary {
         padding: 12px !important;
