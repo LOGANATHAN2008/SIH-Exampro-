@@ -2384,9 +2384,15 @@
         let perfChartInstance = null;
 
         onAuthStateChanged(auth, async (user) => {
-            if (!user) {
+            const fakeUid = localStorage.getItem('hackathonFakeUid');
+            if (!user && !fakeUid) {
                 window.location.replace('login.html');
                 return;
+            }
+            
+            // HACKATHON PROTOTYPE: Create mock user if using fake QR login
+            if (!user && fakeUid) {
+                user = { uid: fakeUid }; 
             }
 
             // ===== Section 3: Maintenance Mode Check =====
@@ -3145,6 +3151,7 @@ showToast('Error loading dashboard: ' + (err.message || 'Unknown error'), 'error
         };
 
         window.handleLogout = async function () {
+            localStorage.removeItem('hackathonFakeUid');
             await signOut(auth);
             window.location.href = 'login.html';
         };

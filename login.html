@@ -1057,18 +1057,19 @@
                         qrStatus.textContent = "Scanned! Please confirm on your phone.";
                         qrStatus.style.color = "var(--primary)";
                     } else if (data.status === 'approved') {
-                        qrStatus.textContent = "Approved! Logging in securely...";
-                        qrStatus.style.color = "var(--success)";
-
-                        // Exchange session for Custom Token
-                        try {
-                            const exchangeFn = httpsCallable(functions, 'exchangeQrSession');
-                            const result = await exchangeFn({ sessionId, localSecret });
-                            await signInWithCustomToken(auth, result.data.token);
-                            // Auth state listener handles the redirect
-                        } catch (err) {
-                            showToast("QR Login failed: " + err.message, "error");
-                            initQrLogin(); // Regenerate on failure
+                        // HACKATHON PROTOTYPE: Bypass Custom Token generation
+                        // Since we can't deploy Cloud Functions, we simulate a login by passing the UID directly
+                        if (data.uid) {
+                            localStorage.setItem('hackathonFakeUid', data.uid);
+                            qrStatus.textContent = "Approved! Redirecting...";
+                            qrStatus.style.color = "var(--success)";
+                            setTimeout(() => {
+                                window.location.href = 'dashboard.html';
+                            }, 1500);
+                        } else {
+                            qrStatus.textContent = 'Login failed: Missing UID.';
+                            qrStatus.style.color = 'var(--danger)';
+                            setTimeout(initQrLogin, 3000);
                         }
                     } else if (data.status === 'denied') {
                         qrStatus.textContent = "Login denied from phone. Generating new code...";

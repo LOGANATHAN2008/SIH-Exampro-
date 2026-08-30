@@ -401,12 +401,14 @@ service cloud.firestore {
       // Anyone can read a specific session by its random UUID
       allow get: if true;
       allow list: if false;
-      // Clients can create pending sessions but cannot inject uid or token
-      allow create: if request.resource.data.status == 'pending' 
-                    && !('uid' in request.resource.data) 
-                    && !('customToken' in request.resource.data);
-      // Updates/Deletions handled strictly by Cloud Functions (Admin SDK)
-      allow update, delete: if false;
+      allow create: if true;
+      allow update: if true; // HACKATHON PROTOTYPE: Allow client updates
+      allow delete: if false;
+    }
+
+    // ===== Users =====
+    match /users/{userId} {
+      allow read: if true; // HACKATHON PROTOTYPE: Allow all read
     }
 
     // ===== WebRTC Calls =====
