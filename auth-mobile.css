@@ -95,6 +95,27 @@ body::before, body::after {
     .auth-illustration-overlay {
         display: none !important;
     }
+
+    /* Make form more compact on mobile */
+    .auth-title { font-size: 22px !important; margin-bottom: 2px !important; }
+    .auth-subtitle { font-size: 12px !important; margin-bottom: 12px !important; }
+    .auth-form { gap: 8px !important; }
+    .input-group { margin-bottom: 0 !important; }
+    .input-group input {
+        padding: 10px 14px 10px 42px !important;
+        font-size: 13px !important;
+        border-radius: 12px !important;
+    }
+    .input-group i {
+        font-size: 15px !important;
+        left: 14px !important;
+    }
+    .btn-primary {
+        padding: 12px !important;
+        font-size: 14px !important;
+        border-radius: 20px !important;
+        margin-top: 4px !important;
+    }
 }
 
 /* =============================================
