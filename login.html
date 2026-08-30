@@ -817,10 +817,10 @@
 
                 <button type="submit" class="btn-primary" id="loginBtn">Login</button>
 
-                <div style="text-align: center; margin-top: 15px;">
-                    <a href="check-result.html"
-                        style="color: var(--auth-primary); font-weight: 600; text-decoration: none; font-size: 14px;">Check
-                        Result without login</a>
+                <div style="text-align: center; margin-top: 15px; display: flex; justify-content: center; gap: 15px; align-items: center;">
+                    <a href="check-result.html" style="color: var(--auth-primary); font-weight: 600; text-decoration: none; font-size: 14px;">Check Result</a>
+                    <span style="color: #ccc;">|</span>
+                    <a href="#" onclick="openQrModal(event)" style="color: var(--auth-primary); font-weight: 600; text-decoration: none; font-size: 14px;">QR Login</a>
                 </div>
             </form>
 
@@ -841,6 +841,20 @@
                 placeholder="------">
             <button id="verifyOtpBtn" class="btn btn-login">Verify Code</button>
             <p id="otpError" style="color:var(--danger); font-size:12px; margin-top:10px; display:none;"></p>
+        </div>
+    </div>
+
+    <!-- QR Login Modal -->
+    <div class="modal-overlay" id="qrModal">
+        <div class="modal-content">
+            <button onclick="closeQrModal()"
+                style="position:absolute; top:15px; right:15px; background:none; border:none; color:var(--text-light); cursor:pointer; font-size:16px;"><i
+                    class="fas fa-times"></i></button>
+            <h3 style="margin-bottom:10px;">QR Login</h3>
+            <p style="color:var(--text-light); font-size:13px; margin-bottom:20px;">Scan this code with your Exam ERP mobile app to login securely.</p>
+            
+            <div id="qrCode" style="display:flex; justify-content:center; margin-bottom:20px; padding:20px; background:white; border-radius:10px; border:1px solid var(--border);"></div>
+            <p id="qrStatus" style="font-size:13px; font-weight:600; text-align:center; color: var(--auth-primary);"></p>
         </div>
     </div>
 
@@ -1600,6 +1614,20 @@
                 setTimeout(() => toast.remove(), 300);
             }, 3500);
         }
+
+        window.openQrModal = (e) => {
+            if(e) e.preventDefault();
+            document.getElementById('qrModal').classList.add('active');
+            if (typeof initQrLogin === 'function') initQrLogin();
+        };
+
+        window.closeQrModal = () => {
+            document.getElementById('qrModal').classList.remove('active');
+            if (typeof currentQrSessionUnsubscribe === 'function' && currentQrSessionUnsubscribe) {
+                currentQrSessionUnsubscribe();
+                currentQrSessionUnsubscribe = null;
+            }
+        };
     </script>
 
     <!-- PWA Service Worker Registration -->
