@@ -245,6 +245,7 @@
     <!-- Firebase Module for Authentication -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
         import { getFunctions, httpsCallable } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-functions.js";
 
         // Firebase configuration (reusing from dashboard)
@@ -257,7 +258,16 @@
             appId: "1:148866160408:web:75865a77761066edb0fc57"
         };
         const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
         const functions = getFunctions(app);
+
+        // Ensure user is logged in before scanning
+        onAuthStateChanged(auth, (user) => {
+            if (!user) {
+                alert("You must be logged in on your phone to scan a login code.");
+                window.location.href = 'login.html';
+            }
+        });
 
         // QR Scanner Initialization
         let html5QrcodeScanner = null;
@@ -295,6 +305,7 @@
                     toast.querySelector('i').style.color = '#3b82f6';
 
                     try {
+                        // Firebase Auth must be initialized for this to send the auth token
                         const approveFn = httpsCallable(functions, 'approveQrSession');
                         await approveFn({ sessionId });
                         
