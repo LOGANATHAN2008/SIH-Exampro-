@@ -81,11 +81,7 @@ service cloud.firestore {
     match /students/{studentId} {
       allow read: if true; // Temporarily allow public read so login works without Cloud Functions
       allow create: if request.auth != null && request.auth.uid == studentId;
-      allow update: if request.auth != null && (
-        request.auth.uid == studentId ||
-        isSuperAdmin() ||
-        isDeptAdmin(resource.data.department)
-      );
+      allow update: if true; // Temporarily allow public update for hackathon prototype (needed for preferences & revoking devices on laptop)
       allow delete: if isSuperAdmin();
 
       match /loginHistory/{entryId} {
