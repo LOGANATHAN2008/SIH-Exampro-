@@ -733,7 +733,7 @@ body::before, body::after {
     justify-content: center;
     overflow: hidden;
     text-decoration: none;
-    margin: 0 auto;
+    margin: auto auto 0 auto; /* Pushes the button to the bottom of the flex container */
 }
 .btn-animated .btn-icon {
     background-color: rgba(255, 255, 255, 0.2);
