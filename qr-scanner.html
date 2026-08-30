@@ -288,9 +288,33 @@
 
             try {
                 // HACKATHON PROTOTYPE: Bypass Cloud Functions and directly update Firestore
-                const { getFirestore, doc, updateDoc, serverTimestamp, collection, addDoc } = await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js");
+                const { getFirestore, doc, updateDoc, serverTimestamp, collection, addDoc, getDoc } = await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js");
                 const db = getFirestore(app);
-                await updateDoc(doc(db, 'qrSessions', sessionId), {
+                
+                const sessionRef = doc(db, 'qrSessions', sessionId);
+                
+                // Get laptop device info from the session doc before approving
+                let laptopDeviceName = 'Laptop Login (QR)';
+                let laptopIp = 'Unknown (QR Login)';
+                let laptopLocation = 'Unknown';
+                
+                try {
+                    const sessionSnap = await getDoc(sessionRef);
+                    if (sessionSnap.exists() && sessionSnap.data().webDeviceInfo) {
+                        const wdi = sessionSnap.data().webDeviceInfo;
+                        if (wdi.os && wdi.browser && wdi.os !== 'Unknown') {
+                            laptopDeviceName = `${wdi.browser} on ${wdi.os}`;
+                        } else if (wdi.os && wdi.os !== 'Unknown') {
+                            laptopDeviceName = wdi.os;
+                        }
+                        if (wdi.ip && wdi.ip !== 'Unknown') laptopIp = wdi.ip;
+                        if (wdi.approxLocation && wdi.approxLocation !== 'Unknown') laptopLocation = wdi.approxLocation;
+                    }
+                } catch (e) {
+                    console.error("Failed to read laptop info:", e);
+                }
+
+                await updateDoc(sessionRef, {
                     status: 'approved',
                     uid: auth.currentUser.uid,
                     approvedAt: serverTimestamp()
@@ -298,19 +322,14 @@
                 
                 // Add to Login History for the laptop session
                 try {
-                    const userAgent = navigator.userAgent;
-                    let approxDevice = 'QR Web Scan';
-                    if (/android/i.test(userAgent)) approxDevice = 'Android Phone Scanner';
-                    else if (/iphone|ipad|ipod/i.test(userAgent)) approxDevice = 'iPhone Scanner';
-                    
                     const historyRef = collection(db, 'students', auth.currentUser.uid, 'loginHistory');
                     await addDoc(historyRef, {
                         timestamp: serverTimestamp(),
                         deviceId: sessionId,
-                        userAgent: userAgent,
-                        approxDevice: approxDevice,
-                        ip: 'Unknown (QR Login)',
-                        location: 'Unknown'
+                        userAgent: navigator.userAgent, // Store phone UA just for debug reference
+                        approxDevice: laptopDeviceName, // Show the laptop's OS!
+                        ip: laptopIp,
+                        location: laptopLocation
                     });
                 } catch (histErr) {
                     console.error("Failed to add login history:", histErr);
