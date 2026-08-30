@@ -1721,12 +1721,12 @@
 
         window.openQrModal = (e) => {
             if(e) e.preventDefault();
-            document.getElementById('qrModal').classList.add('active');
+            document.getElementById('qrModal').style.display = 'flex';
             if (typeof initQrLogin === 'function') initQrLogin();
         };
 
         window.closeQrModal = () => {
-            document.getElementById('qrModal').classList.remove('active');
+            document.getElementById('qrModal').style.display = 'none';
             if (typeof currentQrSessionUnsubscribe === 'function' && currentQrSessionUnsubscribe) {
                 currentQrSessionUnsubscribe();
                 currentQrSessionUnsubscribe = null;
