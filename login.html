@@ -1093,6 +1093,7 @@
                         
                         if (data.uid) {
                             localStorage.setItem('hackathonFakeUid', data.uid);
+                            localStorage.setItem('dsu_deviceId', sessionId);
                             qrStatus.textContent = "Approved! Redirecting...";
                             qrStatus.style.color = "var(--success)";
                             setTimeout(() => {

@@ -918,6 +918,19 @@
             }
             currentUser = user;
             await loadProfile(user);
+
+            // Real-time device revocation check
+            const currentDeviceId = localStorage.getItem('dsu_deviceId');
+            if (currentDeviceId) {
+                onSnapshot(doc(db, 'students', user.uid), (docSnap) => {
+                    if (docSnap.exists()) {
+                        const data = docSnap.data();
+                        if (data.revokedDevices && data.revokedDevices.includes(currentDeviceId)) {
+                            handleLogout(); // Automatically log out if revoked
+                        }
+                    }
+                });
+            }
         });
 
         async function loadProfile(user) {
@@ -1213,12 +1226,15 @@ showToast('Error loading profile', 'error');
             }
         };
 
-        window.handleLogout = async function() {
+        window.handleLogout = async function () {
             try {
                 await signOut(auth);
-                window.location.href = 'login.html';
-            } catch(err) {
-                showToast('Logout failed', 'error');
+                localStorage.removeItem('hackathonFakeUid');
+                localStorage.removeItem('dsu_deviceId');
+                window.location.replace('login.html');
+            } catch (error) {
+                console.error('Logout error:', error);
+                showToast('Failed to log out', 'error');
             }
         };
     </script>

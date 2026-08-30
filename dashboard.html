@@ -2383,6 +2383,18 @@
         let currentUser = null;
         let perfChartInstance = null;
 
+        window.handleLogout = async function () {
+            try {
+                await signOut(auth);
+                localStorage.removeItem('hackathonFakeUid');
+                localStorage.removeItem('dsu_deviceId');
+                window.location.replace('login.html');
+            } catch (error) {
+                console.error('Logout error:', error);
+                alert('Failed to log out');
+            }
+        };
+
         onAuthStateChanged(auth, async (user) => {
             const fakeUid = localStorage.getItem('hackathonFakeUid');
             if (!user && !fakeUid) {
@@ -2393,6 +2405,19 @@
             // HACKATHON PROTOTYPE: Create mock user if using fake QR login
             if (!user && fakeUid) {
                 user = { uid: fakeUid }; 
+            }
+
+            // Real-time device revocation check
+            const currentDeviceId = localStorage.getItem('dsu_deviceId');
+            if (currentDeviceId) {
+                onSnapshot(doc(db, 'students', user.uid), (docSnap) => {
+                    if (docSnap.exists()) {
+                        const data = docSnap.data();
+                        if (data.revokedDevices && data.revokedDevices.includes(currentDeviceId)) {
+                            handleLogout(); // Automatically log out if revoked
+                        }
+                    }
+                });
             }
 
             // ===== Section 3: Maintenance Mode Check =====
@@ -3148,12 +3173,6 @@ showToast('Error loading dashboard: ' + (err.message || 'Unknown error'), 'error
                 dlUrl = url.replace('/fl_attachment/', '/');
             }
             window.open(dlUrl, '_blank');
-        };
-
-        window.handleLogout = async function () {
-            localStorage.removeItem('hackathonFakeUid');
-            await signOut(auth);
-            window.location.href = 'login.html';
         };
 
         window._db = db;
