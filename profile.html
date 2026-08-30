@@ -950,24 +950,31 @@
                     onSnapshot(histQ, (snap) => {
                         const listEl = document.getElementById('loginActivityList');
                         if (snap.empty) {
-                            listEl.innerHTML = '<div style="color:var(--text-muted); font-size:13px; text-align:center; padding: 15px 0;">No login activity found.</div>';
+                            listEl.innerHTML = '<div style="color:var(--text-muted); font-size:13px; text-align:center; padding: 15px 0;">No login activity found for this account.</div>';
                             return;
                         }
                         let html = '';
                         snap.forEach(d => {
                             const data = d.data();
                             const docId = d.id;
-                            const timeStr = data.timestamp ? timeAgo(data.timestamp.seconds * 1000) : 'Just now';
+                            
+                            // Safe timestamp handling
+                            let timeStr = 'Just now';
+                            if (data.timestamp && data.timestamp.seconds) {
+                                timeStr = timeAgo(data.timestamp.seconds * 1000);
+                            }
+                            
                             const locStr = (data.location && data.location !== 'Unknown') ? ` | ${data.location}` : '';
                             const isCurrent = localStorage.getItem('dsu_deviceId') === data.deviceId;
+                            const deviceName = data.approxDevice || data.userAgent || 'Unknown Device';
                             
                             html += `
-                            <div style="display:flex; justify-content:space-between; align-items:center; padding:12px; background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.05); border-radius:8px; margin-bottom: 8px;">
+                            <div style="display:flex; justify-content:space-between; align-items:center; padding:12px; background:var(--glass); border:1px solid var(--glass-border); border-radius:8px; margin-bottom: 8px;">
                                 <div style="display:flex; align-items:center; gap:12px;">
                                     <i class="fas fa-desktop" style="color:var(--primary); font-size:18px;"></i>
                                     <div>
-                                        <div style="font-weight:600; font-size:14px; display:flex; align-items:center; gap:8px;">
-                                            ${data.approxDevice || 'Unknown Device'} 
+                                        <div style="font-weight:600; font-size:14px; display:flex; align-items:center; gap:8px; color:var(--text);">
+                                            ${deviceName} 
                                             ${isCurrent ? '<span style="font-size:10px; padding:2px 6px; background:var(--primary); border-radius:10px; color:#fff;">Current</span>' : ''}
                                         </div>
                                         <div style="font-size:12px; color:var(--text-muted); margin-top:2px;">${timeStr}${locStr} ${data.ip ? `(${data.ip})` : ''}</div>
@@ -985,7 +992,7 @@
                     }, (err) => {
                         console.error('Login activity snapshot error:', err);
                         const listEl = document.getElementById('loginActivityList');
-                        listEl.innerHTML = '<div style="color:var(--text-muted); font-size:13px; text-align:center;">No login activity yet. Log out and log back in to start tracking.</div>';
+                        listEl.innerHTML = '<div style="color:var(--danger); font-size:13px; text-align:center; padding: 15px 0;">Error loading activity: ' + err.message + '</div>';
                     });
                     
                     // Expose revokeDevice to window
