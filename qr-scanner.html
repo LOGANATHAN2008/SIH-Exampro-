@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Scan QR code | Exam ERP</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- html5-qrcode -->
+    <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: #000;
+            height: 100vh;
+            width: 100vw;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        /* Top App Bar */
+        .app-bar {
+            background-color: #fff;
+            color: #111b21;
+            display: flex;
+            align-items: center;
+            height: 60px;
+            padding: 0 16px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .back-btn {
+            background: none;
+            border: none;
+            color: #54656f;
+            font-size: 20px;
+            cursor: pointer;
+            padding: 10px;
+            margin-right: 15px;
+        }
+
+        .app-bar h1 {
+            font-size: 19px;
+            font-weight: 500;
+        }
+
+        /* Instructions Banner */
+        .instruction-banner {
+            background-color: #f0f2f5;
+            color: #54656f;
+            text-align: center;
+            padding: 24px 20px;
+            font-size: 15px;
+            line-height: 1.5;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Scanner Container */
+        .scanner-container {
+            flex: 1;
+            position: relative;
+            background: #000;
+            overflow: hidden;
+        }
+
+        #qr-reader {
+            width: 100%;
+            height: 100%;
+            border: none !important;
+        }
+
+        /* Hide the default html5-qrcode UI elements as much as possible */
+        #qr-reader__scan_region {
+            background: black;
+            height: 100%;
+        }
+        
+        #qr-reader__dashboard {
+            display: none !important; 
+        }
+
+        /* Custom WhatsApp-style overlay */
+        .scan-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            pointer-events: none;
+            z-index: 5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .scan-box {
+            width: 260px;
+            height: 260px;
+            position: relative;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 0 0 4000px rgba(0, 0, 0, 0.5); /* Creates the dark overlay outside the box */
+            border-radius: 12px;
+        }
+
+        /* Corner accents for the scan box */
+        .scan-box::before, .scan-box::after,
+        .scan-box-inner::before, .scan-box-inner::after {
+            content: '';
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            border-color: #fff;
+            border-style: solid;
+        }
+
+        .scan-box::before {
+            top: -2px; left: -2px;
+            border-width: 4px 0 0 4px;
+            border-radius: 12px 0 0 0;
+        }
+        .scan-box::after {
+            top: -2px; right: -2px;
+            border-width: 4px 4px 0 0;
+            border-radius: 0 12px 0 0;
+        }
+        .scan-box-inner {
+            position: absolute; inset: 0;
+        }
+        .scan-box-inner::before {
+            bottom: -2px; left: -2px;
+            border-width: 0 0 4px 4px;
+            border-radius: 0 0 0 12px;
+        }
+        .scan-box-inner::after {
+            bottom: -2px; right: -2px;
+            border-width: 0 4px 4px 0;
+            border-radius: 0 0 12px 0;
+        }
+
+        /* Animated scan line */
+        .scan-line {
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            background: #25d366; /* WhatsApp green */
+            box-shadow: 0 0 10px #25d366;
+            top: 0;
+            animation: scan 2.5s infinite linear;
+        }
+
+        @keyframes scan {
+            0% { top: 0; opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { top: 100%; opacity: 0; }
+        }
+
+        /* Bottom Footer */
+        .footer {
+            background-color: #000;
+            color: #fff;
+            text-align: center;
+            padding: 24px;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .footer a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 15px;
+        }
+
+        /* Status Toast */
+        .status-toast {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(255,255,255,0.95);
+            color: #111b21;
+            padding: 20px 30px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 16px;
+            text-align: center;
+            z-index: 20;
+            display: none;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .status-toast i {
+            font-size: 32px;
+            color: #25d366;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="app-bar">
+        <button class="back-btn" onclick="window.history.back()"><i class="fas fa-arrow-left"></i></button>
+        <h1>Scan QR code</h1>
+    </div>
+
+    <div class="instruction-banner">
+        Open Exam ERP on your laptop, desktop,<br>or other devices.
+    </div>
+
+    <div class="scanner-container">
+        <div id="qr-reader"></div>
+        
+        <!-- Custom UI Overlay -->
+        <div class="scan-overlay">
+            <div class="scan-box">
+                <div class="scan-box-inner"></div>
+                <div class="scan-line"></div>
+            </div>
+        </div>
+
+        <!-- Success Toast -->
+        <div class="status-toast" id="statusToast">
+            <i class="fas fa-check-circle"></i>
+            <span id="statusText">Laptop login approved!</span>
+        </div>
+    </div>
+
+    <div class="footer">
+        <a href="login.html">Link with email instead</a>
+    </div>
+
+    <!-- Firebase Module for Authentication -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+        import { getFunctions, httpsCallable } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-functions.js";
+
+        // Firebase configuration (reusing from dashboard)
+        const firebaseConfig = {
+            apiKey: "AIzaSyDKDT0kvwEm0cEdh_MpbTb8A9W3_xwAVxY",
+            authDomain: "dsu-exam-system.firebaseapp.com",
+            projectId: "dsu-exam-system",
+            storageBucket: "dsu-exam-system.appspot.com",
+            messagingSenderId: "148866160408",
+            appId: "1:148866160408:web:75865a77761066edb0fc57"
+        };
+        const app = initializeApp(firebaseConfig);
+        const functions = getFunctions(app);
+
+        // QR Scanner Initialization
+        let html5QrcodeScanner = null;
+
+        document.addEventListener("DOMContentLoaded", () => {
+            // We use Html5Qrcode instead of Html5QrcodeScanner to have full control over the UI
+            const html5QrCode = new Html5Qrcode("qr-reader");
+
+            const config = { 
+                fps: 10, 
+                qrbox: { width: 260, height: 260 },
+                aspectRatio: 1.0,
+                videoConstraints: { facingMode: "environment" } // Prefer back camera
+            };
+
+            let isProcessing = false;
+
+            html5QrCode.start({ facingMode: "environment" }, config, async (decodedText) => {
+                if (isProcessing) return;
+                
+                // Validate payload
+                if (decodedText.startsWith('Exam Erpdsu://qrlogin?session=')) {
+                    isProcessing = true;
+                    html5QrCode.pause(); // Pause camera feed
+                    
+                    const url = new URL(decodedText);
+                    const sessionId = url.searchParams.get('session');
+                    
+                    const toast = document.getElementById('statusToast');
+                    const toastText = document.getElementById('statusText');
+                    
+                    toast.style.display = 'flex';
+                    toastText.textContent = 'Authenticating...';
+                    toast.querySelector('i').className = 'fas fa-spinner fa-spin';
+                    toast.querySelector('i').style.color = '#3b82f6';
+
+                    try {
+                        const approveFn = httpsCallable(functions, 'approveQrSession');
+                        await approveFn({ sessionId });
+                        
+                        // Success!
+                        toastText.textContent = 'Laptop login approved!';
+                        toast.querySelector('i').className = 'fas fa-check-circle';
+                        toast.querySelector('i').style.color = '#25d366';
+                        
+                        // Vibrate if supported
+                        if (navigator.vibrate) navigator.vibrate(200);
+
+                        // Redirect back to dashboard after a moment
+                        setTimeout(() => {
+                            window.location.href = 'dashboard.html';
+                        }, 1500);
+
+                    } catch (error) {
+                        console.error("QR Scan Error:", error);
+                        toastText.textContent = 'Error: ' + (error.message || 'Unknown error');
+                        toast.querySelector('i').className = 'fas fa-exclamation-circle';
+                        toast.querySelector('i').style.color = '#ef4444';
+                        
+                        // Resume scanning on failure
+                        setTimeout(() => {
+                            toast.style.display = 'none';
+                            html5QrCode.resume();
+                            isProcessing = false;
+                        }, 3000);
+                    }
+                }
+            }).catch(err => {
+                console.error("Camera start failed", err);
+                alert("Camera access denied or unavailable. Please ensure you are using HTTPS and have granted permissions.");
+            });
+        });
+    </script>
+</body>
+</html>
