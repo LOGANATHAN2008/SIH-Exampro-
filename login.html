@@ -1090,8 +1090,39 @@
         // ============================================================
         const ADMIN_EMAILS = ['admin@dsu.edu', 'loganathan@dsu.edu', 'mloganathan082008@gmail.com', 'Exam Erp.loganathanm.in@gmail.com'];
 
-        // Do not auto-redirect on page load — allow user to manually choose role & enter credentials
-        onAuthStateChanged(auth, (user) => {
+        // Auto-redirect if user is already logged in (handles Google Redirect gracefully)
+        onAuthStateChanged(auth, async (user) => {
+            if (user) {
+                let isSuperAdmin = false;
+                if (user.email) {
+                    isSuperAdmin = ADMIN_EMAILS.includes(user.email.toLowerCase());
+                }
+                
+                let isAdminData = null;
+                try {
+                    const adminDoc = await getDoc(doc(db, 'admins', user.uid));
+                    if (adminDoc.exists()) {
+                        isAdminData = adminDoc.data();
+                    }
+                } catch(e) {}
+                const isAdmin = (isAdminData !== null) || isSuperAdmin;
+
+                let isStaffMember = false;
+                if (!isAdmin) {
+                    try {
+                        const staffDoc = await getDoc(doc(db, 'staff', user.uid));
+                        if (staffDoc.exists()) {
+                            isStaffMember = true;
+                        }
+                    } catch(e) {}
+                }
+
+                if (isAdmin) window.location.replace('admin.html');
+                else if (isStaffMember) window.location.replace('staff.html');
+                else window.location.replace('dashboard.html');
+                return;
+            }
+
             const loginContent = document.getElementById('loginContent');
             if (loginContent) {
                 loginContent.style.opacity = '1';
