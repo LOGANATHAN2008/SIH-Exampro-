@@ -916,7 +916,7 @@
             getAuth, signInWithEmailAndPassword, sendPasswordResetEmail,
             onAuthStateChanged, signOut, signInWithCustomToken,
             setPersistence, browserLocalPersistence,
-            GoogleAuthProvider, signInWithPopup
+            GoogleAuthProvider, signInWithRedirect, getRedirectResult
         } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
         import { getFirestore, doc, getDoc, setDoc, collection, query, where, orderBy, getDocs, addDoc, serverTimestamp, deleteDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
         import { getFunctions, httpsCallable } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-functions.js";
@@ -1635,7 +1635,16 @@
         window.signInWithGoogle = async () => {
             try {
                 const provider = new GoogleAuthProvider();
-                const result = await signInWithPopup(auth, provider);
+                await signInWithRedirect(auth, provider);
+            } catch (error) {
+                console.error("Google Login Error:", error);
+                showToast("Google Login failed: " + error.message, "error");
+            }
+        };
+
+        // Handle the result of the redirect
+        getRedirectResult(auth).then(async (result) => {
+            if (result) {
                 showToast("Google Login successful! Redirecting...", "success");
 
                 let isSuperAdmin = ADMIN_EMAILS.includes(result.user.email.toLowerCase());
@@ -1663,12 +1672,11 @@
                     else if (isStaffMember) window.location.replace('staff.html');
                     else window.location.replace('dashboard.html');
                 }, 100);
-
-            } catch (error) {
-                console.error("Google Login Error:", error);
-                showToast("Google Login failed: " + error.message, "error");
             }
-        };
+        }).catch((error) => {
+            console.error("Redirect Error:", error);
+            showToast("Google Login failed: " + error.message, "error");
+        });
 
         window.openQrModal = (e) => {
             if(e) e.preventDefault();
