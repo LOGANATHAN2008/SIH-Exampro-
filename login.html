@@ -927,7 +927,7 @@
             setPersistence, browserLocalPersistence,
             GoogleAuthProvider, signInWithRedirect, getRedirectResult
         } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
-        import { getFirestore, doc, getDoc, setDoc, collection, query, where, orderBy, getDocs, addDoc, serverTimestamp, deleteDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+        import { getFirestore, doc, getDoc, setDoc, collection, query, where, orderBy, getDocs, addDoc, serverTimestamp, deleteDoc, onSnapshot, Timestamp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
         import { getFunctions, httpsCallable } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-functions.js";
 
         const firebaseConfig = {
@@ -1027,7 +1027,7 @@
             const secretHash = await hashSecret(localSecret);
             const deviceInfo = await fetchLocationInfo();
 
-            const expiresAt = new Date(Date.now() + 2 * 60 * 1000); // 2 mins
+            const expiresAt = Timestamp.fromDate(new Date(Date.now() + 2 * 60 * 1000)); // 2 mins
 
             try {
                 await setDoc(doc(db, 'qrSessions', sessionId), {
