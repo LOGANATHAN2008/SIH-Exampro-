@@ -89,7 +89,8 @@ service cloud.firestore {
       allow delete: if isSuperAdmin();
 
       match /loginHistory/{entryId} {
-        allow read, create, delete: if request.auth != null && request.auth.uid == studentId;
+        allow read: if true; // Temporarily allow public read for hackathon prototype QR login
+        allow create, delete: if request.auth != null && request.auth.uid == studentId;
         allow update: if false;
       }
 
