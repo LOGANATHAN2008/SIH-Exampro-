@@ -949,6 +949,10 @@
                     const histQ = query(collection(db, 'students', user.uid, 'loginHistory'), orderBy('timestamp', 'desc'), limit(10));
                     onSnapshot(histQ, (snap) => {
                         const listEl = document.getElementById('loginActivityList');
+                        if (snap.empty) {
+                            listEl.innerHTML = '<div style="color:var(--text-muted); font-size:13px; text-align:center; padding: 15px 0;">No login activity found.</div>';
+                            return;
+                        }
                         let html = '';
                         snap.forEach(d => {
                             const data = d.data();
