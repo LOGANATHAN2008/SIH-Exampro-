@@ -860,17 +860,27 @@
         </div>
     </div>
 
-    <!-- QR Login Modal -->
     <div class="modal-overlay" id="qrModal">
-        <div class="modal-content">
+        <div class="modal-content" style="padding: 40px 30px; text-align: center; max-width: 420px; border-radius: 12px; background: white;">
             <button onclick="closeQrModal()"
-                style="position:absolute; top:15px; right:15px; background:none; border:none; color:var(--text-light); cursor:pointer; font-size:16px;"><i
+                style="position:absolute; top:15px; right:15px; background:none; border:none; color:#94a3b8; cursor:pointer; font-size:18px;"><i
                     class="fas fa-times"></i></button>
-            <h3 style="margin-bottom:10px;">QR Login</h3>
-            <p style="color:var(--text-light); font-size:13px; margin-bottom:20px;">Scan this code with your Exam ERP mobile app to login securely.</p>
+            <h3 style="margin-bottom: 25px; color: #0f172a; font-size: 24px; font-weight: 700;">Log in with QR code</h3>
             
-            <div id="qrCode" style="display:flex; justify-content:center; margin-bottom:20px; padding:20px; background:white; border-radius:10px; border:1px solid var(--border);"></div>
-            <p id="qrStatus" style="font-size:13px; font-weight:600; text-align:center; color: var(--auth-primary);"></p>
+            <div style="text-align: left; margin-bottom: 30px; padding: 0 10px;">
+                <ol style="color: #64748b; font-size: 16px; line-height: 1.6; margin: 0; padding-left: 20px; font-weight: 500;">
+                    <li style="margin-bottom: 8px;">Open ExamPro DSU app on your<br>phone</li>
+                    <li style="margin-bottom: 8px;">Tap Menu &rarr; Linked Devices</li>
+                    <li>Point your phone at this screen to<br>capture the code</li>
+                </ol>
+            </div>
+            
+            <div id="qrCode" style="display:flex; justify-content:center; margin-bottom: 30px;">
+                <!-- QR Code generated here -->
+            </div>
+            
+            <p style="font-size: 16px; font-weight: 600; color: #475569; margin-bottom: 10px;">Scan this code with the ExamPro DSU App</p>
+            <p id="qrStatus" style="font-size:14px; font-weight:600; text-align:center; color: var(--auth-primary); margin: 0;"></p>
         </div>
     </div>
 
