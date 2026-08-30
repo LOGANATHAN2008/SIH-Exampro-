@@ -829,19 +829,14 @@
                         <img src="https://img.icons8.com/color/24/000000/google-logo.png" alt="Google" style="width: 20px; height: 20px;">
                         Google
                     </button>
-                    <button type="button" style="flex: 1; display: flex; align-items: center; justify-content: center; gap: 8px; padding: 10px; border-radius: 20px; border: none; background: #3b5998; cursor: pointer; font-family: inherit; font-weight: 600; font-size: 14px; color: white; box-shadow: 0 2px 5px rgba(0,0,0,0.1);" onclick="showToast('Facebook login coming soon!')">
-                        <i class="fab fa-facebook-f" style="font-size: 18px;"></i>
-                        Facebook
+                    <button type="button" style="flex: 1; display: flex; align-items: center; justify-content: center; gap: 8px; padding: 10px; border-radius: 20px; border: 1px solid var(--border); background: white; cursor: pointer; font-family: inherit; font-weight: 600; font-size: 14px; color: #333; box-shadow: 0 2px 5px rgba(0,0,0,0.05);" onclick="openQrModal(event)">
+                        <img src="QR.png" alt="QR" style="width: 20px; height: 20px;">
+                        QR Login
                     </button>
                 </div>
 
-                <div style="text-align: center; margin-top: 15px; display: flex; justify-content: center; gap: 15px; align-items: center;">
-                    <a href="check-result.html" style="color: var(--auth-primary); font-weight: 600; text-decoration: none; font-size: 14px;">Check Result</a>
-                    <span style="color: #ccc;">|</span>
-                    <a href="#" onclick="openQrModal(event)" style="color: var(--auth-primary); font-weight: 600; text-decoration: none; font-size: 14px; display: flex; align-items: center; gap: 5px;">
-                        <img src="QR.png" alt="QR" style="width: 16px; height: 16px;">
-                        QR Login
-                    </a>
+                <div style="text-align: center; margin-top: 15px;">
+                    <a href="check-result.html" style="color: var(--auth-primary); font-weight: 600; text-decoration: none; font-size: 14px;">Check Result without login</a>
                 </div>
             </form>
 
